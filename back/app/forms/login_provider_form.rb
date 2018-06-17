@@ -9,8 +9,6 @@ class LoginProviderForm < Reform::Form
   attr_accessor :model
 
   def validate(params)
-    p "PARAAAAMS"
-    p params
     return false unless params[:email] && params[:username] && params[:provider_id] && params[:user_provider_id] && params[:token]
     self.email = params[:email]
     self.username = params[:username]
@@ -50,7 +48,7 @@ private
 
   def save_provider_history
     provider_history = UserProviderHistory.new
-    provider_history.user_id = self.id
+    provider_history.user_id = self.user_id
     provider_history.user_provider_id = self.user_provider_id
     provider_history.provider_id = self.provider_id
     provider_history.token = self.token

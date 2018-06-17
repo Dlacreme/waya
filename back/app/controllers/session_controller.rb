@@ -55,7 +55,7 @@ private
       :username => ps[:username],
       :token => ps[:token],
       :provider_id => ps[:id],
-      :user_provider_id => [:provider]
+      :user_provider_id => ps[:provider]
     }
   end
 
