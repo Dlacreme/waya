@@ -21,7 +21,9 @@ export interface LoginSession {
 export class SessionService extends Api {
 
   private readonly endpoints = {
-    login: 'session',
+    login: 'login',
+    signin: 'signin',
+    loginProvider: 'login/:provider'
   };
 
   constructor(
@@ -32,9 +34,12 @@ export class SessionService extends Api {
 
   public login(loginSession: LoginSession): Observable<ApiResult<LoginSession>> {
     return this.query<LoginSession>({
-      endpoint: this.endpoints.login,
+      endpoint: this.endpoints.loginProvider,
       params: loginSession,
-      method: HttpMethod.POST
+      method: HttpMethod.POST,
+      endpointParams: {
+        provider: loginSession.provider
+      }
     });
   }
 

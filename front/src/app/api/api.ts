@@ -12,6 +12,7 @@ export enum HttpMethod {
 export interface URI {
   endpoint: string;
   method: HttpMethod;
+  endpointParams?: any;
   params?: any;
 }
 
@@ -44,8 +45,21 @@ export class Api {
 
   protected buildUrl(uri: URI): string {
     return uri.params && (uri.method === HttpMethod.GET || uri.method === HttpMethod.DELETE)
-      ? `${this.wayaApi}/${uri.endpoint}?${this.formatGetParams(uri.params)}`
-      : `${this.wayaApi}/${uri.endpoint}`;
+      ? `${this.wayaApi}/${this.formatEndPoint(uri.endpoint, uri.endpointParams)}?${this.formatGetParams(uri.params)}`
+      : `${this.wayaApi}/${this.formatEndPoint(uri.endpoint, uri.endpointParams)}`;
+  }
+
+  protected formatEndPoint(endpoint: string, endpointParams: any): string {
+    if (! endpointParams || endpointParams === {}) {
+      return endpoint;
+    }
+    let finalEndpoint = '' + endpoint;
+    for (const paramKey in endpointParams) {
+      if (endpointParams[paramKey]) {
+        finalEndpoint = finalEndpoint.replace(`:${paramKey}`, endpointParams[paramKey]);
+      }
+    }
+    return finalEndpoint;
   }
 
   protected formatGetParams(data: any[]): string {

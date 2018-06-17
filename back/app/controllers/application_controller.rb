@@ -25,10 +25,10 @@ attr_reader :headers
   # save_form process the form and return a valid response
   def save_form(form, params)
     if ! form.validate(params)
-      render_json 401, "Invalid query", nil, form.errors
+      return render_json 401, "Invalid query", nil, form.errors
     end    
     if form.save != true || form.prepopulate!
-      render_json 500, "Oops. Server issue", nil, form.errors
+      return render_json 500, "Oops. Server issue", nil, form.errors
     end
     render_json 200, "OK", nil, form.model
   end

@@ -22,6 +22,14 @@ class SessionController < ApplicationController
   end
 
   def provider
+    ps = param_login
+    if User.exists?(email: ps[:email])
+      @form = LoginProviderForm.new(User.new)
+    else
+      @form = SigninProviderForm.new(User.new)
+    end
+
+    save_form @form, {:email => ps[:email], :username => ps[:username], :password => ps[:token], :token => ps[:token], :provider_id => ps[:id], :user_provider_id => [:provider]}
   end
 
 private
