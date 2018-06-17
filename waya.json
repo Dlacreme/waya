@@ -1,0 +1,196 @@
+{
+  "front-version": "2.18.0",
+  "version": 3,
+  "nodes": [
+    {
+      "type": "Project",
+      "id": "feb8d702-48a3-4e6e-b3ec-eff9ae78d567",
+      "lastModified": "2018-06-17T13:29:43.738+07:00",
+      "name": "WAYA"
+    },
+    {
+      "type": "Service",
+      "id": "09dcf85d-1ee8-4f57-ab72-b92295739f94",
+      "lastModified": "2018-06-15T17:37:42.870+07:00",
+      "name": "Session",
+      "parentId": "feb8d702-48a3-4e6e-b3ec-eff9ae78d567"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"email\": \"admin@yana.com\",\n  \"password\": \"toto4242\"\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/login"
+      },
+      "id": "a22c33b7-ab6a-4d34-ae48-543e4d265cdd",
+      "lastModified": "2018-06-17T13:29:36.339+07:00",
+      "name": "Login",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "09dcf85d-1ee8-4f57-ab72-b92295739f94"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/login/1"
+      },
+      "id": "3b2b3de0-da64-43dc-a364-a99b1138dd96",
+      "lastModified": "2018-06-17T12:35:42.961+07:00",
+      "name": "Login Provider",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "09dcf85d-1ee8-4f57-ab72-b92295739f94"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"username\": \"Mathieu\",\n  \"email\": \"dlacreme@gmail.com\",\n  \"password\": \"toto4242\"\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/signin"
+      },
+      "id": "5c5aedfe-49fe-4646-bc85-0ce50b354d07",
+      "lastModified": "2018-06-17T12:36:44.313+07:00",
+      "name": "Sign In",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "09dcf85d-1ee8-4f57-ab72-b92295739f94"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/user/2"
+      },
+      "id": "f8003f3c-5c1d-4cb5-8f85-b66588cc097a",
+      "lastModified": "2018-06-17T13:29:43.738+07:00",
+      "name": "User Info",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Authorization",
+          "value": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MjkzMDMzNjN9.jzao3Ic-ckDGJr6tej3Se1GKNM1ZJxKDFiuF7lEnzag"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "09dcf85d-1ee8-4f57-ab72-b92295739f94"
+    }
+  ]
+}
