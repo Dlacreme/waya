@@ -20,18 +20,12 @@ class SessionController < ApplicationController
   end
 
   def provider
-    ps = param_provider
-    if User.exists?(email: ps[:email])
-      @form = LoginProviderForm.new(User.new)
-      return render_json 401, "Fail to login", nil, @form.errors unless @form.validate(param_provider_fromatted)
-      user = User.find_by(email: ps[:email]).output
-      user[:token] = JsonWebToken.encode(user_id: user[:id])
-      return render_json(200, "OK", user, nil)    
-    else
-      @form = SigninProviderForm.new(User.new)
-    end
-
-    render_json 500, "Fail to login"
+    @form = LoginProviderForm.new(User.new)
+    status = process_form @form, param_provider_formatted
+    return render_json status, "Cannot login" if status > 200
+    user = @form.model.output
+    user[:token] = JsonWebToken.encode(user_id: user[:id])
+    return render_json(200, "OK", user, nil)  
   end
 
 private
@@ -54,7 +48,7 @@ private
     params.require(:session).permit(:email, :username, :password, :provider, :id, :token)    
   end
 
-  def param_provider_fromatted
+  def param_provider_formatted
     ps = param_provider
     return {
       :email => ps[:email],

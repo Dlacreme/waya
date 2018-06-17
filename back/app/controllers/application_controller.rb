@@ -18,14 +18,14 @@ protected
 
   # save_form process the form and return a valid response
   def save_form(form, params)
-    return render_json 401, "Invalid query", nil, form.errors unless form.validate(params)
+    return render_json 400, "Invalid query", nil, form.errors unless form.validate(params)
     return render_json 500, "Oops. Server issue", nil, form.errors if form.save != true
     return render_json 500, "Oops. Cannot preload data", nil, form.errors unless form.prepopulate!
     render_json 200, "OK"
   end
 
   def process_form(form, params)
-    return 401 unless form.validate(params)
+    return 400 unless form.validate(params)
     return 500 if form.save != true || ! form.prepopulate!
     200
   end

@@ -33,12 +33,23 @@ export class SessionService extends Api {
   }
 
   public login(loginSession: LoginSession): Observable<ApiResult<LoginSession>> {
+    if (loginSession.provider) {
+      return this.loginProvider(loginSession);
+    }
+    return this.query<LoginSession>({
+      endpoint: this.endpoints.login,
+      params: loginSession,
+      method: HttpMethod.POST,
+    });
+  }
+
+  private loginProvider(loginSession: LoginSession): Observable<ApiResult<LoginSession>> {
     return this.query<LoginSession>({
       endpoint: this.endpoints.loginProvider,
       params: loginSession,
       method: HttpMethod.POST,
       endpointParams: {
-        provider: loginSession.provider
+        provider: LoginProvider[<LoginProvider>loginSession.provider]
       }
     });
   }
