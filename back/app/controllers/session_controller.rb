@@ -9,7 +9,6 @@ class SessionController < ApplicationController
   def signin
     @form = SigninForm.new(User.new)
     process_form @form, param_signin
-    p @form
     ok
   end
 
@@ -23,30 +22,6 @@ class SessionController < ApplicationController
   end
 
   def provider
-  end
-
-  def show
-    p "GET"
-  end
-
-  # LOG IN
-  def create
-    ps = param_login
-    u = try_log(ps[:email], ps[:password])
-    return render_json 401, "Fail to login", nil, nil unless u
-    render_json(200, JsonWebToken.encode(user_id: u.id), nil, u)
-  end
-
-  # SIGN IN
-  def update
-    @form = SigninForm.new(User.new)
-    process_form @form, param_signin
-    p @form
-  end
-
-  # LOG OUT
-  def destroy
-    p "DELETE"
   end
 
 private
