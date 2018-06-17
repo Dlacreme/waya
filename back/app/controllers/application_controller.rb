@@ -1,6 +1,13 @@
 class ApplicationController < ActionController::API
-  
+
+  def initialize(headers = {})
+    @headers = headers
+    p @headers
+  end
+
 protected  
+attr_reader :headers
+
   # render_json return data with appropriate code
   def render_json(code = 200, message = "OK", errors = nil, data = nil)
     res = {}
@@ -16,13 +23,33 @@ protected
   end
 
   # save_form process the form and return a valid response
-  def save_form(form)
-    if form.save != true
-      return render_json 500, "Oops. Server Issue.", nil, nil
+  def save_form(form, params)
+    if ! form.validate(params)
+      render_json 401, "Invalid query", nil, form.errors
+    end    
+    if form.save != true || form.prepopulate!
+      render_json 500, "Oops. Server issue", nil, form.errors
     end
-    
-    form.prepopulate!
     render_json 200, "OK", nil, form.model
+  end
+
+  def process_form(form)
+    if ! form.validate(params)
+      return 401
+    end    
+    if form.save != true || form.prepopulate!
+      return 500
+    end
+    return 200
+  end
+
+  def process_form(form, params)
+    if ! form.validate(params)
+    
+    end
+    if form.save != true || form.prepopulate!
+      
+    end
   end
 
   # data return raw data as json file
@@ -50,29 +77,20 @@ protected
 
   ## SESSION
 
-  # require_login can be used in `before_action` to make sure user is logged in
   def require_login
-    unless logged_in?
-      render_json(401, "Unauthorized", nil, nil)
-    end
-  end
-
-  # """ for admin
-  def require_admin
-    unless admin?
-      redirect_to "/"
-    end
-  end
-
-  # "'" for staff
-  def require_staff
-    unless staff?
-      redirect_to "/"
-    end
+    parse_jwt
+    render_json(401, "Unauthorized", nil, nil) unless logged_in?
   end
 
   def logged_in?
-    @current_user ||= User.includes(:roles).find(session[:user_id]) if session[:user_id]
+    parse_jwt
+    @current_user ||= User.includes(:roles).find(@jwt[:user_id]) if @jwt[:user_id]
+  end
+
+  def parse_jwt
+    return if @jwt
+    return nil unless request.headers['Authorization'].present?
+    @jwt ||= JsonWebToken.decode(request.headers['Authorization'])
   end
 
   def staff?

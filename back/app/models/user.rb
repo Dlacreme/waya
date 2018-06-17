@@ -18,6 +18,14 @@ class User < ApplicationRecord
     return self.find_by(email: email).try(:authenticate, password)
   end
 
+  def output()
+    self
+      .attributes
+      .except("password_digest")
+      .except("provider_id")
+      .except("user_provider_id")
+  end
+
   private
   def process_register
     p "Should send confirmation email here."
