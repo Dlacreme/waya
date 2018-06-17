@@ -1,35 +1,37 @@
 class SessionController < ApplicationController
 
   def index
-    render_json(401, "Unauthorized", nil, nil) unless logged_in?
-    return data User.find(params[:id]).output if params[:id] && (staff? || admin?)
+    return render_json(401, "Unauthorized") unless logged_in?
+    return data User.find(params[:id]).output if params[:id] && (@current_user.staff? || @current_user.admin?)
     data @current_user.output
   end
 
   def signin
-    @form = SigninForm.new(User.new)
-    process_form @form, param_signin
-    ok
+    save_form SigninForm.new(User.new), param_signin
   end
 
   def login
     ps = param_login
     user = try_log(ps[:email], ps[:password])
-    return render_json 401, "Fail to login", nil, nil unless user
+    return render_json 401, "Fail to login" unless user
     data = user.output
     data[:token] = JsonWebToken.encode(user_id: user.id)
     render_json(200, "OK", nil, data)
   end
 
   def provider
-    ps = param_login
+    ps = param_provider
     if User.exists?(email: ps[:email])
       @form = LoginProviderForm.new(User.new)
+      return render_json 401, "Fail to login", nil, @form.errors unless @form.validate(param_provider_fromatted)
+      user = User.find_by(email: ps[:email]).output
+      user[:token] = JsonWebToken.encode(user_id: user[:id])
+      return render_json(200, "OK", user, nil)    
     else
       @form = SigninProviderForm.new(User.new)
     end
 
-    save_form @form, {:email => ps[:email], :username => ps[:username], :password => ps[:token], :token => ps[:token], :provider_id => ps[:id], :user_provider_id => [:provider]}
+    render_json 500, "Fail to login"
   end
 
 private
@@ -37,18 +39,30 @@ private
   def try_log(email, password)
     user = User.try_auth(email, password)
     return false unless user != nil && user != false
-    p user
-    session[:user_id] = user.id
-    session[:username] = user.username
     return user
   end
 
   def param_login
-    params.require(:session).permit(:email, :username, :password, :provider, :id, :token)
+    params.require(:session).permit(:email, :password)
   end
 
   def param_signin
     params.require(:session).permit(:email, :username, :password)
+  end
+  
+  def param_provider
+    params.require(:session).permit(:email, :username, :password, :provider, :id, :token)    
+  end
+
+  def param_provider_fromatted
+    ps = param_provider
+    return {
+      :email => ps[:email],
+      :username => ps[:username],
+      :token => ps[:token],
+      :provider_id => ps[:id],
+      :user_provider_id => [:provider]
+    }
   end
 
 end

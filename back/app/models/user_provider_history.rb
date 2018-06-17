@@ -1,0 +1,2 @@
+class UserProviderHistory < ApplicationRecord
+end
