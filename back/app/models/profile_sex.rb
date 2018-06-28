@@ -1,0 +1,2 @@
+class ProfileSex < ApplicationRecord
+end
