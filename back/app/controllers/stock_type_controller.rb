@@ -1,15 +1,26 @@
 class StockTypeController < ApplicationController
 
   def index
-    render_json 501, "Should Display Stock Types"
+    data StockType.where(is_disabled: false)
   end  
     
   def create
-    render_json 501, "Should Create Stock Types"
+    save_form ItemForm.new(StockType.new), param_name
   end
 
   def update
-    render_json 501, "Should Update Stock Types"  
+    save_form ItemForm.new(StockType.find(params[:id])), param_name
+  end
+
+  def destroy
+    StockType.update(params[:id], is_disabled: true);
+    ok
+  end
+
+private
+
+  def param_name
+    params.require(:stock_type).permit(:name)
   end
 
 end

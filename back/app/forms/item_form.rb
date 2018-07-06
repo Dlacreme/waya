@@ -1,3 +1,3 @@
 class ItemForm < Reform::Form
-  property :name  
-end  
+  property :name
+end

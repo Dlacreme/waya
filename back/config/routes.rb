@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   resources :stock
   resources :stock_type
   resources :stock_unit
+  resources :stock_format
 
 end
