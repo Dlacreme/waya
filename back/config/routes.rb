@@ -5,4 +5,9 @@ Rails.application.routes.draw do
   post 'login', to: "session#login"
   post 'login/:provider_id', to: "session#provider"
 
+  # Stocks
+  resources :stock
+  resources :stock_type
+  resources :stock_unit
+
 end
