@@ -1,0 +1,2 @@
+class StockImportHistory < ApplicationRecord
+end
