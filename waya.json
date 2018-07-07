@@ -4,16 +4,37 @@
   "nodes": [
     {
       "type": "Project",
-      "id": "feb8d702-48a3-4e6e-b3ec-eff9ae78d567",
-      "lastModified": "2018-06-17T13:29:43.738+07:00",
+      "id": "c582dc18-6732-4eb6-b723-9a25832b9305",
+      "lastModified": "2018-07-06T19:40:56.665+02:00",
       "name": "WAYA"
     },
     {
       "type": "Service",
-      "id": "09dcf85d-1ee8-4f57-ab72-b92295739f94",
-      "lastModified": "2018-06-15T17:37:42.870+07:00",
+      "id": "9b757dcd-fd58-4f25-85d6-f680e723b04c",
+      "lastModified": "2018-07-06T17:53:24.769+02:00",
+      "name": "Admin",
+      "parentId": "c582dc18-6732-4eb6-b723-9a25832b9305"
+    },
+    {
+      "type": "Service",
+      "id": "702481ce-7404-48cf-a205-63c59b56222d",
+      "lastModified": "2018-07-06T17:48:07.871+02:00",
+      "name": "Orders",
+      "parentId": "c582dc18-6732-4eb6-b723-9a25832b9305"
+    },
+    {
+      "type": "Service",
+      "id": "75b73a7e-2af2-4fb7-9d4f-8115c5f0aa06",
+      "lastModified": "2018-07-06T17:48:01.599+02:00",
+      "name": "Products",
+      "parentId": "c582dc18-6732-4eb6-b723-9a25832b9305"
+    },
+    {
+      "type": "Service",
+      "id": "1450d111-dfc8-43ce-8d2a-b01aef04558e",
+      "lastModified": "2018-07-06T17:27:11.913+02:00",
       "name": "Session",
-      "parentId": "feb8d702-48a3-4e6e-b3ec-eff9ae78d567"
+      "parentId": "c582dc18-6732-4eb6-b723-9a25832b9305"
     },
     {
       "type": "Request",
@@ -45,8 +66,8 @@
         "host": "localhost:3000",
         "path": "/login"
       },
-      "id": "a22c33b7-ab6a-4d34-ae48-543e4d265cdd",
-      "lastModified": "2018-06-17T13:29:36.339+07:00",
+      "id": "7b730aac-5d57-42c7-9734-e56949a15ff5",
+      "lastModified": "2018-07-06T17:27:11.913+02:00",
       "name": "Login",
       "headers": [
         {
@@ -58,7 +79,7 @@
       "metaInfo": {
         "ownerId": "github|6907933"
       },
-      "parentId": "09dcf85d-1ee8-4f57-ab72-b92295739f94"
+      "parentId": "1450d111-dfc8-43ce-8d2a-b01aef04558e"
     },
     {
       "type": "Request",
@@ -89,8 +110,8 @@
         "host": "localhost:3000",
         "path": "/login/1"
       },
-      "id": "3b2b3de0-da64-43dc-a364-a99b1138dd96",
-      "lastModified": "2018-06-17T12:35:42.961+07:00",
+      "id": "34a11e3e-e733-4333-97b1-c0da8c07c5d3",
+      "lastModified": "2018-07-06T17:27:11.913+02:00",
       "name": "Login Provider",
       "headers": [
         {
@@ -102,7 +123,7 @@
       "metaInfo": {
         "ownerId": "github|6907933"
       },
-      "parentId": "09dcf85d-1ee8-4f57-ab72-b92295739f94"
+      "parentId": "1450d111-dfc8-43ce-8d2a-b01aef04558e"
     },
     {
       "type": "Request",
@@ -134,8 +155,8 @@
         "host": "localhost:3000",
         "path": "/signin"
       },
-      "id": "5c5aedfe-49fe-4646-bc85-0ce50b354d07",
-      "lastModified": "2018-06-17T12:36:44.313+07:00",
+      "id": "84d89bb2-d29c-428a-a684-0fbaf226a4b4",
+      "lastModified": "2018-07-06T17:27:11.914+02:00",
       "name": "Sign In",
       "headers": [
         {
@@ -147,7 +168,7 @@
       "metaInfo": {
         "ownerId": "github|6907933"
       },
-      "parentId": "09dcf85d-1ee8-4f57-ab72-b92295739f94"
+      "parentId": "1450d111-dfc8-43ce-8d2a-b01aef04558e"
     },
     {
       "type": "Request",
@@ -177,8 +198,8 @@
         "host": "localhost:3000",
         "path": "/user/2"
       },
-      "id": "f8003f3c-5c1d-4cb5-8f85-b66588cc097a",
-      "lastModified": "2018-06-17T13:29:43.738+07:00",
+      "id": "d704c37a-cddb-4686-a238-e6c8be1d83a2",
+      "lastModified": "2018-07-06T17:27:11.914+02:00",
       "name": "User Info",
       "headers": [
         {
@@ -190,7 +211,658 @@
       "metaInfo": {
         "ownerId": "github|6907933"
       },
-      "parentId": "09dcf85d-1ee8-4f57-ab72-b92295739f94"
+      "parentId": "1450d111-dfc8-43ce-8d2a-b01aef04558e"
+    },
+    {
+      "type": "Service",
+      "id": "f534a056-ff0c-4a76-b526-b8f71c038ca5",
+      "lastModified": "2018-07-06T17:47:49.739+02:00",
+      "name": "Stocks",
+      "parentId": "c582dc18-6732-4eb6-b723-9a25832b9305"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"name\": \"Bottle\",\n  \"stock_unit_id\": 1\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock_format"
+      },
+      "id": "2b57b616-1884-4fc7-963a-2f65d4b914de",
+      "lastModified": "2018-07-06T19:35:39.927+02:00",
+      "name": "Create Stock Format",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"name\": \"Cans\"\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock_type"
+      },
+      "id": "63153f82-67de-45a0-aa9d-0a2fa5b8ef02",
+      "lastModified": "2018-07-06T19:10:39.878+02:00",
+      "name": "Create Types",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"name\": \"ml\"\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock_unit"
+      },
+      "id": "a542508d-fa62-406f-93f5-6b996577b7a6",
+      "lastModified": "2018-07-06T18:57:03.258+02:00",
+      "name": "Create Units",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+        "name": "DELETE"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock_format/1"
+      },
+      "id": "4553bd08-af0c-466a-91d1-5c130c86a83a",
+      "lastModified": "2018-07-06T19:35:28.461+02:00",
+      "name": "Delete Stock Formats",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.5",
+        "name": "DELETE"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock_type/1"
+      },
+      "id": "a2ae905e-16a5-4e74-b79d-4d168c22d362",
+      "lastModified": "2018-07-06T19:26:01.961+02:00",
+      "name": "Delete Stock Types",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "secure": true,
+          "name": "https",
+          "version": "V11"
+        }
+      },
+      "id": "6f71ffd2-8f7f-45c8-8f85-6c4100baeb29",
+      "lastModified": "2018-07-06T19:25:36.520+02:00",
+      "name": "Delete Stock Units",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock_format"
+      },
+      "id": "b28963b5-fe18-416b-908e-afb5ab60d536",
+      "lastModified": "2018-07-06T19:35:51.036+02:00",
+      "name": "Get Stock Formats",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock_type"
+      },
+      "id": "92a61de0-116b-4fcc-bfb9-4042cedc7c75",
+      "lastModified": "2018-07-06T18:28:38.028+02:00",
+      "name": "Get Stock Types",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock_unit"
+      },
+      "id": "b0c967ad-0248-466c-9c80-4e516ee22dad",
+      "lastModified": "2018-07-06T18:28:26.273+02:00",
+      "name": "Get Stock Unit",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock"
+      },
+      "id": "936bcce8-a0a1-4390-8b21-6772c49117fb",
+      "lastModified": "2018-07-06T18:28:14.085+02:00",
+      "name": "Get Stocks",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+        "name": "POST"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock"
+      },
+      "id": "c3124d20-52d6-4398-b43a-78ee83efdf29",
+      "lastModified": "2018-07-06T18:28:57.022+02:00",
+      "name": "Import",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+        "name": "GET"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "scheme": {
+          "secure": true,
+          "name": "https",
+          "version": "V11"
+        }
+      },
+      "id": "d1568853-3a4a-479f-96db-bfd124d15c91",
+      "lastModified": "2018-07-06T18:02:10.989+02:00",
+      "name": "Search",
+      "headers": [],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+        "name": "PUT"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"name\": \"ddd\",\n  \"stock_unit_id\": 2\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock_format/1"
+      },
+      "id": "3952c209-d463-49f0-901d-237f849d2b0c",
+      "lastModified": "2018-07-06T19:40:56.666+02:00",
+      "name": "Update Stock Formats",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+        "name": "PUT"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock/1"
+      },
+      "id": "93aab79b-bdda-4271-a54a-f9f8a0160f7f",
+      "lastModified": "2018-07-06T19:36:03.468+02:00",
+      "name": "Update Stocks",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+        "name": "PUT"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"is_disabled\": true\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock_type/1"
+      },
+      "id": "69c2f6cb-9be6-4031-bd0e-7fef89f5f2fd",
+      "lastModified": "2018-07-06T19:23:58.721+02:00",
+      "name": "Update Types",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
+    },
+    {
+      "type": "Request",
+      "method": {
+        "requestBody": true,
+        "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+        "name": "PUT"
+      },
+      "body": {
+        "formBody": {
+          "overrideContentType": true,
+          "encoding": "application/x-www-form-urlencoded",
+          "items": []
+        },
+        "bodyType": "Text",
+        "autoSetLength": true,
+        "textBody": "{\n  \"name\": \"bite\"\n}"
+      },
+      "headersType": "Form",
+      "uri": {
+        "query": {
+          "delimiter": "&",
+          "items": []
+        },
+        "scheme": {
+          "name": "http",
+          "version": "V11"
+        },
+        "host": "localhost:3000",
+        "path": "/stock_unit/1"
+      },
+      "id": "af383d24-ebc8-4563-bd81-6f190b3c70cc",
+      "lastModified": "2018-07-06T19:01:20.988+02:00",
+      "name": "Update Units",
+      "headers": [
+        {
+          "enabled": true,
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "metaInfo": {
+        "ownerId": "github|6907933"
+      },
+      "parentId": "f534a056-ff0c-4a76-b526-b8f71c038ca5"
     }
   ]
 }
