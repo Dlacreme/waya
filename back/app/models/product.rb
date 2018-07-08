@@ -6,8 +6,12 @@ class Product < ApplicationRecord
   has_many :stocks, through: :product_stocks
 
   def update_product_stocks(product_stocks)
-    p "UPDATE PRODUCT STOCKS"
-    p product_stocks  
+    product_stocks.each do |x|
+      x[:product_id] = self.id
+      existing_item = get_existing_product_stock(x)
+      form = existing_item ? ProductStockForm.new(existing_item) : ProductStockForm.new(ProductStock.new)
+      form.validate(x) && form.save
+    end
   end
 
   def update_price(product_price)
@@ -16,10 +20,16 @@ class Product < ApplicationRecord
     new_price = ProductPrice.new()
     new_price.product_id = self.id
     new_price.price = product_price[:price]
-    new_price.member_price = product_price[:member_price]
+    new_price.member_price = product_price[:product_price[:start_date]]
     new_price.start_date = product_price[:start_date]
     new_price.end_date = nil
     new_price.save
+  end
+
+private
+  def get_existing_product_stock(item)
+    return nil unless ! item.key?("stock_product_id")
+    ProductStock.find_by_id(item[:stock_product_id])
   end
 
 end

@@ -33,7 +33,7 @@ class ProductController < ApplicationController
 private
 
   def param_update
-    params.permit(:name, :desc, :product_category_id, price: [:price, :member_price, :start_date], stocks: [:stock_id, :quantity])
+    params.permit(:name, :desc, :product_category_id, price: [:price, :member_price, :start_date], stocks: [:product_stock_id, :stock_id, :quantity])
   end
 
 
