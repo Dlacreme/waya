@@ -9,6 +9,9 @@ class StockController < ApplicationController
   end  
     
   def create
+    history = StockImportHistory.new
+    history.data = param_import[:_json].as_json
+    history.save
     param_import[:_json].each do |x|
       existing_item = get_existing_stock(x)
       form = existing_item ? StockForm.new(existing_item) : StockForm.new(Stock.new)

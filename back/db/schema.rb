@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20180707093921) do
 
   create_table "stock_import_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "user_id"
+    t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(version: 20180707093921) do
     t.integer "stock_type_id"
     t.boolean "is_disabled", default: false
     t.integer "balance"
+    t.integer "stock_import_history_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
