@@ -1,7 +1,11 @@
 class StockController < ApplicationController
 
   def index
-    render_json 501, "Should Display Stock"
+    data Stock
+      .includes([:stock_type, :stock_format => :stock_unit])
+      .as_json(include: {:stock_type => {}, :stock_format => {
+        include: :stock_unit
+      }})
   end  
     
   def create
@@ -14,6 +18,11 @@ class StockController < ApplicationController
 
   def update
     render_json 501, "Should Update Stock"  
+  end
+
+  def destroy
+    Stock.update(params[:id], is_disabled: true)
+    ok
   end
 
 private

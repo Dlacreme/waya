@@ -3,8 +3,8 @@ class StockFormatController < ApplicationController
   def index
     data StockFormat
       .where(is_disabled: false)
-      .joins(:stock_unit)
-      .select('stock_formats.*, stock_units.id AS `stock_unit`')
+      .includes(:stock_unit)
+      .as_json(include: :stock_unit)
   end  
     
   def create
