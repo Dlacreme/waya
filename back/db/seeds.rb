@@ -20,5 +20,11 @@ StockFormat.create(name: 'Can', stock_unit_id: 2)
 StockFormat.create(name: 'Bottle', stock_unit_id: 2)
 StockFormat.create(name: 'Box', stock_unit_id: 3)
 
-StockType.create(name: 'Drink')
-StockType.create(name: 'Food')
+StockType.create(name: 'Mixtures')
+StockType.create(name: 'Finished Product')
+
+## Products
+ProductCategory.create(name: 'Drink')
+ProductCategory.create(name: 'Alcohol')
+ProductCategory.create(name: 'Food')
+ProductCategory.create(name: 'Combo')
