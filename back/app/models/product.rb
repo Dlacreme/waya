@@ -20,7 +20,7 @@ class Product < ApplicationRecord
     new_price = ProductPrice.new()
     new_price.product_id = self.id
     new_price.price = product_price[:price]
-    new_price.member_price = product_price[:product_price[:start_date]]
+    new_price.member_price = product_price[:member_price]
     new_price.start_date = product_price[:start_date]
     new_price.end_date = nil
     new_price.save
@@ -28,8 +28,8 @@ class Product < ApplicationRecord
 
 private
   def get_existing_product_stock(item)
-    return nil unless ! item.key?("stock_product_id")
-    ProductStock.find_by_id(item[:stock_product_id])
+    return nil unless item.key?("product_stock_id")
+    ProductStock.find_by_id(item[:product_stock_id])
   end
 
 end

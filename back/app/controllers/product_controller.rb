@@ -19,10 +19,22 @@ class ProductController < ApplicationController
     process_form form, {:name => ps[:name], :desc => ps[:desc], :product_category_id => ps[:product_category_id]}
     form.model.update_product_stocks(ps[:stocks])
     form.model.update_price(ps[:price])
+    data Product
+      .where(id: form.model.id)
+      .as_json()
+      .first()
   end
 
   def update
-    save_form ProductForm.new(Product.find(params[:id])), param_update
+    ps = param_update
+    form = ProductForm.new(Product.find(params[:id]))
+    form.model.update_product_stocks(ps[:stocks])
+    form.model.update_price(ps[:price])
+    process_form form, {:name => ps[:name], :desc => ps[:desc], :product_category_id => ps[:product_category_id]}
+    data Product
+      .where(id: form.model.id)
+      .as_json()
+      .first()
   end
 
   def destroy
