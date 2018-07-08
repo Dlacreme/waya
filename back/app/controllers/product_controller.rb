@@ -3,16 +3,18 @@ class ProductController < ApplicationController
   def index
     data Product
       .where(is_disabled: false)
-      .includes([:stocks => [:stock_format, :stock_type]])
+      .includes([:stocks => [:stock_format, :stock_type], :product_price => {}])
+      .where('product_prices.end_date' => nil)
       .as_json(include: {
       :stocks => {
         include: [
+          :product_prices,
           :stock_type,
           :stock_format => {
             include: [
               :stock_unit
             ]
-          }
+          },
         ]}
       })
   end
