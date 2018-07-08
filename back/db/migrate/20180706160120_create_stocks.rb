@@ -8,7 +8,6 @@ class CreateStocks < ActiveRecord::Migration[5.1]
       t.integer :stock_type_id
       t.boolean :is_disabled, default: false
       t.integer :balance
-      t.integer :stock_import_history_id
 
       t.timestamps
     end
