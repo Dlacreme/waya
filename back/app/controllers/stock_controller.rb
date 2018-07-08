@@ -2,12 +2,23 @@ class StockController < ApplicationController
 
   def index
     data Stock
+      .where(is_disabled: false)
       .includes([:stock_type, :stock_format => :stock_unit])
       .as_json(include: {:stock_type => {}, :stock_format => {
         include: :stock_unit
       }})
   end  
-    
+
+  def show
+    data Stock
+      .where(id: params[:id])
+      .includes([:stock_type, :stock_format => :stock_unit])
+      .as_json(include: {:stock_type => {}, :stock_format => {
+        include: :stock_unit
+      }})
+      .first()
+  end
+  
   def create
     history = StockImportHistory.new
     history.data = param_import[:_json].as_json
@@ -20,7 +31,7 @@ class StockController < ApplicationController
   end
 
   def update
-    render_json 501, "Should Update Stock"  
+    save_form StockForm.new(Stock.find(params[:id])), param_update
   end
 
   def destroy
@@ -36,6 +47,10 @@ private
   def get_existing_stock(item)
     return nil unless ! item.has_value?(:id)
     Stock.find_by_id(item[:id])
+  end
+
+  def param_update
+  params.require(:stock).permit(:name, :desc, :balance, :size, :stock_format_id, :stock_type_id)
   end
 
 end
