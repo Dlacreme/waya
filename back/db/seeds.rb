@@ -10,3 +10,15 @@ User.create(username: "Admin", email: "admin@yana.com", password_digest: "$2a$10
 ## User Providers
 UserProvider.create(name: "Facebook")
 UserProvider.create(name: "Google")
+
+## Stocks
+StockUnit.create(name: 'NA')
+StockUnit.create(name: 'cl')
+StockUnit.create(name: 'g')
+
+StockFormat.create(name: 'Can', stock_unit_id: 2)
+StockFormat.create(name: 'Bottle', stock_unit_id: 2)
+StockFormat.create(name: 'Box', stock_unit_id: 3)
+
+StockType.create(name: 'Drink')
+StockType.create(name: 'Food')
