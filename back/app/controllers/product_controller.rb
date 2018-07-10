@@ -3,36 +3,42 @@ class ProductController < ApplicationController
   def index
     data Product
       .where(is_disabled: false)
-      .includes([:stocks => [:stock_format, :stock_type], :product_price => {}])
-      .where('product_prices.end_date' => nil)
+      .includes([:product_prices, :stocks => [:stock_format, :stock_type]])
+      .where('product_prices.end_date IS null || product_prices.end_date > NOW()').references(:product_prices)
       .as_json(include: {
-      :stocks => {
-        include: [
-          :product_prices,
-          :stock_type,
-          :stock_format => {
-            include: [
-              :stock_unit
-            ]
-          },
-        ]}
+        :stocks => {
+          include: [
+            :stock_type,
+            :stock_format => {
+              include: [
+                :stock_unit
+              ]
+            },
+          ]},
+        :product_prices => {
+          
+        }
       })
   end
 
   def show
     data Product
       .where(id: params[:id])
-      .includes([:stocks => [:stock_format, :stock_type]])
+      .includes([:product_prices, :stocks => [:stock_format, :stock_type]])
+      .where('product_prices.end_date IS null || product_prices.end_date > NOW()').references(:product_prices)
       .first().as_json(include: {
-      :stocks => {
-        include: [
-          :stock_type,
-          :stock_format => {
-            include: [
-              :stock_unit
-            ]
-          }
-        ]}
+        :stocks => {
+          include: [
+            :stock_type,
+            :stock_format => {
+              include: [
+                :stock_unit
+              ]
+            },
+          ]},
+        :product_prices => {
+          
+        }
       })
           
   end
