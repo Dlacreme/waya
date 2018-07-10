@@ -10,5 +10,8 @@ Rails.application.routes.draw do
   resources :stock_type, only: [:index, :show, :create, :update, :destroy]
   resources :stock_unit, only: [:index, :show, :create, :update, :destroy]
   resources :stock_format, only: [:index, :show, :create, :update, :destroy]
+  # Products
+  resources :product, only: [:index, :show, :create, :update, :destroy]
+  resources :product_category, only: [:index, :show, :create, :update, :destroy]
 
 end
