@@ -13,6 +13,7 @@
 ActiveRecord::Schema.define(version: 20180710154555) do
 
   create_table "order_action_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "order_id"
     t.integer "order_action_id"
     t.integer "user_id"
     t.text "comment"
@@ -47,6 +48,43 @@ ActiveRecord::Schema.define(version: 20180710154555) do
 
   create_table "payment_methods", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "parent_id"
+    t.boolean "is_disabled", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_prices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "product_id"
+    t.decimal "price", precision: 10
+    t.decimal "member_price", precision: 10
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_stocks", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "product_id"
+    t.integer "stock_id"
+    t.decimal "quantity", precision: 10
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.text "desc"
+    t.integer "product_category_id"
+    t.date "start_date"
+    t.date "end_date"
+    t.boolean "is_disabled", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -100,7 +138,6 @@ ActiveRecord::Schema.define(version: 20180710154555) do
     t.integer "stock_type_id"
     t.boolean "is_disabled", default: false
     t.integer "balance"
-    t.integer "stock_import_history_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

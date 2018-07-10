@@ -1,4 +1,5 @@
 class OrderActionHistory < ApplicationRecord
-  belongs_to :users
-  belongs_to :order_actions
+  belongs_to :user
+  belongs_to :order
+  belongs_to :order_action
 end
