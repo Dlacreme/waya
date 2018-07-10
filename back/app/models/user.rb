@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   belongs_to :role
 
+  has_many :order_action_histories
+
   validates :email, presence: true, email: true, uniqueness: true
   validates :username, presence: true
 
