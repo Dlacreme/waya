@@ -50,7 +50,7 @@ private
   end
 
   def param_update
-  params.require(:stock).permit(:name, :desc, :balance, :size, :stock_format_id, :stock_type_id)
+    params.require(:stock).permit(:name, :desc, :balance, :size, :stock_format_id, :stock_type_id)
   end
 
 end
