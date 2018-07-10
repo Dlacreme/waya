@@ -1,0 +1,2 @@
+class OrderActionHistory < ApplicationRecord
+end
