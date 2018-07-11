@@ -50,6 +50,12 @@ class OrderController < ApplicationController
     ok
   end
 
+  def payment
+    order = Order.find(params[:id])
+    order.payment(@current_user, get_param(:payment_method_id))
+    data order_detail(order.id)
+  end
+
 private
 
   def order_detail(id)

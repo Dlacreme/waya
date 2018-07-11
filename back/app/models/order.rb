@@ -48,6 +48,15 @@ class Order < ApplicationRecord
     self.save_action(user.id, OrderActionEnum::Cancel, set_comment(user, comment ? comment : "cancelled the order"))
   end
 
+  def payment(user, payment_method_id)
+    self.payment_method_id = payment_method_id
+    self.paid_at = DateTime.now
+    self.amount_paid = self.total_price
+    self.order_status_id = OrderStatusEnum::Paid
+    self.save
+    self.save_action(user.id, OrderActionEnum::Paid, set_comment(user, "made payment"))
+  end  
+
   def save_action(user_id, action_id, comment = nil)
     action = OrderActionHistory.new
     action.order_id = self.id

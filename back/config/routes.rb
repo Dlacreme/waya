@@ -19,5 +19,6 @@ Rails.application.routes.draw do
   post 'order/:id/table', to: "order#table"
   post 'order/:id/customer', to: "order#customer"
   post 'order/:id/products', to: "order#products"
+  post 'order/:id/payment', to: "order#payment"
 
 end
