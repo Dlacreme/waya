@@ -1,9 +1,10 @@
 module OrderActionEnum
   Create = 1
-  Comment = 2
-  Validate = 3
-  Cancel = 4
-  Ready = 5
-  Delivered = 6
-  Paid = 7
+  Update = 2
+  Comment = 3
+  Validate = 4
+  Cancel = 5
+  Ready = 6
+  Delivered = 7
+  Paid = 8
 end

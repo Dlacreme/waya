@@ -47,6 +47,7 @@ OrderStatus.create(name: 'Delivered')
 OrderStatus.create(name: 'Paid')
 
 OrderAction.create(name: 'Create')
+OrderAction.create(name: 'Update')
 OrderAction.create(name: 'Comment')
 OrderAction.create(name: 'Validated')
 OrderAction.create(name: 'Cancel')
