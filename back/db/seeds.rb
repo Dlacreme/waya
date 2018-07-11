@@ -54,3 +54,7 @@ OrderAction.create(name: 'Cancel')
 OrderAction.create(name: 'Ready')
 OrderAction.create(name: 'Delivered')
 OrderAction.create(name: 'Paid')
+
+## Voucher
+VoucherType.create(name: "Percentage")
+VoucherType.create(name: "Fix")

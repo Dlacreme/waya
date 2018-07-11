@@ -5,6 +5,7 @@ class Order < ApplicationRecord
   belongs_to :order_status
   belongs_to :payment_method, optional: true
   has_many :order_action_histories
+  has_many :voucher_comsuptions
 
   has_many :order_products
   has_many :products, through: :order_products  
