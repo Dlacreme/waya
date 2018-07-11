@@ -6,7 +6,7 @@ class CreateVouchers < ActiveRecord::Migration[5.1]
       t.string :desc
       t.decimal :value
       t.integer :voucher_type_id
-      t.boolean :is_disabled
+      t.boolean :is_disabled, default: false
 
       t.timestamps
     end

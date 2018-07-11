@@ -20,5 +20,9 @@ Rails.application.routes.draw do
   post 'order/:id/customer', to: "order#customer"
   post 'order/:id/products', to: "order#products"
   post 'order/:id/payment', to: "order#payment"
+  post 'order/:id/voucher/:voucher_id', to: 'order#add_voucher'
+  delete 'order/:id/voucher/:voucher_id', to: 'order#remove_voucher'
+  # Vouchers
+  resources :voucher, only: [:index, :show, :create, :destroy]
 
 end

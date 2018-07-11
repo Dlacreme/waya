@@ -56,6 +56,18 @@ class OrderController < ApplicationController
     data order_detail(order.id)
   end
 
+  def add_voucher
+    order = Order.find(params[:id])
+    order.add_voucher(@current_user, params[:voucher_id])
+    data order_detail(params[:id])
+  end
+
+  def remove_voucher
+    order = Order.find(params[:id])
+    order.remove_voucher(@current_user, params[:voucher_id])
+    data order_detail(params[:id])
+  end
+
 private
 
   def order_detail(id)

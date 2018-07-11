@@ -58,7 +58,23 @@ class Order < ApplicationRecord
     self.order_status_id = OrderStatusEnum::Paid
     self.save
     self.save_action(user.id, OrderActionEnum::Paid, set_comment(user, "made payment"))
-  end  
+  end
+
+  def add_voucher(user, voucher_id)
+    oc = VoucherConsumption.new
+    oc.order_id = self.id
+    oc.voucher_id = voucher_id
+    oc.created_by_id = user.id
+    oc.save!
+    calc_price
+    self.save_action(user.id, OrderActionEnum::Update, set_comment(user, "add voucher"))
+  end
+  
+  def remove_voucher(user, voucher_id)
+    VoucherConsumption.where(voucher_id: voucher_id).where(order_id: self.id).delete_all
+    calc_price
+    self.save_action(user.id, OrderActionEnum::Update, set_comment(user, "remove voucher"))
+  end
 
   def save_action(user_id, action_id, comment = nil)
     action = OrderActionHistory.new
