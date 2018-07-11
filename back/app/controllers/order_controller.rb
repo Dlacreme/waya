@@ -2,9 +2,20 @@ class OrderController < ApplicationController
   before_action :require_login
 
   def index
+    p "BITE CHATTE CUL"  
+    data Order
+      .where(order_status_id: [OrderStatusEnum::Pending, OrderStatusEnum::Validated, OrderStatusEnum::Ready, OrderStatusEnum::Paid])
+      .includes([:products])
+      .as_json(include: {
+        :table => {},
+        :customer => {},
+        :order_status => {},
+        :products => {}
+      })
   end
   
   def show
+    data order_detail(params[:id])
   end
   
   def create
@@ -28,7 +39,11 @@ class OrderController < ApplicationController
   end
   
   def products
-  end    
+    order = Order.find(params[:id])
+    order.remove_products(get_param_array(:order_product_to_remove_ids))
+    order.add_products(get_param_array(:product_to_add_ids))
+    data order_detail(order.id)
+  end
   
   def destroy
     Order.find(params[:id]).cancel(@current_user, get_param(:comment))
@@ -38,11 +53,23 @@ class OrderController < ApplicationController
 private
 
   def order_detail(id)
-    Order.find(id)
+    Order
+      .where(id: params[:id])
+      .includes([:products])
+      .first().as_json(include: {
+        :table => {},
+        :customer => {},
+        :order_status => {},
+        :products => {}
+      })
   end
 
   def get_param(param_name)
     params.permit(param_name)[param_name]
+  end
+
+  def get_param_array(param_name)
+    params.permit(param_name => [])[param_name]  
   end
 
 end

@@ -6,6 +6,9 @@ class Order < ApplicationRecord
   belongs_to :payment_method, optional: true
   has_many :order_action_histories
 
+  has_many :order_products
+  has_many :products, through: :order_products  
+
   def create_action(user, comment = nil)
     self.save_action(user.id, OrderActionEnum::Create, set_comment(user, comment ? comment : "created the order"))
   end
@@ -22,8 +25,22 @@ class Order < ApplicationRecord
     self.save_action(user.id, OrderActionEnum::Update, set_comment(user, comment ? comment : "update the customer #{user_id}"))  
   end
 
-  def set_products
-  end  
+  def add_products(ids = [])
+    return unless ids
+    OrderProduct.transaction do
+      ids.each do |x|
+        op = OrderProduct.new
+        op.order_id = self.id
+        op.product_id = x
+        op.save
+      end
+    end
+  end
+
+  def remove_products(ids = [])
+    return unless ids
+    OrderProduct.where(id: ids).delete_all
+  end
 
   def cancel(user, comment = nil)
     self.order_status_id = OrderStatusEnum::Cancelled
@@ -43,5 +60,14 @@ class Order < ApplicationRecord
   def set_comment(user, comment)
     "#{user.id} (#{user.username}): #{comment}"
   end
+
+  def calc_price()
+    ActiveRecord::Base.connection.execute("CALL calcul_price(#{self.id})")
+  end
+
+  def self.calc_price(order_id)
+    ActiveRecord::Base.connection.execute("CALL calcul_price(#{order_id})")        
+  end
+
 
 end
