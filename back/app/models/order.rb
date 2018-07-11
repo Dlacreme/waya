@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   belongs_to :order_status
   belongs_to :payment_method, optional: true
   has_many :order_action_histories
-  has_many :voucher_comsuptions
+  has_many :voucher_consumptions
 
   has_many :order_products
   has_many :products, through: :order_products  
@@ -36,11 +36,13 @@ class Order < ApplicationRecord
         op.save
       end
     end
+    calc_price
   end
 
   def remove_products(ids = [])
     return unless ids
     OrderProduct.where(id: ids).delete_all
+    calc_price
   end
 
   def cancel(user, comment = nil)

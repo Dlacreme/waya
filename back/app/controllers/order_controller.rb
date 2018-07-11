@@ -60,7 +60,7 @@ private
 
   def order_detail(id)
     Order
-      .where(id: params[:id])
+      .where(id: id)
       .includes([:products])
       .first().as_json(include: {
         :table => {},

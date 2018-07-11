@@ -30,7 +30,7 @@ SET @direct_reduction = (
     SELECT
         SUM(v.value)
     FROM orders o
-    INNER JOIN voucher_consumption ov
+    INNER JOIN voucher_consumptions ov
         ON o.id = ov.order_id
     INNER JOIN vouchers v
         ON v.id = ov.voucher_id
@@ -42,7 +42,7 @@ SET @perc_reduction = (
     SELECT
         SUM(v.value)
     FROM orders o
-    INNER JOIN voucher_consumption ov
+    INNER JOIN voucher_consumptions ov
         ON o.id = ov.order_id
     INNER JOIN vouchers v
         ON v.id = ov.voucher_id
