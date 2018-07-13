@@ -1,0 +1,51 @@
+@import '../../sass/variables';
+
+.mat-toolbar {
+  height: 45px;
+  display: flex;
+  border-bottom: 1px solid $border-color;
+
+  .logo {
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: $yana-red;
+    line-height: 45px;
+    font-size: 1.8em;
+    padding-top: 3px;
+  }
+}
+
+.mat-sidenav-container {
+  height: calc(100% - 45px);
+}
+
+.mat-drawer {
+  width: 200px;
+  background-color: #f5f5f5;
+
+  a {
+    color: $yana-red;
+    display: flex;
+    text-decoration: none;
+    padding: 10px 15px;
+    line-height: 28px;
+    font-weight: bold;
+
+    .mat-button-wrapper {
+      width: 100%;
+    }
+
+    span {
+      width: 100%;
+      text-align: center;
+      display: inline-block;
+    }
+
+    &:hover {
+      background-color: $hover-color;
+    }
+  }
+}

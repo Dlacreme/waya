@@ -1,0 +1,72 @@
+<!-- <mat-toolbar>
+  <a mat-button [routerLink]="['dashboard']" matTooltip="Home">
+    <mat-icon>home</mat-icon>
+  </a>
+
+  <a mat-button [routerLink]="['dashboard']" matTooltip="Orders">
+    <mat-icon>home</mat-icon>
+  </a>
+
+  <a mat-button [routerLink]="['dashboard']" matTooltip="Products">
+    <mat-icon>home</mat-icon>
+  </a>
+
+  <a mat-button [routerLink]="['dashboard']" matTooltip="Stocks">
+    <mat-icon>home</mat-icon>
+  </a>
+
+  <a mat-button [routerLink]="['dashboard']" matTooltip="Admin">
+    <mat-icon>home</mat-icon>
+  </a>
+
+  <a mat-button [routerLink]="['dashboard']" matTooltip="Users">
+    <mat-icon>home</mat-icon>
+  </a>
+
+  <a mat-button [routerLink]="['dashboard']" matTooltip="Reporting">
+    <mat-icon>home</mat-icon>
+  </a>
+
+  <a mat-button [routerLink]="['dashboard']" matTooltip="Social">
+    <mat-icon>people</mat-icon>
+  </a>
+
+  <a mat-button [routerLink]="['/']" matTooltip="Account" style="float:right">
+    <mat-icon>person</mat-icon>
+  </a>
+
+</mat-toolbar> -->
+
+<mat-toolbar>
+  <a mat-button (click)="switchSidenav()">
+    <mat-icon>menu</mat-icon>
+  </a>
+  <a [routerLink]="['dashboard']" class="logo">Yana</a>
+  <a mat-button (click)="switchSidenav()" matTooltip="Your account">
+    <mat-icon>person</mat-icon>
+  </a>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav mode="side" [(opened)]="menuOpen">
+
+  <a [routerLink]="['/']">
+    <mat-icon>class</mat-icon>
+    <span>Orders</span>
+  </a>
+
+  <a [routerLink]="['/']">
+    <mat-icon>local_dining</mat-icon>
+    <span>Products</span>
+  </a>
+
+  <a [routerLink]="['/']">
+    <mat-icon>poll</mat-icon>
+    <span>Stocks</span>
+  </a>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
