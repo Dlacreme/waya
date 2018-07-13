@@ -6,6 +6,7 @@ import { SocialLoginModule, AuthServiceConfig, GoogleLoginProvider, FacebookLogi
 // Core
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Services
 import { SessionService } from './api/session.service';
@@ -15,17 +16,53 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
 
+// Material
+import {
+  MatInputModule,
+  MatIconModule,
+  MatButtonModule,
+  MatExpansionModule,
+  MatSelectModule,
+  MatCheckboxModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSnackBarModule,
+  MatToolbarModule,
+  MatMenuModule,
+  MatTooltipModule,
+  MatSidenavModule
+} from '@angular/material';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PrivateComponent } from './private/private.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent,
+    PrivateComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     SocialLoginModule,
-    HttpClientModule
+    HttpClientModule,
+
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
+    MatExpansionModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatRadioModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatSidenavModule
   ],
   providers: [
     SessionService,

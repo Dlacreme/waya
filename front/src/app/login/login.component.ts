@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { AuthService, FacebookLoginProvider } from 'angular5-social-login';
 import { SessionService, LoginProvider, LoginSession } from '../api/session.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 interface FacebookSession {
   email: string;
@@ -15,13 +16,14 @@ interface FacebookSession {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnDestroy {
 
   private sessionApiSub: Subscription = Subscription.EMPTY;
 
   constructor(
+    private router:Router,
     private socialAuthService: AuthService,
     private sessionApiService: SessionService
   ) { }
@@ -41,7 +43,9 @@ export class LoginComponent implements OnDestroy {
   }
 
   public saveSession(session: LoginSession): void {
-    this.sessionApiSub = this.sessionApiService.login(session).subscribe();
+    this.sessionApiSub = this.sessionApiService
+      .login(session)
+      .subscribe(() => this.router.navigate(['staff/dashboard']));
   }
 
   public ngOnDestroy(): void {
