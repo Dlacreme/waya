@@ -1,0 +1,13 @@
+@import '../../../sass/variables';
+
+#module-title {
+  margin: -25px;
+  margin-bottom: 10px;
+  color: $yana-red;
+  border-bottom: 1px solid $border-color;
+
+  h1 {
+    padding-top: 6px;
+    padding-left: 20px;
+  }
+}

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StockService, Stock } from '../api/stock.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-stocks',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StocksComponent implements OnInit {
 
-  constructor() { }
+  public stocks:Stock[] = [];
+  public stockSubscription:Subscription = Subscription.EMPTY;
+
+  constructor(
+    private StockService:StockService
+  ) { }
 
   ngOnInit() {
+    this.stockSubscription = this.StockService.get()
+      .subscribe((result) => this.stocks = result.data ? result.data : []);
   }
 
 }

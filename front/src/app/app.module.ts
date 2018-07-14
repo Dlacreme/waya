@@ -40,6 +40,8 @@ import { StocksComponent } from './stocks/stocks.component';
 import { StockComponent } from './stocks/stock/stock.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './products/product/product.component';
+import { ModuleFooterComponent } from './private/module-footer/module-footer.component';
+import { ModuleTitleComponent } from './private/module-title/module-title.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { ProductComponent } from './products/product/product.component';
     StocksComponent,
     StockComponent,
     ProductsComponent,
-    ProductComponent
+    ProductComponent,
+    ModuleFooterComponent,
+    ModuleTitleComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,10 @@
 @import '../../sass/variables';
 
+#private {
+  height: 100%;
+  width: 100%;
+}
+
 .mat-toolbar {
   height: 45px;
   display: flex;
