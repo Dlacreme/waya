@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-validation-dialog',
@@ -9,7 +9,8 @@ import { MatDialogRef } from '@angular/material';
 export class ValidationDialogComponent {
 
   constructor(
-    public dialogRef:MatDialogRef<ValidationDialogComponent>
+    public dialogRef:MatDialogRef<ValidationDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data:string
   ) { }
 
   public onYes():void {

@@ -31,7 +31,9 @@ export class StockComponent implements OnInit {
   }
 
   public openDeleteValidation():void {
-    const dialog = this.dialog.open(ValidationDialogComponent, {});
+    const dialog = this.dialog.open(ValidationDialogComponent, {
+      data: `Do you want to delete ${this.data.name}?`
+    });
     dialog.afterClosed().subscribe((result) => {
       if (result) {
         this.stockService.delete(this.data.id).subscribe();
