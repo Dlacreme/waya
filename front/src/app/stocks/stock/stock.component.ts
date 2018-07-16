@@ -18,6 +18,7 @@ export class StockComponent implements OnInit {
     this.data = stock;
   }
 
+
   constructor(
     public dialog:MatDialog,
     private stockService:StockService
