@@ -10,11 +10,11 @@ export enum LoginProvider {
 }
 
 export interface LoginSession {
-  id: string;
-  username: string;
-  email: string;
-  provider?: LoginProvider;
-  token?: string;
+  id:string;
+  username:string;
+  email:string;
+  provider?:LoginProvider;
+  token?:string;
 }
 
 @Injectable()
