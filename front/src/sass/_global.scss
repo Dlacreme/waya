@@ -1,0 +1,63 @@
+@import './variables';
+
+.module-title {
+  display: flex;
+  margin: -25px;
+  margin-bottom: 10px;
+  color: $yana-red;
+  border-bottom: 1px solid $border-color;
+
+  h1 {
+    padding-top: 6px;
+    padding-left: 20px;
+  }
+
+  .mid {
+    flex-grow: 1;
+  }
+
+  .actions {
+    padding-top: 2px
+  }
+}
+
+ul {
+  list-style-type: none;
+}
+
+ul.detail-list {
+  li {
+
+    display: flex;
+    margin: 10px 0;
+
+    .title {
+      font-size: 1.1em;
+    }
+
+    .link {
+      margin-left: 5%;
+      margin-right: 5%;
+      flex-grow: 1;
+      border-bottom: 1px solid #e8e7e7;
+      margin-bottom: 10px;
+    }
+
+    .value {
+      font-weight: bold;
+    }
+  }
+}
+
+.mat-raised-button[color=green] {
+  background-color: $green-color;
+  color: white;
+}
+
+.mat-button[color=orange] {
+  color: $orange-color;
+}
+
+.mat-button[color=green] {
+  color: $green-color;
+}

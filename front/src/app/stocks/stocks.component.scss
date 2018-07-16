@@ -1,0 +1,11 @@
+.panel-header {
+  .name {
+    flex-grow: 1;
+    text-align: center;
+  }
+
+  .in-stock {
+    display: inline-block;
+    padding-right: 20px;
+  }
+}

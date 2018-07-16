@@ -1,0 +1,13 @@
+@import '../../../sass/variables';
+
+h4 {
+  flex-grow: 1;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.left {
+  padding-right: 15px;
+  margin-right: 15px;
+  border-right: 1px solid $border-color;
+}

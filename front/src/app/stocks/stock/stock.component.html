@@ -1,0 +1,80 @@
+<div clas="stock-item">
+
+  <div class="flex">
+    <h4>
+      {{ data.name }}
+    </h4>
+    <div>
+        <mat-slide-toggle (change)="switchEdit($event.checked)">Edit</mat-slide-toggle>
+    </div>
+  </div>
+
+  <div class="display" *ngIf="!isEditable">
+    <div class="flex">
+
+      <ul class="left flex-equal detail-list">
+        <li>
+          <span class="title">Type</span>
+          <span class="link"></span>
+          <span class="value">{{ data.stock_type.name }}</span>
+        </li>
+        <li>
+          <span class="title">Balance</span>
+          <span class="link"></span>
+          <span class="value">{{ data.balance }}</span>
+        </li>
+      </ul>
+
+      <ul class="flex-equal detail-list">
+        <li>
+          <span class="title">Format</span>
+          <span class="link"></span>
+          <span class="value">{{ data.stock_format.name }}</span>
+        </li>
+        <li>
+          <span class="title">Format Unit</span>
+          <span class="link"></span>
+          <span class="value">{{ data.stock_format.stock_unit.name }}</span>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="edit" *ngIf="isEditable">
+    <div class="flex">
+      <ul class="left flex-equal detail-list">
+        <li>
+          <span class="title">Type</span>
+          <span class="link"></span>
+          <span class="value">{{ data.stock_type.name }}</span>
+        </li>
+        <li>
+          <span class="title">Balance</span>
+          <span class="link"></span>
+          <span class="value">{{ data.balance }}</span>
+        </li>
+      </ul>
+
+      <ul class="flex-equal detail-list">
+        <li>
+          <span class="title">Format</span>
+          <span class="link"></span>
+          <span class="value">{{ data.stock_format.name }}</span>
+        </li>
+        <li>
+          <span class="title">Format Unit</span>
+          <span class="link"></span>
+          <span class="value">{{ data.stock_format.stock_unit.name }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="flex">
+    <button mat-raised-button color="warn" (click)="openDeleteValidation()" >Delete</button>
+    <span class="flex-grow"></span>
+    <button mat-button color="orange" matTooltip="This will move an item for the Bar">Pull for Bar</button>
+    <button mat-raised-button color="green">Update</button>
+
+  </div>
+</div>
