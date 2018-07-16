@@ -1,5 +1,11 @@
 <div id="stocks" class="full">
-<app-module-title title="Stocks"></app-module-title>
+<div class="module-title">
+  <h1>Stocks</h1>
+  <div class="mid"></div>
+  <div class="actions">
+    <button mat-button><mat-icon>add</mat-icon> Import</button>
+  </div>
+</div>
 
   <mat-accordion>
     <mat-expansion-panel *ngFor="let stock of stocks">
@@ -14,7 +20,7 @@
           {{ stock.balance * stock.size }} {{ stock.stock_format.stock_unit.name }} ({{ stock.balance }} x {{ stock.size }} {{ stock.stock_format.stock_unit.name }})
         </span>
       </mat-expansion-panel-header>
-      <app-stock></app-stock>
+      <app-stock [stock]="stock"></app-stock>
     </mat-expansion-panel>
   </mat-accordion>
 

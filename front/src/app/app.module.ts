@@ -15,6 +15,7 @@ import {
   MatRadioModule,
   MatSnackBarModule,
   MatToolbarModule,
+  MatSlideToggleModule,
   MatMenuModule,
   MatTooltipModule,
   MatSidenavModule
@@ -72,6 +73,7 @@ import { ModuleTitleComponent } from './private/module-title/module-title.compon
     MatExpansionModule,
     MatSelectModule,
     MatProgressSpinnerModule,
+    MatSlideToggleModule,
     MatCheckboxModule,
     MatSnackBarModule,
     MatRadioModule,
