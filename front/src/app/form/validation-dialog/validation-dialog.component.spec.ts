@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ValidationDialogComponent } from './validation-dialog.component';
 
 describe('ValidationDialogComponent', () => {
@@ -8,7 +9,9 @@ describe('ValidationDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ValidationDialogComponent ]
+      declarations: [ ValidationDialogComponent ],
+      providers: [MatDialogRef],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));
