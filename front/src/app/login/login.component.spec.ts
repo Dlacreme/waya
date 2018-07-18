@@ -1,8 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { AuthService, FacebookLoginProvider } from 'angular5-social-login';
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { RouterTestingModule } from '@angular/router/testing';
 import { LoginComponent } from './login.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { AuthServiceConfig } from 'angular5-social-login';
+import { SessionService } from '../api/session.service';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -11,9 +14,16 @@ describe('LoginComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
-      imports: [ RouterTestingModule ],
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule
+      ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-      providers: [AuthService]
+      providers: [
+        AuthService,
+        SessionService,
+        { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
+      ]
     })
     .compileComponents();
   }));
@@ -28,3 +38,13 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+// OAuth Config
+export function getAuthServiceConfigs() {
+  return new AuthServiceConfig(
+    [{
+      id: FacebookLoginProvider.PROVIDER_ID,
+      provider: new FacebookLoginProvider('236169753628462')
+    }]
+  );
+}

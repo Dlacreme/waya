@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatIconModule, MatExpansionModule } from '@angular/material';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { StocksComponent } from './stocks.component';
 
 describe('StocksComponent', () => {
@@ -8,7 +10,13 @@ describe('StocksComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StocksComponent ]
+      declarations: [ StocksComponent ],
+      imports: [
+        MatIconModule,
+        MatExpansionModule,
+        HttpClientTestingModule
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));
