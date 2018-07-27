@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { StockService, Stock } from '../api/stock.service';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './stocks.component.html',
   styleUrls: ['./stocks.component.scss']
 })
-export class StocksComponent implements OnInit {
+export class StocksComponent implements OnInit, OnDestroy {
 
   public stocks:Stock[] = [];
   public stockSubscription:Subscription = Subscription.EMPTY;
@@ -16,9 +16,13 @@ export class StocksComponent implements OnInit {
     private StockService:StockService
   ) { }
 
-  ngOnInit() {
-    this.stockSubscription = this.StockService.get()
+  public ngOnInit():void {
+    this.stockSubscription = this.StockService.list()
       .subscribe((result) => this.stocks = result.data ? result.data : []);
+  }
+
+  public ngOnDestroy():void {
+    this.stockSubscription.unsubscribe();
   }
 
 }

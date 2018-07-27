@@ -49,12 +49,12 @@ export class StockService extends Api {
   };
 
   constructor(
-    protected httpClient: HttpClient
+    protected httpClient:HttpClient
   ) {
     super(httpClient);
   }
 
-  public get():Observable<ApiResult<Stock[]>> {
+  public list():Observable<ApiResult<Stock[]>> {
     return this.query<Stock[]>({
       endpoint: this.endpoints.stock,
       method: HttpMethod.GET
