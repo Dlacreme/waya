@@ -12,7 +12,7 @@ export class ProductsComponent implements OnInit {
 
   public products:Product[] = [];
 
-private productSub:Subscription = Subscription.EMPTY;
+  private productSub:Subscription = Subscription.EMPTY;
 
   constructor(
     private productService:ProductService
