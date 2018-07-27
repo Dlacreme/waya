@@ -4,6 +4,8 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {InputComponent} from './input.component';
+import { MatInputModule, MatFormFieldModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('InputComponent', () => {
   let component: InputComponent;
@@ -13,7 +15,10 @@ describe('InputComponent', () => {
     TestBed.configureTestingModule({
       declarations: [InputComponent],
       imports: [
+        BrowserAnimationsModule,
+        MatFormFieldModule,
         ReactiveFormsModule,
+        MatInputModule,
         HttpClientTestingModule,
         RouterTestingModule,
       ],

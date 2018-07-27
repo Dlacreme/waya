@@ -3,7 +3,7 @@ import { Stock, StockService, StockFormat, StockType } from '../../api/stock.ser
 import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
 import { MatDialog } from '@angular/material';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
-import { ApiResult, ApiItem } from '../../api/api';
+import { ApiItem } from '../../api/api';
 import { InputOptions, InputType } from '../../form/input/input.component';
 
 @Component({
@@ -15,12 +15,12 @@ export class StockEditComponent implements OnInit {
 
   public data:Stock;
 
-  public nameOptions:InputOptions;
-  public descOptions:InputOptions;
-  public balanceOptions:InputOptions;
-  public sizeOptions:InputOptions;
-  public formatOptions:SelectOptions;
-  public typeOptions:SelectOptions;
+  public nameOptions:InputOptions = {} as InputOptions;
+  public descOptions:InputOptions = {} as InputOptions;
+  public balanceOptions:InputOptions = {} as InputOptions;
+  public sizeOptions:InputOptions = {} as InputOptions;
+  public formatOptions:SelectOptions = {} as SelectOptions;
+  public typeOptions:SelectOptions = {} as SelectOptions;
 
   public formats:StockFormat[] = [];
   public types:StockType[] = [];

@@ -12,13 +12,13 @@ export interface StockUnit {
 export interface StockType {
   id:number;
   name:string;
-  is_disabled:false;
+  is_disabled:boolean;
 }
 
 export interface StockFormat {
   id:number;
   name:string;
-  is_disabled:false;
+  is_disabled:boolean;
   stock_unit:StockUnit;
 }
 
