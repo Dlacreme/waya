@@ -41,7 +41,8 @@ export interface Stock {
 export class StockService extends Api {
 
   private readonly endpoints = {
-    stock: 'stock'
+    stock: 'stock',
+    stockFormat: 'stock_format'
   };
 
   constructor(
@@ -61,6 +62,20 @@ export class StockService extends Api {
     return this.query<void>({
       endpoint: `${this.endpoints.stock}/${stockId}`,
       method: HttpMethod.DELETE
+    });
+  }
+
+  public getStockFormats():Observable<ApiResult<StockFormat[]>> {
+    return this.query<StockFormat[]>({
+      endpoint: `${this.endpoints.stockFormat}`,
+      method: HttpMethod.GET
+    });
+  }
+
+  public getStockTypes():Observable<ApiResult<StockType[]>> {
+    return this.query<StockFormat[]>({
+      endpoint: `${this.endpoints.stockFormat}`,
+      method: HttpMethod.GET
     });
   }
 

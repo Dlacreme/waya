@@ -26,6 +26,7 @@ import {
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Services
 import { SessionService } from './api/session.service';
@@ -44,7 +45,11 @@ import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './products/product/product.component';
 import { ModuleFooterComponent } from './private/module-footer/module-footer.component';
 import { ModuleTitleComponent } from './private/module-title/module-title.component';
+import { InputComponent } from './form/input/input.component';
+import { PickerComponent } from './form/picker/picker.component';
+import { SelectComponent } from './form/select/select.component';
 import { ValidationDialogComponent } from './form/validation-dialog/validation-dialog.component';
+import { StockEditComponent } from './stocks/stock-edit/stock-edit.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +66,11 @@ import { ValidationDialogComponent } from './form/validation-dialog/validation-d
     ProductComponent,
     ModuleFooterComponent,
     ModuleTitleComponent,
-    ValidationDialogComponent
+    InputComponent,
+    PickerComponent,
+    SelectComponent,
+    ValidationDialogComponent,
+    StockEditComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +78,7 @@ import { ValidationDialogComponent } from './form/validation-dialog/validation-d
     AppRoutingModule,
     SocialLoginModule,
     HttpClientModule,
+    ReactiveFormsModule,
 
     MatInputModule,
     MatIconModule,
