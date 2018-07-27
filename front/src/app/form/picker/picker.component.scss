@@ -1,0 +1,17 @@
+.mat-radio-group {
+  width: 100%;
+  display: flex;
+}
+
+.mat-radio-group div {
+  flex-grow: 1;
+  flex-basis: 0;
+}
+
+.mat-radio-group.column {
+  flex-direction: column;
+}
+
+.mat-radio-button {
+  width: 100%;
+}

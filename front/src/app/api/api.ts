@@ -23,6 +23,11 @@ export interface ApiResult<T> {
   data?: T;
 }
 
+export interface ApiItem {
+  id:number;
+  name:string;
+}
+
 export class Api {
 
   protected readonly wayaApi = environment.wayaApi;

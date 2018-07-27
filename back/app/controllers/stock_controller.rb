@@ -7,18 +7,12 @@ class StockController < ApplicationController
       .as_json(include: {:stock_type => {}, :stock_format => {
         include: :stock_unit
       }})
-  end  
+  end
 
   def show
-    data Stock
-      .where(id: params[:id])
-      .includes([:stock_type, :stock_format => :stock_unit])
-      .as_json(include: {:stock_type => {}, :stock_format => {
-        include: :stock_unit
-      }})
-      .first()
+    data load(params[:id])
   end
-  
+
   def create
     history = StockImportHistory.new
     history.data = param_import[:_json].as_json
@@ -31,7 +25,8 @@ class StockController < ApplicationController
   end
 
   def update
-    save_form StockForm.new(Stock.find(params[:id])), param_update
+    process_form StockForm.new(Stock.find(params[:id])), param_update
+    data load(params[:id])
   end
 
   def destroy
@@ -51,6 +46,16 @@ private
 
   def param_update
     params.require(:stock).permit(:name, :desc, :balance, :size, :stock_format_id, :stock_type_id)
+  end
+
+  def load(stock_id)
+    Stock
+      .where(id: stock_id)
+      .includes([:stock_type, :stock_format => :stock_unit])
+      .as_json(include: {:stock_type => {}, :stock_format => {
+        include: :stock_unit
+      }})
+      .first()
   end
 
 end

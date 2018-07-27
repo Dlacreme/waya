@@ -1,0 +1,9 @@
+<form [formGroup]="form" class="sam" novalidate>
+  <div class="form-group">
+    <mat-radio-group class="buttons-group" formControlName="picker" [ngClass]="{'column': pickerOptions.items.length > 2}">
+      <div *ngFor="let item of pickerOptions.items">
+          <mat-radio-button class="full" [value]="item.value" (click)="submit(item)">{{ item.text }}</mat-radio-button>
+      </div>
+    </mat-radio-group>
+  </div>
+</form>

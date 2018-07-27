@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 import { PrivateComponent } from './private.component';
 
 describe('PrivateComponent', () => {
@@ -10,7 +10,10 @@ describe('PrivateComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ PrivateComponent ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [
+        RouterTestingModule
+      ]
     })
     .compileComponents();
   }));

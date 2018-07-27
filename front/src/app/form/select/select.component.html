@@ -1,0 +1,11 @@
+<form [formGroup]="form" class="flex">
+  <div *ngIf="selectLabel" class="label flex">
+    <div>{{ selectLabel }}</div>
+    <span class="link"></span>
+  </div>
+  <mat-form-field>
+    <mat-select placeholder="{{ selectPlaceholder }}" formControlName="select">
+      <mat-option *ngFor="let item of selectItems" (click)="submit(item)" [value]="item.value">{{item.text}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

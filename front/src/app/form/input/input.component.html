@@ -1,0 +1,9 @@
+<form [formGroup]="form" class="flex">
+  <div *ngIf="inputLabel" class="label flex">
+    <div>{{ inputLabel }}</div>
+    <span class="link"></span>
+  </div>
+  <mat-form-field [ngClass]="{'max-width': inputType === 'textarea'}">
+    <input matInput formControlName="input" (change)="submit();" placeholder="{{ inputPlaceholder }}" type="{{ inputType }}" >
+  </mat-form-field>
+</form>

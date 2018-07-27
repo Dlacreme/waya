@@ -1,14 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Stock, StockService } from '../../api/stock.service';
-import { MatDialog } from '@angular/material';
-import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
+import { Component, Input } from '@angular/core';
+import { Stock } from '../../api/stock.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
   styleUrls: ['./stock.component.scss']
 })
-export class StockComponent implements OnInit {
+export class StockComponent {
 
   public data:Stock;
   public isEditable = false;
@@ -18,28 +17,18 @@ export class StockComponent implements OnInit {
     this.data = stock;
   }
 
-
   constructor(
-    public dialog:MatDialog,
-    private stockService:StockService
+    private matSnackBar:MatSnackBar
   ) { }
-
-  ngOnInit() {
-  }
 
   public switchEdit(isEditable:boolean):void {
     this.isEditable = isEditable;
   }
 
-  public openDeleteValidation():void {
-    const dialog = this.dialog.open(ValidationDialogComponent, {
-      data: `Do you want to delete ${this.data.name}?`
-    });
-    dialog.afterClosed().subscribe((result) => {
-      if (result) {
-        this.stockService.delete(this.data.id).subscribe();
-      }
-    });
+  public afterUpdate(stock:Stock):void {
+    this.data = Object.assign(this.data, stock);
+    this.isEditable = false;
+    this.matSnackBar.open('Stock successfully updated', 'close', {duration: 5000});
   }
 
 }
