@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Stock, StockService, StockFormat } from '../../api/stock.service';
+import { Stock, StockService, StockFormat, StockType } from '../../api/stock.service';
 import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
 import { MatDialog } from '@angular/material';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
@@ -18,6 +18,9 @@ export class StockEditComponent implements OnInit {
   public nameOptions:InputOptions;
   public formatOptions:SelectOptions;
   public typeOptions:SelectOptions;
+
+  public formats:StockFormat[] = [];
+  public types:StockType[] = [];
 
   constructor(
     public stockService:StockService,
@@ -64,6 +67,9 @@ export class StockEditComponent implements OnInit {
     const formatSub = this.stockService.getFormats()
       .subscribe((res) => {
         formatSub.unsubscribe();
+        if (res.data) {
+          this.formats = res.data;
+        }
         this.insertItems(this.formatOptions.items, res.data as ApiItem[]);
       });
   }
@@ -79,6 +85,9 @@ export class StockEditComponent implements OnInit {
     const typeSub = this.stockService.getTypes()
     .subscribe((res) => {
       typeSub.unsubscribe();
+      if (res.data) {
+        this.types = res.data;
+      }
       this.insertItems(this.typeOptions.items, res.data as ApiItem[]);
     });
   }
@@ -101,15 +110,30 @@ export class StockEditComponent implements OnInit {
 
   public updateFormat(format:SelectItem):void {
     this.data.stock_format_id = format.value;
+    const stockFormat = this.formats.find((item) => item.id === format.value);
+    if (stockFormat) {
+      this.data.stock_format = stockFormat;
+    }
   }
 
   public updateType(type:SelectItem):void {
     this.data.stock_type_id = type.value;
+    const stockType = this.types.find((item) => item.id === type.value);
+    if (stockType) {
+      this.data.stock_type = stockType;
+    }
   }
 
   public update():void {
     window.setTimeout(() => {
-      console.log('UPDATE > ', this.data);
+      const updateSub = this.stockService
+        .update(this.data)
+        .subscribe((res) => {
+          if (res.data) {
+            this.data = res.data;
+          }
+          updateSub.unsubscribe();
+        });
     });
   }
 

@@ -63,7 +63,7 @@ export class StockService extends Api {
 
   public update(stock:Stock):Observable<ApiResult<Stock>> {
     return this.query<Stock>({
-      endpoint: this.endpoints.stock,
+      endpoint: `${this.endpoints.stock}/${stock.id}`,
       method: HttpMethod.PUT,
       params: stock
     });
