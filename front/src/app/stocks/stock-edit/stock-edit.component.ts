@@ -18,6 +18,7 @@ export class StockEditComponent implements OnInit {
   public nameOptions:InputOptions;
   public descOptions:InputOptions;
   public balanceOptions:InputOptions;
+  public sizeOptions:InputOptions;
   public formatOptions:SelectOptions;
   public typeOptions:SelectOptions;
 
@@ -40,6 +41,7 @@ export class StockEditComponent implements OnInit {
     this.initNameOptions();
     this.initDescOptions();
     this.initBalanceOptions();
+    this.initSizeOptions();
     this.initFormatOptions();
     this.initTypeOptions();
   }
@@ -75,6 +77,15 @@ export class StockEditComponent implements OnInit {
       label: "Balance",
       placeholder: "Balance",
       default: this.data.balance,
+      type: InputType.Number
+    };
+  }
+
+  private initSizeOptions():void {
+    this.sizeOptions = {
+      label: "Size",
+      placeholder: "Size",
+      default: this.data.size,
       type: InputType.Number
     };
   }
@@ -137,6 +148,10 @@ export class StockEditComponent implements OnInit {
 
   public updateBalance(balance:number):void {
     this.data.balance = balance;
+  }
+
+  public updateSize(size:number):void {
+    this.data.size = size;
   }
 
   public updateFormat(format:SelectItem):void {

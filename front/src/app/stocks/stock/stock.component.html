@@ -1,9 +1,6 @@
 <div clas="stock-item">
 
   <div class="display" *ngIf="!isEditable">
-    <h4>
-      {{ data.name }}
-    </h4>
 
     <p>
       {{ data.desc }}
@@ -22,18 +19,19 @@
           <span class="link"></span>
           <span class="value">{{ data.balance }}</span>
         </li>
+
       </ul>
 
       <ul class="flex-equal detail-list">
         <li>
           <span class="title">Format</span>
           <span class="link"></span>
-          <span class="value">{{ data.stock_format.name }}</span>
+          <span class="value">{{ data.stock_format.name }} ({{ data.stock_format.stock_unit.name }}) </span>
         </li>
         <li>
-          <span class="title">Format Unit</span>
+          <span class="title">Size</span>
           <span class="link"></span>
-          <span class="value">{{ data.stock_format.stock_unit.name }}</span>
+          <span class="value">{{ data.size }}</span>
         </li>
       </ul>
 
