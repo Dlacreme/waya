@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Stock, StockService, StockFormat, StockType } from '../../api/stock.service';
 import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
 import { MatDialog } from '@angular/material';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { ApiResult, ApiItem } from '../../api/api';
 import { InputOptions } from '../../form/input/input.component';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-stock-edit',
@@ -23,6 +24,7 @@ export class StockEditComponent implements OnInit {
   public types:StockType[] = [];
 
   constructor(
+    public utilsService:UtilsService,
     public stockService:StockService,
     public dialog:MatDialog,
   ) { }
@@ -31,6 +33,8 @@ export class StockEditComponent implements OnInit {
   set stock(stock:Stock) {
     this.data = stock;
   }
+
+  @Output() afterupdate = new EventEmitter();
 
   ngOnInit() {
     this.initNameOptions();
@@ -130,9 +134,10 @@ export class StockEditComponent implements OnInit {
         .update(this.data)
         .subscribe((res) => {
           if (res.data) {
-            this.data = res.data;
+            this.utilsService.overwriteObject(this.data, res.data);
           }
           updateSub.unsubscribe();
+          this.afterupdate.emit();
         });
     });
   }

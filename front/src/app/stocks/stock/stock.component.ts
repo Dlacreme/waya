@@ -1,12 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Stock } from '../../api/stock.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
   styleUrls: ['./stock.component.scss']
 })
-export class StockComponent implements OnInit {
+export class StockComponent {
 
   public data:Stock;
   public isEditable = false;
@@ -17,13 +18,16 @@ export class StockComponent implements OnInit {
   }
 
   constructor(
+    private matSnackBar:MatSnackBar
   ) { }
-
-  ngOnInit() {
-  }
 
   public switchEdit(isEditable:boolean):void {
     this.isEditable = isEditable;
+  }
+
+  public afterUpdate(stock:Stock):void {
+    this.isEditable = false;
+    this.matSnackBar.open('Stock successfully updated', 'close', {duration: 5000});
   }
 
 }
