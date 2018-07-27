@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Stock, StockService, StockFormat, StockType } from '../../api/stock.service';
+import { StockDto, StockService, StockFormatDto, StockTypeDto } from '../../api/stock.service';
 import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
 import { MatDialog } from '@angular/material';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
@@ -13,7 +13,7 @@ import { InputOptions, InputType } from '../../form/input/input.component';
 })
 export class StockEditComponent implements OnInit {
 
-  public data:Stock;
+  public data:StockDto;
 
   public nameOptions:InputOptions = {} as InputOptions;
   public descOptions:InputOptions = {} as InputOptions;
@@ -22,8 +22,8 @@ export class StockEditComponent implements OnInit {
   public formatOptions:SelectOptions = {} as SelectOptions;
   public typeOptions:SelectOptions = {} as SelectOptions;
 
-  public formats:StockFormat[] = [];
-  public types:StockType[] = [];
+  public formats:StockFormatDto[] = [];
+  public types:StockTypeDto[] = [];
 
   constructor(
     public stockService:StockService,
@@ -31,7 +31,7 @@ export class StockEditComponent implements OnInit {
   ) { }
 
   @Input()
-  set stock(stock:Stock) {
+  set stock(stock:StockDto) {
     this.data = JSON.parse(JSON.stringify(stock));
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { StockService, Stock } from '../api/stock.service';
+import { StockService, StockDto } from '../api/stock.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 })
 export class StocksComponent implements OnInit, OnDestroy {
 
-  public stocks:Stock[] = [];
+  public stocks:StockDto[] = [];
   public stockSubscription:Subscription = Subscription.EMPTY;
 
   constructor(
