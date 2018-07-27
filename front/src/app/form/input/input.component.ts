@@ -1,16 +1,17 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-enum InputType {
+export enum InputType {
   Text = 'text',
   Email = 'email',
-  Number = 'number'
+  Number = 'number',
+  Textarea = 'textarea'
 }
 
 export interface InputOptions {
   label?:string;
   placeholder:string;
-  default:string;
+  default:any;
   type?:InputType;
 }
 

@@ -3,7 +3,7 @@
     <div>{{ inputLabel }}</div>
     <span class="link"></span>
   </div>
-  <mat-form-field>
-    <input matInput formControlName="input" (change)="submit();">
+  <mat-form-field [ngClass]="{'max-width': inputType === 'textarea'}">
+    <input matInput formControlName="input" (change)="submit();" placeholder="{{ inputPlaceholder }}" type="{{ inputType }}" >
   </mat-form-field>
 </form>

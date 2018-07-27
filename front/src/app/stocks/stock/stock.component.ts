@@ -26,6 +26,7 @@ export class StockComponent {
   }
 
   public afterUpdate(stock:Stock):void {
+    this.data = Object.assign(this.data, stock);
     this.isEditable = false;
     this.matSnackBar.open('Stock successfully updated', 'close', {duration: 5000});
   }

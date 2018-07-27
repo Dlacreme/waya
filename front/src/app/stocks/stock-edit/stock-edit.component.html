@@ -1,14 +1,13 @@
 <div class="edit">
   <app-input [options]="nameOptions" (onchange)="updateName($event)"></app-input>
+  <app-input [options]="descOptions" (onchange)="updateDesc($event)"></app-input>
   <div class="flex">
     <ul class="separator right flex-equal detail-list">
       <li>
         <app-select [options]="typeOptions" (onchange)="updateType($event)"></app-select>
       </li>
       <li>
-        <span class="title">Balance</span>
-        <span class="link"></span>
-        <span class="value">{{ data.balance }}</span>
+          <app-input [options]="balanceOptions" (onchange)="updateBalance($event)"></app-input>
       </li>
     </ul>
 

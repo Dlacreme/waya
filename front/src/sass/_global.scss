@@ -89,3 +89,7 @@ ul.detail-list {
   margin-left: 15px;
   border-left: 1px solid $border-color;
 }
+
+app-input, app-picker, app-select {
+  width: 100%;
+}

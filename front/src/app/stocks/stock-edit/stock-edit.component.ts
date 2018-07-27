@@ -4,8 +4,7 @@ import { ValidationDialogComponent } from '../../form/validation-dialog/validati
 import { MatDialog } from '@angular/material';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { ApiResult, ApiItem } from '../../api/api';
-import { InputOptions } from '../../form/input/input.component';
-import { UtilsService } from '../../services/utils.service';
+import { InputOptions, InputType } from '../../form/input/input.component';
 
 @Component({
   selector: 'app-stock-edit',
@@ -17,6 +16,8 @@ export class StockEditComponent implements OnInit {
   public data:Stock;
 
   public nameOptions:InputOptions;
+  public descOptions:InputOptions;
+  public balanceOptions:InputOptions;
   public formatOptions:SelectOptions;
   public typeOptions:SelectOptions;
 
@@ -24,20 +25,21 @@ export class StockEditComponent implements OnInit {
   public types:StockType[] = [];
 
   constructor(
-    public utilsService:UtilsService,
     public stockService:StockService,
     public dialog:MatDialog,
   ) { }
 
   @Input()
   set stock(stock:Stock) {
-    this.data = stock;
+    this.data = JSON.parse(JSON.stringify(stock));
   }
 
   @Output() afterupdate = new EventEmitter();
 
   ngOnInit() {
     this.initNameOptions();
+    this.initDescOptions();
+    this.initBalanceOptions();
     this.initFormatOptions();
     this.initTypeOptions();
   }
@@ -55,9 +57,26 @@ export class StockEditComponent implements OnInit {
 
   private initNameOptions():void {
     this.nameOptions = {
-      placeholder: 'Name...',
+      placeholder: 'Name',
       default: this.data.name
     }
+  }
+
+  private initDescOptions():void {
+    this.descOptions = {
+      placeholder: "Description",
+      default: this.data.desc,
+      type: InputType.Textarea
+    };
+  }
+
+  private initBalanceOptions():void {
+    this.balanceOptions = {
+      label: "Balance",
+      placeholder: "Balance",
+      default: this.data.balance,
+      type: InputType.Number
+    };
   }
 
   private initFormatOptions():void {
@@ -112,6 +131,14 @@ export class StockEditComponent implements OnInit {
     this.data.name = name;
   }
 
+  public updateDesc(desc:string):void {
+    this.data.desc = desc;
+  }
+
+  public updateBalance(balance:number):void {
+    this.data.balance = balance;
+  }
+
   public updateFormat(format:SelectItem):void {
     this.data.stock_format_id = format.value;
     const stockFormat = this.formats.find((item) => item.id === format.value);
@@ -133,11 +160,8 @@ export class StockEditComponent implements OnInit {
       const updateSub = this.stockService
         .update(this.data)
         .subscribe((res) => {
-          if (res.data) {
-            this.utilsService.overwriteObject(this.data, res.data);
-          }
           updateSub.unsubscribe();
-          this.afterupdate.emit();
+          this.afterupdate.emit(res.data);
         });
     });
   }
