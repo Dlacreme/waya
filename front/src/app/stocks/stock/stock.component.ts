@@ -1,7 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Stock, StockService } from '../../api/stock.service';
-import { MatDialog } from '@angular/material';
-import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
+import { Stock } from '../../api/stock.service';
 
 @Component({
   selector: 'app-stock',
@@ -19,8 +17,6 @@ export class StockComponent implements OnInit {
   }
 
   constructor(
-    public dialog:MatDialog,
-    private stockService:StockService
   ) { }
 
   ngOnInit() {
@@ -29,18 +25,5 @@ export class StockComponent implements OnInit {
   public switchEdit(isEditable:boolean):void {
     this.isEditable = isEditable;
   }
-
-  public openDeleteValidation():void {
-    const dialog = this.dialog.open(ValidationDialogComponent, {
-      data: `Do you want to delete ${this.data.name}?`
-    });
-    dialog.afterClosed().subscribe((result) => {
-      if (result) {
-        this.stockService.delete(this.data.id).subscribe();
-      }
-    });
-  }
-
-
 
 }

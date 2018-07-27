@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AuthService, FacebookLoginProvider } from 'angular5-social-login';
+import { AuthService, FacebookLoginProvider, SocialUser } from 'angularx-social-login';
 import { SessionService, LoginProvider, LoginSession } from '../api/session.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -31,13 +31,13 @@ export class LoginComponent implements OnDestroy {
   public signinFacebook(): void {
     this.socialAuthService
       .signIn(FacebookLoginProvider.PROVIDER_ID)
-      .then((userData: FacebookSession) =>
+      .then((userData:SocialUser) =>
         this.saveSession({
         id: userData.id,
         username: userData.name,
         email: userData.email,
         provider: LoginProvider.Facebook,
-        token: userData.token
+        token: userData.authToken
       })
     );
   }
