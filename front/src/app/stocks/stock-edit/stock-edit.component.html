@@ -1,12 +1,9 @@
-
-
 <div class="edit">
+  <app-input [options]="nameOptions" (onchange)="updateName($event)"></app-input>
   <div class="flex">
     <ul class="separator right flex-equal detail-list">
       <li>
-        <span class="title">Type</span>
-        <span class="link"></span>
-        <span class="value">{{ data.stock_type.name }}</span>
+        <app-select [options]="typeOptions" (onchange)="updateType($event)"></app-select>
       </li>
       <li>
         <span class="title">Balance</span>
@@ -17,9 +14,7 @@
 
     <ul class="flex-equal detail-list">
       <li>
-        <span class="title">Format</span>
-        <span class="link"></span>
-        <span class="value">{{ data.stock_format.name }}</span>
+        <app-select [options]="formatOptions" (onchange)="updateFormat($event)"></app-select>
       </li>
       <li>
         <span class="title">Format Unit</span>
@@ -34,7 +29,7 @@
     <button mat-raised-button color="warn" (click)="openDeleteValidation()" >Delete</button>
     <span class="flex-grow"></span>
     <button mat-button color="orange" matTooltip="This will move an item for the Bar">Pull for Bar</button>
-    <button mat-raised-button color="green">Update</button>
+    <button mat-raised-button color="green" (click)="update();">Update</button>
 
   </div>
 </div>

@@ -47,6 +47,11 @@ ul.detail-list {
       font-weight: bold;
     }
   }
+
+  app-select, app-input {
+    width: 100%;
+  }
+
 }
 
 .mat-raised-button[color=green] {

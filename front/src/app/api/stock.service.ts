@@ -31,7 +31,9 @@ export interface Stock {
   is_disabled:boolean;
   created_at:Date;
   updated_at:Date;
+  stock_type_id:number;
   stock_type:StockType;
+  stock_format_id:number;
   stock_format:StockFormat;
 }
 
@@ -42,7 +44,8 @@ export class StockService extends Api {
 
   private readonly endpoints = {
     stock: 'stock',
-    stockFormat: 'stock_format'
+    format: 'stock_format',
+    type: 'stock_type'
   };
 
   constructor(
@@ -58,6 +61,14 @@ export class StockService extends Api {
     });
   }
 
+  public update(stock:Stock):Observable<ApiResult<Stock>> {
+    return this.query<Stock>({
+      endpoint: this.endpoints.stock,
+      method: HttpMethod.PUT,
+      params: stock
+    });
+  }
+
   public delete(stockId:number):Observable<ApiResult<void>> {
     return this.query<void>({
       endpoint: `${this.endpoints.stock}/${stockId}`,
@@ -65,16 +76,16 @@ export class StockService extends Api {
     });
   }
 
-  public getStockFormats():Observable<ApiResult<StockFormat[]>> {
+  public getFormats():Observable<ApiResult<StockFormat[]>> {
     return this.query<StockFormat[]>({
-      endpoint: `${this.endpoints.stockFormat}`,
+      endpoint: `${this.endpoints.format}`,
       method: HttpMethod.GET
     });
   }
 
-  public getStockTypes():Observable<ApiResult<StockType[]>> {
+  public getTypes():Observable<ApiResult<StockType[]>> {
     return this.query<StockFormat[]>({
-      endpoint: `${this.endpoints.stockFormat}`,
+      endpoint: `${this.endpoints.type}`,
       method: HttpMethod.GET
     });
   }

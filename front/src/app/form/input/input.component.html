@@ -1,3 +1,9 @@
-<p>
-  input works!
-</p>
+<form [formGroup]="form" class="flex">
+  <div *ngIf="inputLabel" class="label flex">
+    <div>{{ inputLabel }}</div>
+    <span class="link"></span>
+  </div>
+  <mat-form-field>
+    <input matInput formControlName="input" (change)="submit();">
+  </mat-form-field>
+</form>

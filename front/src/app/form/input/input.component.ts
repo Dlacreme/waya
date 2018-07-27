@@ -1,4 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
+enum InputType {
+  Text = 'text',
+  Email = 'email',
+  Number = 'number'
+}
+
+export interface InputOptions {
+  label?:string;
+  placeholder:string;
+  default:string;
+  type?:InputType;
+}
 
 @Component({
   selector: 'app-input',
@@ -7,9 +21,38 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InputComponent implements OnInit {
 
+  public form:FormGroup;
+
+  public inputDefault:string;
+  public inputLabel?:string;
+  public inputPlaceholder:string;
+  public inputType:InputType;
+
   constructor() { }
 
+  @Output() onchange = new EventEmitter();
+
+  @Input()
+  set options(options:InputOptions) {
+    this.inputLabel = options.label;
+    this.inputPlaceholder = options.placeholder;
+    this.inputDefault = options.default;
+    this.inputType = options.type || InputType.Text;
+  }
+
   public ngOnInit():void {
+    this.form = new FormGroup({
+      input: new FormControl(
+        this.inputDefault,
+        [Validators.required]
+      )
+    });
+  }
+
+  public submit():void {
+    if (this.form.valid) {
+      this.onchange.emit(this.form.controls.input.value);
+    }
   }
 
 }

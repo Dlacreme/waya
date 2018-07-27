@@ -7,7 +7,7 @@ export interface SelectItem {
 }
 
 export interface SelectOptions {
-  label:string;
+  label?:string;
   placeholder:string;
   default?:any|undefined;
   items:SelectItem[];
@@ -23,7 +23,7 @@ export class SelectComponent implements OnInit {
   public form:FormGroup;
 
   public selectDefault:string;
-  public selectLabel:string;
+  public selectLabel?:string;
   public selectPlaceholder:string;
   public selectItems:SelectItem[];
 
