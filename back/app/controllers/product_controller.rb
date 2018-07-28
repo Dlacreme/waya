@@ -33,8 +33,8 @@ class ProductController < ApplicationController
     ps = param_update
     form = ProductForm.new(Product.new)
     process_form form, {:name => ps[:name], :desc => ps[:desc], :product_category_id => ps[:product_category_id]}
-    form.model.update_product_stocks(ps[:stocks])
-    form.model.update_price(ps[:product_price])
+    form.model.update_product_stocks(ps[:product_stocks])
+    form.model.update_price(ps[:product_prices].first)
     data Product
       .where(id: form.model.id)
       .as_json()
@@ -44,8 +44,8 @@ class ProductController < ApplicationController
   def update
     ps = param_update
     form = ProductForm.new(Product.find(params[:id]))
-    form.model.update_product_stocks(ps[:stocks])
-    form.model.update_price(ps[:product_price])
+    form.model.update_product_stocks(ps[:product_stocks])
+    form.model.update_price(ps[:product_prices].first)
     process_form form, {:name => ps[:name], :desc => ps[:desc], :product_category_id => ps[:product_category_id]}
 
     data load(form.model.id)
@@ -59,7 +59,7 @@ class ProductController < ApplicationController
 private
 
   def param_update
-    params.permit(:name, :desc, :product_category_id, product_price: [:price, :member_price, :start_date], stocks: [:product_stock_id, :stock_id, :quantity])
+    params.permit(:name, :desc, :product_category_id, product_prices: [:price, :member_price, :start_date], product_stocks: [:id, :stock_id, :quantity])
   end
 
   def load(stock_id)

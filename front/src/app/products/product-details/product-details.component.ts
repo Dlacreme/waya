@@ -60,11 +60,31 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       if (result) {
         this.deleteSub = this.productService.delete(this.product.id)
           .subscribe(() => {
-            this.matSnackBar.open(`${this.product.name} deleted. Redirected...`, 'clock', {duration: 5000})
+            this.matSnackBar.open(`${this.product.name} deleted. Redirected...`, 'close', {duration: 5000})
             this.router.navigate(['staff/products']);
           });
       }
     });
+  }
+
+  public updateName(name:string):void {
+    this.product.source.name = name;
+  }
+
+  public updateDesc(desc:string):void {
+    this.product.source.desc = desc;
+  }
+
+  public updateCategory(category:any):void {
+    this.product.source.product_category_id = category.value;
+  }
+
+  public update():void {
+    this.updateSub = this.productService.update(this.product.source)
+      .subscribe((res) => {
+        this.matSnackBar.open(`${this.product.name} updated. Redirected...`, 'close', {duration: 5000})
+        this.router.navigate(['staff/products']);
+      });
   }
 
   private loadProduct(productId:number):void {

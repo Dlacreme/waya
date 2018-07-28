@@ -3,7 +3,7 @@ class Product < ApplicationRecord
   has_many :product_prices
 
   has_many :order_products
-  has_many :orders, through: :order_products  
+  has_many :orders, through: :order_products
 
   has_many :product_stocks
   has_many :stocks, through: :product_stocks
@@ -31,8 +31,8 @@ class Product < ApplicationRecord
 
 private
   def get_existing_product_stock(item)
-    return nil unless item.key?("product_stock_id")
-    ProductStock.find_by_id(item[:product_stock_id])
+    return nil unless item.key?("id")
+    ProductStock.find_by_id(item[:id])
   end
 
 end

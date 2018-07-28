@@ -91,4 +91,12 @@ export class ProductService extends Api {
     });
   }
 
+  public update(product:ProductDto):Observable<ApiResult<ProductDto>> {
+    return this.query<ProductDto>({
+      endpoint: `${this.endpoints.product}/${product.id}`,
+      method: HttpMethod.PUT,
+      params: product
+    });
+  };
+
 }
