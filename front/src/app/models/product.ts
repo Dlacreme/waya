@@ -23,6 +23,8 @@ export class Product {
   price:Price;
   compos:Compo[];
   valid:boolean;
+  categoryId:number;
+  category:string;
 
   source:ProductDto;
 
@@ -35,6 +37,8 @@ export class Product {
     this.isDisabled = product.is_disabled;
     this.startDate = product.start_date;
     this.endDate = product.end_date;
+    this.categoryId = product.product_category.id;
+    this.category = product.product_category.name;
     this.price = product.product_prices.length > 0
     ? {
       base: product.product_prices[0].price,

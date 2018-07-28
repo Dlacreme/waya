@@ -12,7 +12,7 @@ export interface ProductStockDto {
   stock:StockDto;
 }
 
-interface ProductCategoryDto {
+export interface ProductCategoryDto {
   id:number;
   name:string;
   is_disabled:boolean;
@@ -22,7 +22,7 @@ interface ProductCategoryDto {
   parent?:ProductCategoryDto;
 }
 
-interface ProductPriceDto {
+export interface ProductPriceDto {
   id:number;
   start_date:Date;
   end_date:Date;
@@ -81,6 +81,13 @@ export class ProductService extends Api {
     return this.query<void>({
       endpoint: `${this.endpoints.product}/${productId}`,
       method: HttpMethod.DELETE
+    });
+  }
+
+  public getCategories():Observable<ApiResult<ProductCategoryDto[]>> {
+    return this.query<ProductCategoryDto[]>({
+      endpoint: `${this.endpoints.category}`,
+      method: HttpMethod.GET
     });
   }
 

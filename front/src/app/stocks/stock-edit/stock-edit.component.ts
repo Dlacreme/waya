@@ -147,7 +147,7 @@ export class StockEditComponent implements OnInit {
     });
   }
 
-  private insertItems<T, V>(array:SelectItem[], apiData:ApiItem[]):void {
+  private insertItems(array:SelectItem[], apiData:ApiItem[]):void {
     if (!apiData) {
       return;
     }

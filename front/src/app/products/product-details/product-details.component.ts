@@ -2,9 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../models/product';
-import { ProductService } from '../../api/product.service';
+import { ProductService, ProductCategoryDto } from '../../api/product.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
+import { InputOptions, InputType } from '../../form/input/input.component';
+import { SelectOptions, SelectItem } from '../../form/select/select.component';
+import { ApiItem } from '../../api/api';
 
 @Component({
   selector: 'app-product-details',
@@ -15,8 +18,15 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   public product:Product;
 
+  public nameOptions:InputOptions = {} as InputOptions;
+  public descOptions:InputOptions = {} as InputOptions;
+  public categoryOptions:SelectOptions = {} as SelectOptions;
+
+  public categories:ProductCategoryDto[] = [];
+
   private paramSub:Subscription = Subscription.EMPTY;
   private productSub:Subscription = Subscription.EMPTY;
+  private categorySub:Subscription = Subscription.EMPTY;
   private dialogSub:Subscription = Subscription.EMPTY;
   private updateSub:Subscription = Subscription.EMPTY;
   private deleteSub:Subscription = Subscription.EMPTY;
@@ -39,6 +49,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.dialogSub.unsubscribe();
     this.updateSub.unsubscribe();
     this.deleteSub.unsubscribe();
+    this.categorySub.unsubscribe();
   }
 
   public openDeleteValidation():void {
@@ -50,7 +61,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         this.deleteSub = this.productService.delete(this.product.id)
           .subscribe(() => {
             this.matSnackBar.open(`${this.product.name} deleted. Redirected...`, 'clock', {duration: 5000})
-            this.router.navigate(['staff/products'])
+            this.router.navigate(['staff/products']);
           });
       }
     });
@@ -62,7 +73,53 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         if (res.data) {
           this.product = new Product(res.data);
         }
+        this.initNameOptions();
+        this.initDescOptions();
+        this.initCategoryOptions();
       });
+  }
+
+  private initNameOptions():void {
+    this.nameOptions = {
+      placeholder: 'Name',
+      default: this.product.name
+    }
+  }
+
+  private initDescOptions():void {
+    this.descOptions = {
+      placeholder: "Description",
+      default: this.product.desc,
+      type: InputType.Textarea
+    };
+  }
+
+  private initCategoryOptions():void {
+    this.categoryOptions = {
+      placeholder: 'Category',
+      default: this.product.categoryId,
+      items: []
+    };
+
+    this.categorySub = this.productService.getCategories()
+      .subscribe((res) => {
+        if (res.data) {
+          this.categories = res.data;
+        }
+        this.insertItems(this.categoryOptions.items, res.data as ApiItem[]);
+      });
+  }
+
+  private insertItems(array:SelectItem[], apiData:ApiItem[]):void {
+    if (!apiData) {
+      return;
+    }
+    apiData.forEach((item) => {
+      array.push({
+        value: item.id,
+        text: item.name
+      });
+    });
   }
 
 }

@@ -9,4 +9,10 @@
     </div>
   </div>
 
+  <div class="flex">
+    <app-input class="name-input" [options]="nameOptions" (onchange)="updateName($event)"></app-input>
+    <app-select class="category-input" [options]="categoryOptions" (onchange)="updateFormat($event)"></app-select>
+    <app-input [options]="descOptions" (onchange)="updateDesc($event)"></app-input>
+  </div>
+
 </div>

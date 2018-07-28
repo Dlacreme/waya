@@ -3,7 +3,7 @@ class ProductController < ApplicationController
   def index
     data Product
       .where(is_disabled: false)
-      .includes([:product_prices, :stocks => [:stock_format, :stock_type]])
+      .includes([:product_category, :product_prices, :stocks => [:stock_format, :stock_type]])
       .where('product_prices.end_date IS null || product_prices.end_date > NOW()').references(:product_prices)
       .as_json(include: {
         :product_stocks => {
@@ -20,9 +20,8 @@ class ProductController < ApplicationController
             },
           ]
         },
-        :product_prices => {
-
-        }
+        :product_category => {},
+        :product_prices => {}
       })
   end
 
@@ -66,21 +65,26 @@ private
   def load(stock_id)
     Product
     .where(id: stock_id)
-    .includes([:product_prices, :stocks => [:stock_format, :stock_type]])
+    .includes([:product_category, :product_prices, :stocks => [:stock_format, :stock_type]])
     .where('product_prices.end_date IS null || product_prices.end_date > NOW()').references(:product_prices)
-    .first().as_json(include: {
-      :stocks => {
+    .first()
+    .as_json(include: {
+      :product_stocks => {
         include: [
-          :stock_type,
-          :stock_format => {
+          :stock => {
             include: [
-              :stock_unit
+              :stock_type,
+              :stock_format => {
+                include: [
+                  :stock_unit
+                ]
+              },
             ]
           },
-        ]},
-      :product_prices => {
-
-      }
+        ]
+      },
+      :product_category => {},
+      :product_prices => {}
     })
   end
 
