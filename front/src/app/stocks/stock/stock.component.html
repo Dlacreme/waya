@@ -40,7 +40,7 @@
 
   <app-stock-edit [stock]="data" (afterupdate)="afterUpdate($event)" *ngIf="isEditable"></app-stock-edit>
 
-  <div class="edit-button">
+  <div class="edit-button" *ngIf="canEdit">
     Edit mode <mat-slide-toggle [checked]="isEditable" (change)="switchEdit($event.checked)"></mat-slide-toggle>
   </div>
 </div>

@@ -20,7 +20,7 @@
           {{ stock.balance * stock.size }} {{ stock.stock_format.stock_unit.name }} ({{ stock.balance }} x {{ stock.size }} {{ stock.stock_format.stock_unit.name }})
         </span>
       </mat-expansion-panel-header>
-      <app-stock [stock]="stock"></app-stock>
+      <app-stock [stock]="stock" editable="true"></app-stock>
     </mat-expansion-panel>
   </mat-accordion>
 

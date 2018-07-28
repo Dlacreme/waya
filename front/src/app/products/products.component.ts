@@ -24,7 +24,7 @@ export class ProductsComponent implements OnInit {
   }
 
   public ngOnDestroy():void {
-  this.productSub.unsubscribe();
+    this.productSub.unsubscribe();
   }
 
 }

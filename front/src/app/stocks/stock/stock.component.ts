@@ -10,11 +10,17 @@ import { MatSnackBar } from '@angular/material';
 export class StockComponent {
 
   public data:StockDto;
+  public canEdit = false;
   public isEditable = false;
 
   @Input()
   set stock(stock:StockDto) {
     this.data = stock;
+  }
+
+  @Input()
+  set editable(canEdit:boolean) {
+    this.canEdit = canEdit;
   }
 
   constructor(

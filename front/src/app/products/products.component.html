@@ -8,5 +8,9 @@
     </div>
   </div>
 
+  <div *ngFor="let product of products">
+    <app-product [product]="product" editable="true"></app-product>
+  </div>
+
 
 </div>

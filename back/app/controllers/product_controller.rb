@@ -6,15 +6,20 @@ class ProductController < ApplicationController
       .includes([:product_prices, :stocks => [:stock_format, :stock_type]])
       .where('product_prices.end_date IS null || product_prices.end_date > NOW()').references(:product_prices)
       .as_json(include: {
-        :stocks => {
+        :product_stocks => {
           include: [
-            :stock_type,
-            :stock_format => {
+            :stock => {
               include: [
-                :stock_unit
+                :stock_type,
+                :stock_format => {
+                  include: [
+                    :stock_unit
+                  ]
+                },
               ]
             },
-          ]},
+          ]
+        },
         :product_prices => {
 
         }
