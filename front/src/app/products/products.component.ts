@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../api/product.service';
-import { Product } from '../models/product';
+import { ProductService, ProductDto } from '../api/product.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -10,7 +9,7 @@ import { Subscription } from 'rxjs';
 })
 export class ProductsComponent implements OnInit {
 
-  public products:Product[] = [];
+  public products:ProductDto[] = [];
 
   private productSub:Subscription = Subscription.EMPTY;
 

@@ -16,6 +16,7 @@ export class ProductComponent implements OnInit {
   @Input()
   set product(product:ProductDto) {
     this.data = new Product(product);
+    console.log(this.data);
   }
 
   @Input()

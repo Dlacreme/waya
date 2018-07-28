@@ -4,6 +4,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StockDto } from './stock.service';
 
+export interface ProductStockDto {
+  id:number;
+  quantity:number;
+  updated_at:Date;
+  created_at:Date;
+  stock:StockDto;
+}
+
 interface ProductCategoryDto {
   id:number;
   name:string;
@@ -12,6 +20,16 @@ interface ProductCategoryDto {
   created_at:Date;
   parent_id:number;
   parent?:ProductCategoryDto;
+}
+
+interface ProductPriceDto {
+  id:number;
+  start_date:Date;
+  end_date:Date;
+  created_at:Date;
+  updated_at:Date;
+  price:number;
+  member_price:number;
 }
 
 export interface ProductDto {
@@ -25,7 +43,8 @@ export interface ProductDto {
   updated_at:Date;
   product_category_id:number;
   product_category:ProductCategoryDto;
-  stocks:StockDto[];
+  product_stocks:ProductStockDto[];
+  product_prices:ProductPriceDto[];
 }
 
 @Injectable({
