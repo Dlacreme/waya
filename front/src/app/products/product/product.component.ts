@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ProductDto } from '../../api/product.service';
 import { Product } from '../../models/product';
 import { MatDialog } from '@angular/material';
-import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
+import { CompoComponent } from '../compo/compo.component';
 
 @Component({
   selector: 'app-product',
@@ -39,12 +39,10 @@ export class ProductComponent implements OnInit {
   }
 
   public showCompo():void {
-    const dialog = this.dialog.open(ValidationDialogComponent, {
-      data: `Do you want to delete ${this.data.name}?`
+    const dialog = this.dialog.open(CompoComponent, {
+      data: this.data
     });
-    dialog.afterClosed().subscribe((result) => {
-      console.log('wow');
-    });
+    const dialogSub = dialog.afterClosed().subscribe(() => dialogSub.unsubscribe());
   }
 
 }

@@ -50,6 +50,7 @@ import { PickerComponent } from './form/picker/picker.component';
 import { SelectComponent } from './form/select/select.component';
 import { ValidationDialogComponent } from './form/validation-dialog/validation-dialog.component';
 import { StockEditComponent } from './stocks/stock-edit/stock-edit.component';
+import { CompoComponent } from './products/compo/compo.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { StockEditComponent } from './stocks/stock-edit/stock-edit.component';
     PickerComponent,
     SelectComponent,
     ValidationDialogComponent,
-    StockEditComponent
+    StockEditComponent,
+    CompoComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +103,8 @@ import { StockEditComponent } from './stocks/stock-edit/stock-edit.component';
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
   ],
   entryComponents: [
-    ValidationDialogComponent
+    ValidationDialogComponent,
+    CompoComponent
   ],
   bootstrap: [AppComponent]
 })
