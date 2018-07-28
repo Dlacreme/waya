@@ -63,10 +63,24 @@ export class ProductService extends Api {
     super(httpClient);
   }
 
+  public get(productId:number):Observable<ApiResult<ProductDto>> {
+    return this.query<ProductDto>({
+      endpoint: `${this.endpoints.product}/${productId}`,
+      method: HttpMethod.GET
+    })
+  }
+
   public list():Observable<ApiResult<ProductDto[]>> {
     return this.query<ProductDto[]>({
       endpoint: this.endpoints.product,
       method: HttpMethod.GET
+    });
+  }
+
+  public delete(productId:number):Observable<ApiResult<void>> {
+    return this.query<void>({
+      endpoint: `${this.endpoints.product}/${productId}`,
+      method: HttpMethod.DELETE
     });
   }
 

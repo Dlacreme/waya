@@ -1,0 +1,13 @@
+<div class="compo">
+  <h4>{{ data.name }}</h4>
+  <div *ngFor="let compo of data.compos">
+    <span class="quantity">{{ compo.quantity }} {{ compo.stock.stock_format.stock_unit.name }}</span>
+    &nbsp;
+    <span class="stock-name">{{ compo.stock.name }} ({{compo.stock.stock_type.name}})</span>
+  </div>
+</div>
+
+<div class="flex">
+  <div class="flex-grow"></div>
+  <button mat-button color="warn" (click)="close()">Close</button>
+</div>

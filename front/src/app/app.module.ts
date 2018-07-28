@@ -51,6 +51,8 @@ import { SelectComponent } from './form/select/select.component';
 import { ValidationDialogComponent } from './form/validation-dialog/validation-dialog.component';
 import { StockEditComponent } from './stocks/stock-edit/stock-edit.component';
 import { CompoComponent } from './products/compo/compo.component';
+import { ProductDetailsComponent } from './products/product-details/product-details.component';
+import { LoaderComponent } from './app/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,9 @@ import { CompoComponent } from './products/compo/compo.component';
     SelectComponent,
     ValidationDialogComponent,
     StockEditComponent,
-    CompoComponent
+    CompoComponent,
+    ProductDetailsComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

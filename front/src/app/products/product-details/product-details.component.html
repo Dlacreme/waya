@@ -1,0 +1,12 @@
+<app-loader *ngIf="product === undefined"></app-loader>
+<div *ngIf="product">
+
+  <div class="module-title">
+    <h1>{{product.name}}</h1>
+    <div class="mid"></div>
+    <div class="actions">
+      <button mat-button (click)="openDeleteValidation()" ><mat-icon>delete</mat-icon></button>
+    </div>
+  </div>
+
+</div>
