@@ -19,7 +19,8 @@ import {
   MatMenuModule,
   MatTooltipModule,
   MatSidenavModule,
-  MatDialogModule
+  MatDialogModule,
+  MatCardModule
 } from '@angular/material';
 
 // Core
@@ -100,7 +101,8 @@ import { LoaderComponent } from './app/loader/loader.component';
     MatMenuModule,
     MatDialogModule,
     MatTooltipModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatCardModule
   ],
   providers: [
     SessionService,

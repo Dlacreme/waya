@@ -9,14 +9,44 @@
     </div>
   </div>
 
+  <mat-card>
+    <h3>Information</h3>
+    <div class="flex">
+      <app-input class="name-input" [options]="nameOptions" (onchange)="updateName($event)"></app-input>
+      <app-select class="category-input" [options]="categoryOptions" (onchange)="updateCategory($event)"></app-select>
+      <app-input [options]="descOptions" (onchange)="updateDesc($event)"></app-input>
+    </div>
+  </mat-card>
+
   <div class="flex">
-    <app-input class="name-input" [options]="nameOptions" (onchange)="updateName($event)"></app-input>
-    <app-select class="category-input" [options]="categoryOptions" (onchange)="updateCategory($event)"></app-select>
-    <app-input [options]="descOptions" (onchange)="updateDesc($event)"></app-input>
+    <mat-card class="compo card">
+      <h3>Compo</h3>
+    </mat-card>
+
+    <mat-card class="price card">
+      <h3>Price</h3>
+      <div class="flex">
+        <div class="price-list separator right">
+          <h6>Base Price</h6>
+          <div>
+            {{ product.price.base }}
+            <app-input [options]="basePriceOptions" (onchange)="updateBasePrice($event)"></app-input>
+          </div>
+        </div>
+        <div class="price-list">
+          <h6>Members Price</h6>
+          <div>
+            {{ product.price.member }}
+            <app-input [options]="memberPriceOptions" (onchange)="updateMemberPrice($event)"></app-input>
+          </div>
+        </div>
+      </div>
+    </mat-card>
   </div>
 
   <div class="actions">
     <button mat-raised-button color="green" (click)="update();">Update</button>
+    <p class="info">Your changes won't be saved if you don't use `Update`</p>
   </div>
 
 </div>

@@ -21,6 +21,8 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   public nameOptions:InputOptions = {} as InputOptions;
   public descOptions:InputOptions = {} as InputOptions;
   public categoryOptions:SelectOptions = {} as SelectOptions;
+  public basePriceOptions:InputOptions = {} as InputOptions;
+  public memberPriceOptions:InputOptions = {} as InputOptions;
 
   public categories:ProductCategoryDto[] = [];
 
@@ -30,6 +32,9 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   private dialogSub:Subscription = Subscription.EMPTY;
   private updateSub:Subscription = Subscription.EMPTY;
   private deleteSub:Subscription = Subscription.EMPTY;
+
+  private tmpBasePrice:number;
+  private tmpMemberPrice:number;
 
   constructor(
     private route:ActivatedRoute,
@@ -79,6 +84,14 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     this.product.source.product_category_id = category.value;
   }
 
+  public updateBasePrice(value:any):void {
+    this.tmpBasePrice = value;
+  }
+
+  public updateMemberPrice(value:any):void {
+    this.tmpMemberPrice = value;
+  }
+
   public update():void {
     this.updateSub = this.productService.update(this.product.source)
       .subscribe((res) => {
@@ -93,9 +106,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         if (res.data) {
           this.product = new Product(res.data);
         }
+        console.log('PRODUCT > ', this.product);
         this.initNameOptions();
         this.initDescOptions();
         this.initCategoryOptions();
+        this.initPricePicker();
       });
   }
 
@@ -128,6 +143,19 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
         }
         this.insertItems(this.categoryOptions.items, res.data as ApiItem[]);
       });
+  }
+
+  private initPricePicker():void {
+    this.basePriceOptions = {
+      placeholder: 'Base Price',
+      default: this.product.price.base,
+      type: InputType.Number
+    };
+    this.memberPriceOptions = {
+      placeholder: 'Member Price',
+      default: this.product.price.member,
+      type: InputType.Number
+    }
   }
 
   private insertItems(array:SelectItem[], apiData:ApiItem[]):void {
