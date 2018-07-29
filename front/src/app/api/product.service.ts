@@ -5,11 +5,12 @@ import { Observable } from 'rxjs';
 import { StockDto } from './stock.service';
 
 export interface ProductStockDto {
-  id:number;
+  id?:number;
   quantity:number;
-  updated_at:Date;
-  created_at:Date;
-  stock:StockDto;
+  updated_at?:Date;
+  created_at?:Date;
+  stock?:StockDto;
+  stock_id?:number;
 }
 
 export interface ProductCategoryDto {

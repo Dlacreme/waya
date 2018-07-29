@@ -92,6 +92,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   }
 
   public update():void {
+    console.log('UPDATE > ', this.product);
     this.updateSub = this.productService.update(this.product.source)
       .subscribe((res) => {
         this.matSnackBar.open(`${this.product.name} updated. Redirected...`, 'close', {duration: 5000})

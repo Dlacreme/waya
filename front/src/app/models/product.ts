@@ -50,9 +50,9 @@ export class Product {
     this.compos = [];
     product.product_stocks.forEach((productStock:ProductStockDto) => {
       this.compos.push({
-        id: productStock.id,
+        id: productStock.id as number,
         quantity: productStock.quantity,
-        stock: productStock.stock
+        stock: productStock.stock as StockDto,
       });
     });
 
@@ -76,7 +76,22 @@ export class Product {
   }
 
   public updateCompo(compos:Compo[]):void {
-    console.log('UPDATE WITH ', compos);
+
+
+    console.log(compos);
+
+    this.compos = compos;
+    const sourceCompo:ProductStockDto[] = [];
+
+    compos.forEach((compo) => {
+      sourceCompo.push({
+        id: compo.id || undefined,
+        quantity: compo.quantity,
+        stock_id: compo.stock.id
+      });
+    });
+    this.source.product_stocks = sourceCompo;
+    console.log(this);
   }
 
 }

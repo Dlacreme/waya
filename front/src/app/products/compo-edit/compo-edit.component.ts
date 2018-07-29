@@ -76,6 +76,7 @@ export class CompoEditComponent implements OnInit, OnDestroy {
     const compoIndex = this.data.findIndex((item) => item.id === compo.id);
     if (compoIndex != -1) {
       this.data.splice(compoIndex, 1);
+      this.submit();
     }
   }
 
