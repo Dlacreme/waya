@@ -44,6 +44,7 @@ import { StocksComponent } from './stocks/stocks.component';
 import { StockComponent } from './stocks/stock/stock.component';
 import { ProductsComponent } from './products/products.component';
 import { ProductComponent } from './products/product/product.component';
+import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { ModuleFooterComponent } from './private/module-footer/module-footer.component';
 import { ModuleTitleComponent } from './private/module-title/module-title.component';
 import { InputComponent } from './form/input/input.component';
@@ -52,7 +53,6 @@ import { SelectComponent } from './form/select/select.component';
 import { ValidationDialogComponent } from './form/validation-dialog/validation-dialog.component';
 import { StockEditComponent } from './stocks/stock-edit/stock-edit.component';
 import { CompoComponent } from './products/compo/compo.component';
-import { ProductDetailsComponent } from './products/product-details/product-details.component';
 import { LoaderComponent } from './app/loader/loader.component';
 
 @NgModule({
@@ -76,8 +76,8 @@ import { LoaderComponent } from './app/loader/loader.component';
     ValidationDialogComponent,
     StockEditComponent,
     CompoComponent,
-    ProductDetailsComponent,
-    LoaderComponent
+    LoaderComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,

@@ -23,11 +23,11 @@ export interface ProductCategoryDto {
 }
 
 export interface ProductPriceDto {
-  id:number;
-  start_date:Date;
-  end_date:Date;
-  created_at:Date;
-  updated_at:Date;
+  id?:number;
+  start_date?:Date;
+  end_date?:Date;
+  created_at?:Date;
+  updated_at?:Date;
   price:number;
   member_price:number;
 }

@@ -1,4 +1,4 @@
-import { ProductDto, ProductStockDto } from "../api/product.service";
+import { ProductDto, ProductStockDto, ProductPriceDto } from "../api/product.service";
 import { StockDto } from "../api/stock.service";
 
 class Compo {
@@ -65,6 +65,14 @@ export class Product {
       && this.price.base !== -1
       && this.price.member !== -1
     );
+  }
+
+  public updatePrice(price:Price):void {
+    this.price = price;
+    this.source.product_prices = [{
+      member_price: this.price.member,
+      price: this.price.base
+    }];
   }
 
 }

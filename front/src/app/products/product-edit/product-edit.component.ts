@@ -10,11 +10,11 @@ import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { ApiItem } from '../../api/api';
 
 @Component({
-  selector: 'app-product-details',
-  templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss']
+  selector: 'app-product-edit',
+  templateUrl: './product-edit.component.html',
+  styleUrls: ['./product-edit.component.scss']
 })
-export class ProductDetailsComponent implements OnInit, OnDestroy {
+export class ProductEditComponent implements OnInit {
 
   public product:Product;
 
@@ -90,6 +90,15 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
 
   public updateMemberPrice(value:any):void {
     this.tmpMemberPrice = value;
+  }
+
+  public updatePrice():void {
+    if (this.tmpBasePrice && this.tmpMemberPrice) {
+      this.product.updatePrice({
+        member: this.tmpMemberPrice,
+        base: this.tmpBasePrice
+      });
+    }
   }
 
   public update():void {

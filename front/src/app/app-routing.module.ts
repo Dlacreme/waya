@@ -8,7 +8,7 @@ import { PrivateComponent } from './private/private.component';
 import { ProductsComponent } from './products/products.component';
 import { OrdersComponent } from './orders/orders.component';
 import { StocksComponent } from './stocks/stocks.component';
-import { ProductDetailsComponent } from './products/product-details/product-details.component';
+import { ProductEditComponent } from './products/product-edit/product-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,7 +19,7 @@ const routes: Routes = [
     { path: 'orders', component: OrdersComponent },
     { path: 'products', component: ProductsComponent},
     { path: 'stocks', component: StocksComponent },
-    { path: 'product/:id', component: ProductDetailsComponent }
+    { path: 'product/:id', component: ProductEditComponent }
   ]}
 ];
 
