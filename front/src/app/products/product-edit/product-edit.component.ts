@@ -8,6 +8,7 @@ import { ValidationDialogComponent } from '../../form/validation-dialog/validati
 import { InputOptions, InputType } from '../../form/input/input.component';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { ApiItem } from '../../api/api';
+import { StockService, StockDto } from '../../api/stock.service';
 
 @Component({
   selector: 'app-product-edit',
@@ -25,6 +26,7 @@ export class ProductEditComponent implements OnInit {
   public memberPriceOptions:InputOptions = {} as InputOptions;
 
   public categories:ProductCategoryDto[] = [];
+  public stocksList:SelectItem[] = [];
 
   private paramSub:Subscription = Subscription.EMPTY;
   private productSub:Subscription = Subscription.EMPTY;
@@ -32,6 +34,7 @@ export class ProductEditComponent implements OnInit {
   private dialogSub:Subscription = Subscription.EMPTY;
   private updateSub:Subscription = Subscription.EMPTY;
   private deleteSub:Subscription = Subscription.EMPTY;
+  private stockSub:Subscription = Subscription.EMPTY;
 
   private tmpBasePrice:number;
   private tmpMemberPrice:number;
@@ -41,11 +44,23 @@ export class ProductEditComponent implements OnInit {
     private router:Router,
     private productService:ProductService,
     public dialog:MatDialog,
-    private matSnackBar:MatSnackBar
+    private matSnackBar:MatSnackBar,
+    private stockService:StockService
   ) { }
 
   public ngOnInit():void {
     this.paramSub = this.route.params.subscribe((p) => this.loadProduct(p.id));
+    this.stockSub = this.stockService.list()
+      .subscribe((res) => {
+        if (res.data) {
+          res.data.forEach((stock:StockDto) => {
+            this.stocksList.push({
+              value: stock.id,
+              text: `${stock.name} - ${stock.stock_type.name} (${stock.stock_format.name} ${stock.size} ${stock.stock_format.stock_unit.name})`
+            })
+          })
+        }
+      });
   }
 
   public ngOnDestroy():void {
@@ -55,6 +70,7 @@ export class ProductEditComponent implements OnInit {
     this.updateSub.unsubscribe();
     this.deleteSub.unsubscribe();
     this.categorySub.unsubscribe();
+    this.stockSub.unsubscribe();
   }
 
   public openDeleteValidation():void {
