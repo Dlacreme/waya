@@ -1,13 +1,13 @@
 import { ProductDto, ProductStockDto, ProductPriceDto } from "../api/product.service";
 import { StockDto } from "../api/stock.service";
 
-class Compo {
+export interface Compo {
   id:number;
   quantity:number;
   stock:StockDto;
 }
 
-class Price {
+export interface Price {
   base:number;
   member:number;
 }
@@ -73,6 +73,10 @@ export class Product {
       member_price: this.price.member,
       price: this.price.base
     }];
+  }
+
+  public updateCompo(compos:Compo[]):void {
+    console.log('UPDATE WITH ', compos);
   }
 
 }

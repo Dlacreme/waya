@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from '../../models/product';
+import { Product, Price, Compo } from '../../models/product';
 import { ProductService, ProductCategoryDto } from '../../api/product.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
@@ -15,7 +15,7 @@ import { StockService, StockDto } from '../../api/stock.service';
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.scss']
 })
-export class ProductEditComponent implements OnInit {
+export class ProductEditComponent implements OnInit, OnDestroy {
 
   public product:Product;
 
@@ -24,6 +24,8 @@ export class ProductEditComponent implements OnInit {
   public categoryOptions:SelectOptions = {} as SelectOptions;
   public basePriceOptions:InputOptions = {} as InputOptions;
   public memberPriceOptions:InputOptions = {} as InputOptions;
+  public compoListOptions:SelectOptions = {} as SelectOptions;
+  public compoQuantityOptions:InputOptions = {} as InputOptions;
 
   public categories:ProductCategoryDto[] = [];
   public stocksList:SelectItem[] = [];
@@ -36,8 +38,9 @@ export class ProductEditComponent implements OnInit {
   private deleteSub:Subscription = Subscription.EMPTY;
   private stockSub:Subscription = Subscription.EMPTY;
 
-  private tmpBasePrice:number;
-  private tmpMemberPrice:number;
+  private tmpPrice:Price = {} as Price;
+  private tmpCompos:Compo[] = [];
+  private tmpCompo:Compo = {} as Compo;
 
   constructor(
     private route:ActivatedRoute,
@@ -100,21 +103,41 @@ export class ProductEditComponent implements OnInit {
     this.product.source.product_category_id = category.value;
   }
 
+  public deleteCompo(compoItem:any):void {
+    const compoIndex = this.tmpCompos.findIndex((item) => item.id === compoItem.id);
+    if (compoIndex != -1) {
+      this.tmpCompos.splice(compoIndex, 1);
+    }
+    console.log(this.tmpCompos);
+  }
+
+  public updateCompoStock(value:any):void {
+    this.tmpCompo.stock = value;
+  }
+
+  public updateCompoQuantity(value:any):void {
+    this.tmpCompo.quantity = value;
+  }
+
+  public addCompo():void {
+    console.log('wtf');
+    this.tmpCompos.push(this.tmpCompo);
+  }
+
+  public updateCompo():void {
+    this.product.updateCompo(this.tmpCompos);
+  }
+
   public updateBasePrice(value:any):void {
-    this.tmpBasePrice = value;
+    this.tmpPrice.base = value;
   }
 
   public updateMemberPrice(value:any):void {
-    this.tmpMemberPrice = value;
+    this.tmpPrice.member = value;
   }
 
   public updatePrice():void {
-    if (this.tmpBasePrice && this.tmpMemberPrice) {
-      this.product.updatePrice({
-        member: this.tmpMemberPrice,
-        base: this.tmpBasePrice
-      });
-    }
+    this.product.updatePrice(this.tmpPrice);
   }
 
   public update():void {
@@ -130,12 +153,16 @@ export class ProductEditComponent implements OnInit {
       .subscribe((res) => {
         if (res.data) {
           this.product = new Product(res.data);
+          this.tmpPrice = JSON.parse(JSON.stringify(this.product.price));
+          this.tmpCompos = JSON.parse(JSON.stringify(this.product.compos));
         }
         console.log('PRODUCT > ', this.product);
         this.initNameOptions();
         this.initDescOptions();
         this.initCategoryOptions();
         this.initPricePicker();
+        this.initCompoList();
+        this.initCompoQuantity();
       });
   }
 
@@ -168,6 +195,22 @@ export class ProductEditComponent implements OnInit {
         }
         this.insertItems(this.categoryOptions.items, res.data as ApiItem[]);
       });
+  }
+
+  private initCompoList():void {
+    this.compoListOptions = {
+      placeholder: 'Stock',
+      default: '',
+      items: this.stocksList
+    };
+  }
+
+  private initCompoQuantity():void {
+    this.compoQuantityOptions = {
+      placeholder: 'Quantity',
+      default: '',
+      type: InputType.Number
+    };
   }
 
   private initPricePicker():void {

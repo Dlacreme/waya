@@ -1,3 +1,5 @@
+@import '../../../sass/variables';
+
 .name-input, .category-input {
   flex-basis: 0;
   margin-right: 30px;
@@ -23,6 +25,24 @@ h3 {
 
 .info {
   margin-top: 10px;
+}
+
+.compo-list {
+
+  .compo-item {
+    line-height: 40px;
+  }
+
+  .delete-compo {
+    float: right;
+    color: $yana-red;
+  }
+}
+
+.add-compo-icon {
+  color: $green-color;
+  height: 40px;
+  margin-top: 5px;
 }
 
 .price-list {
