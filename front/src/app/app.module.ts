@@ -54,6 +54,8 @@ import { ValidationDialogComponent } from './form/validation-dialog/validation-d
 import { StockEditComponent } from './stocks/stock-edit/stock-edit.component';
 import { CompoComponent } from './products/compo/compo.component';
 import { LoaderComponent } from './app/loader/loader.component';
+import { PriceEditComponent } from './products/price-edit/price-edit.component';
+import { CompoEditComponent } from './products/compo-edit/compo-edit.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +79,9 @@ import { LoaderComponent } from './app/loader/loader.component';
     StockEditComponent,
     CompoComponent,
     LoaderComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    PriceEditComponent,
+    CompoEditComponent
   ],
   imports: [
     BrowserModule,

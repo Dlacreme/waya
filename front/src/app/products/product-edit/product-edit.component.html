@@ -21,7 +21,8 @@
   <div class="flex">
     <mat-card class="compo card">
       <h3>Compo</h3>
-      <div class="compo-list">
+      <app-compo-edit [compo]="product.compos" (onchange)="updateCompo($event )"></app-compo-edit>
+      <!-- <div class="compo-list">
         <div class="compo-item flex" *ngFor="let compo of tmpCompos">
           <div>
           {{ compo.quantity }} {{ compo.stock.stock_format.stock_unit.name }}
@@ -42,38 +43,20 @@
       <div class="actions">
         <button mat-raised-button color="green" (click)="updateCompo();">Set Compo</button>
         <p class="info">You still need to use `update` to save your changes</p>
-      </div>
+      </div> -->
     </mat-card>
 
     <mat-card class="price card">
       <h3>Price</h3>
-      <div class="flex">
-        <div class="price-list separator right">
-          <h6>Base Price</h6>
-          <div>
-            {{ product.price.base }}
-            <app-input [options]="basePriceOptions" (onchange)="updateBasePrice($event)"></app-input>
-          </div>
-        </div>
-        <div class="price-list">
-          <h6>Members Price</h6>
-          <div>
-            {{ product.price.member }}
-            <app-input [options]="memberPriceOptions" (onchange)="updateMemberPrice($event)"></app-input>
-          </div>
-        </div>
-      </div>
-
-      <div class="actions">
-        <button mat-raised-button color="green" (click)="updatePrice();">Set Price</button>
-        <p class="info">You still need to use `update` to save your changes</p>
-      </div>
+      <app-price-edit [price]="product.price" (onchange)="updatePrice($event)"></app-price-edit>
     </mat-card>
   </div>
 
-  <div class="actions">
-    <button mat-raised-button color="green" (click)="update();">Update</button>
-    <p class="info">Your changes won't be saved if you don't use `Update`</p>
+  <div class="actions update-action">
+    <div class="flex-grow"></div>
+    <div class="flex">
+      <p class="info">Your changes won't be saved unless you use this action =></p><button mat-raised-button color="green" (click)="update();">Update</button>
+    </div>
   </div>
 
 </div>
