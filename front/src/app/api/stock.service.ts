@@ -54,6 +54,13 @@ export class StockService extends Api {
     super(httpClient);
   }
 
+  public get(id:number):Observable<ApiResult<StockDto>> {
+    return this.query<StockDto>({
+      endpoint: `${this.endpoints.stock}/${id}`,
+      method: HttpMethod.GET
+    });
+  }
+
   public list():Observable<ApiResult<StockDto[]>> {
     return this.query<StockDto[]>({
       endpoint: this.endpoints.stock,
