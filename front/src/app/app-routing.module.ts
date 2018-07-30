@@ -9,6 +9,7 @@ import { ProductsComponent } from './products/products.component';
 import { OrdersComponent } from './orders/orders.component';
 import { StocksComponent } from './stocks/stocks.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
+import { StockImportComponent } from './stocks/stock-import/stock-import.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
     { path: 'orders', component: OrdersComponent },
     { path: 'products', component: ProductsComponent},
     { path: 'stocks', component: StocksComponent },
+    { path: 'import', component: StockImportComponent },
     { path: 'product/:id', component: ProductEditComponent }
   ]}
 ];

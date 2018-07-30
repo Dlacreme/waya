@@ -56,6 +56,7 @@ import { CompoComponent } from './products/compo/compo.component';
 import { LoaderComponent } from './app/loader/loader.component';
 import { PriceEditComponent } from './products/price-edit/price-edit.component';
 import { CompoEditComponent } from './products/compo-edit/compo-edit.component';
+import { StockImportComponent } from './stocks/stock-import/stock-import.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { CompoEditComponent } from './products/compo-edit/compo-edit.component';
     LoaderComponent,
     ProductEditComponent,
     PriceEditComponent,
-    CompoEditComponent
+    CompoEditComponent,
+    StockImportComponent
   ],
   imports: [
     BrowserModule,

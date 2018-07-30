@@ -27,7 +27,6 @@ export class StockEditComponent implements OnInit {
   public formats:StockFormatDto[] = [];
   public types:StockTypeDto[] = [];
 
-
   private dialogSub:Subscription = Subscription.EMPTY;
   private updateSub:Subscription = Subscription.EMPTY;
   private deleteSub:Subscription = Subscription.EMPTY;
