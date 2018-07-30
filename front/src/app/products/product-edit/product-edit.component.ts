@@ -32,8 +32,6 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   private dialogSub:Subscription = Subscription.EMPTY;
   private updateSub:Subscription = Subscription.EMPTY;
   private deleteSub:Subscription = Subscription.EMPTY;
-  private tmpCompos:Compo[] = [];
-  private tmpCompo:Compo = {} as Compo;
 
   constructor(
     private route:ActivatedRoute,
@@ -92,7 +90,6 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   }
 
   public update():void {
-    console.log('UPDATE > ', this.product);
     this.updateSub = this.productService.update(this.product.source)
       .subscribe((res) => {
         this.matSnackBar.open(`${this.product.name} updated. Redirected...`, 'close', {duration: 5000})
@@ -105,7 +102,6 @@ export class ProductEditComponent implements OnInit, OnDestroy {
       .subscribe((res) => {
         if (res.data) {
           this.product = new Product(res.data);
-          this.tmpCompos = JSON.parse(JSON.stringify(this.product.compos));
         }
         console.log('PRODUCT > ', this.product);
         this.initInputs();

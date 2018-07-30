@@ -1,0 +1,33 @@
+<div id="import">
+
+  <div class="module-title">
+    <h1>Import Stock</h1>
+    <div class="mid"></div>
+    <div class="actions">
+      <button mat-button><mat-icon>cloud_upload</mat-icon> Import from CSV file</button>
+    </div>
+  </div>
+
+  <mat-card class="stock-list">
+    dqwdw
+  </mat-card>
+
+  <div class="add-block">
+    <h4>Add Manually</h4>
+
+    <div class="inputs flex">
+      <app-input [options]="nameOptions" (onchange)="updateName($event)"></app-input>
+      <app-input [options]="descOptions" (onchange)="updateDesc($event)"></app-input>
+      <app-input [options]="balanceOptions" (onchange)="updateBalance($event)"></app-input>
+      <app-select [options]="typeOptions" (onchange)="updateType($event)"></app-select>
+      <app-input [options]="sizeOptions" (onchange)="updateSize($event)"></app-input>
+      <app-select [options]="formatOptions" (onchange)="updateFormat($event)"></app-select>
+      <button mat-button><mat-icon>add</mat-icon></button>
+    </div>
+
+    <h4>OR Pick an existing item</h4>
+
+
+
+  </div>
+</div>

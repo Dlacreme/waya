@@ -1,0 +1,17 @@
+h4 {
+  margin: 20px;
+}
+
+.inputs {
+
+  app-input, app-select {
+    flex-basis: 0;
+    flex-grow: 1;
+    margin: 0 10px;
+  }
+
+  .mat-button {
+    height: 40px;
+    margin-top: 10px;
+  }
+}
