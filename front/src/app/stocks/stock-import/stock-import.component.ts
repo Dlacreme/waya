@@ -4,17 +4,12 @@ import { InputOptions, InputType } from '../../form/input/input.component';
 import { ApiItem } from '../../api/api';
 import { StockFormatDto, StockTypeDto, StockService, StockDto } from '../../api/stock.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 interface ImportStock {
-
   stock:StockDto;
-
-  nameOptions:InputOptions;
-  descOptions:InputOptions;
-  balanceOptions:InputOptions;
-  sizeOptions:InputOptions;
-  formatOptions:SelectOptions;
-  typeOptions:SelectOptions;
+  importOptions:InputOptions;
+  import:number;
 }
 
 @Component({
@@ -45,8 +40,10 @@ export class StockImportComponent implements OnInit, OnDestroy {
   private typesSub:Subscription = Subscription.EMPTY;
   private stockSub:Subscription = Subscription.EMPTY;
   private stockDetailsSub:Subscription = Subscription.EMPTY;
+  private importSub:Subscription = Subscription.EMPTY;
 
   constructor(
+    private router:Router,
     private stockService:StockService
   ) { }
 
@@ -60,6 +57,24 @@ export class StockImportComponent implements OnInit, OnDestroy {
     this.typesSub.unsubscribe();
     this.stockSub.unsubscribe();
     this.stockDetailsSub.unsubscribe();
+    this.importSub.unsubscribe();
+  }
+
+  public import():void {
+    const stocks:StockDto[] = [];
+    this.stocks.forEach((item) => {
+      stocks.push(item.stock);
+    });
+    this.importSub = this.stockService.import(stocks)
+      .subscribe((res) => this.router.navigate(['staff/stocks']));
+  }
+
+  public updateImportNumber(stock:ImportStock, number:number):void {
+    stock.import = number;
+  }
+
+  public removeFromImport(stockIndex):void {
+    this.stocks.splice(stockIndex, 1);
   }
 
   public pickStock(stock:SelectItem):void {
@@ -108,35 +123,12 @@ export class StockImportComponent implements OnInit, OnDestroy {
   private toImportStock(stock:StockDto):ImportStock {
     return {
       stock: stock,
-      nameOptions: {
-        placeholder: 'Name',
-        default: stock.name
+      importOptions: {
+        placeholder: 'Import Number',
+        default: 0
       },
-      descOptions: {
-        placeholder: 'Description',
-        default: stock.desc
-      },
-      balanceOptions: {
-        placeholder: "Balance",
-        default: stock.balance || 0,
-        type: InputType.Number
-      },
-      sizeOptions: {
-        placeholder: "Size",
-        default: stock.size,
-        type: InputType.Number
-      },
-      formatOptions: {
-        placeholder: 'Format',
-        default: stock.stock_format_id,
-        items: this.formatOptions.items
-      },
-      typeOptions: {
-        placeholder: 'Type',
-        default: stock.stock_type_id,
-        items: this.typeOptions.items
-      },
-    }
+      import: 0
+    };
   }
 
   private initOptions():void {

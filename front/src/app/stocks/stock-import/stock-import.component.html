@@ -9,15 +9,18 @@
   </div>
 
   <mat-card class="stock-list">
-    <div class="flex" *ngFor="let stock of stocks">
-      <app-input [options]="stock.nameOptions" (onchange)="updateName($event)"></app-input>
-      <app-input [options]="stock.descOptions" (onchange)="updateDesc($event)"></app-input>
-      <app-select [options]="stock.typeOptions" (onchange)="updateType($event)"></app-select>
-      <app-select [options]="stock.formatOptions" (onchange)="updateFormat($event)"></app-select>
-      <app-input [options]="stock.sizeOptions" (onchange)="updateSize($event)"></app-input>
-      <span class="unit" *ngIf="stock.stock.stock_format">{{ stock.stock.stock_format.stock_unit.name }}</span>
-      <button mat-button (click)="remove(stock)"><mat-icon>remove</mat-icon></button>
+    <div class="flex" *ngFor="let stock of stocks ; let i = index">
+      <div class="flex-grow">
+        {{ stock.stock.name }} - {{ stock.stock.stock_type.name }} ({{ stock.stock.stock_format.name }} {{ stock.stock.size }} {{ stock.stock.stock_format.stock_unit.name }})
+      </div>
+      <div class="link"></div>
+      <div>
+        <app-input [options]="stock.importOptions" (onchange)="updateImportNumber(stock, $event)"></app-input>
+      </div>
+      <button mat-button (click)="removeFromImport(i)" class="icon-button"><mat-icon>remove</mat-icon></button>
     </div>
+
+    <button mat-raised-button color="green" (click)="import();" *ngIf="stocks.length > 0">Import</button>
   </mat-card>
 
   <div class="add-block">

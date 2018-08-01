@@ -2,6 +2,13 @@ h4 {
   margin: 20px;
 }
 
+.stock-list {
+
+  .flex-grow {
+    line-height: 50px;
+  }
+}
+
 .inputs, .add-existing {
 
   app-input, app-select {

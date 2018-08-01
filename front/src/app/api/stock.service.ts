@@ -97,4 +97,12 @@ export class StockService extends Api {
     });
   }
 
+  public import(stockImport:StockDto[]):Observable<ApiResult<void>> {
+    return this.query<void>({
+      endpoint: `${this.endpoints.stock}`,
+      method: HttpMethod.POST,
+      params: stockImport
+    });
+  }
+
 }
