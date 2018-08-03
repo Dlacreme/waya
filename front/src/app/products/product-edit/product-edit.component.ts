@@ -102,7 +102,6 @@ export class ProductEditComponent implements OnInit, OnDestroy {
         if (res.data) {
           this.product = new Product(res.data);
         }
-        console.log('PRODUCT > ', this.product);
         this.initInputs();
       });
   }

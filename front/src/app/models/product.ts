@@ -76,8 +76,6 @@ export class Product {
   }
 
   public updateCompo(compos:Compo[]):void {
-    console.log(compos);
-
     this.compos = compos;
     const sourceCompo:ProductStockDto[] = [];
 
