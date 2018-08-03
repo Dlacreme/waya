@@ -1,0 +1,32 @@
+h4 {
+  margin: 20px;
+}
+
+.stock-list {
+
+  .flex-grow {
+    line-height: 50px;
+  }
+}
+
+.inputs, .add-existing {
+
+  app-input, app-select {
+    flex-basis: 0;
+    flex-grow: 1;
+    margin: 0 10px;
+  }
+
+  .mat-button {
+    height: 40px;
+    margin-top: 10px;
+  }
+
+}
+
+.unit {
+  display: inline-block;
+  padding: 0 10px;
+  line-height: 50px;
+  font-size: 1.2em;
+}

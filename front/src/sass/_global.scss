@@ -6,6 +6,7 @@
   margin-bottom: 10px;
   color: $yana-red;
   border-bottom: 1px solid $border-color;
+  padding-right: 20px;
 
   h1 {
     padding-top: 6px;
@@ -92,4 +93,14 @@ ul.detail-list {
 
 app-input, app-picker, app-select {
   width: 100%;
+}
+
+.info {
+  font-style: italic;
+  color: #717171;
+}
+
+.icon-button {
+  height: 40px;
+  line-height: 40px !important;
 }

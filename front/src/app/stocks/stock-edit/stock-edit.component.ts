@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Stock, StockService, StockFormat, StockType } from '../../api/stock.service';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { StockDto, StockService, StockFormatDto, StockTypeDto } from '../../api/stock.service';
 import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { ApiItem } from '../../api/api';
 import { InputOptions, InputType } from '../../form/input/input.component';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stock-edit',
@@ -13,7 +15,7 @@ import { InputOptions, InputType } from '../../form/input/input.component';
 })
 export class StockEditComponent implements OnInit {
 
-  public data:Stock;
+  public data:StockDto;
 
   public nameOptions:InputOptions = {} as InputOptions;
   public descOptions:InputOptions = {} as InputOptions;
@@ -22,22 +24,30 @@ export class StockEditComponent implements OnInit {
   public formatOptions:SelectOptions = {} as SelectOptions;
   public typeOptions:SelectOptions = {} as SelectOptions;
 
-  public formats:StockFormat[] = [];
-  public types:StockType[] = [];
+  public formats:StockFormatDto[] = [];
+  public types:StockTypeDto[] = [];
+
+  private dialogSub:Subscription = Subscription.EMPTY;
+  private updateSub:Subscription = Subscription.EMPTY;
+  private deleteSub:Subscription = Subscription.EMPTY;
+  private formatsSub:Subscription = Subscription.EMPTY;
+  private typesSub:Subscription = Subscription.EMPTY;
 
   constructor(
     public stockService:StockService,
     public dialog:MatDialog,
+    public matSnackbar:MatSnackBar,
+    private router:Router
   ) { }
 
   @Input()
-  set stock(stock:Stock) {
+  set stock(stock:StockDto) {
     this.data = JSON.parse(JSON.stringify(stock));
   }
 
   @Output() afterupdate = new EventEmitter();
 
-  ngOnInit() {
+  public ngOnInit():void {
     this.initNameOptions();
     this.initDescOptions();
     this.initBalanceOptions();
@@ -46,13 +56,25 @@ export class StockEditComponent implements OnInit {
     this.initTypeOptions();
   }
 
+  public ngOnDestroy():void {
+    this.dialogSub.unsubscribe();
+    this.updateSub.unsubscribe();
+    this.formatsSub.unsubscribe();
+    this.typesSub.unsubscribe();
+    this.deleteSub.unsubscribe();
+  }
+
   public openDeleteValidation():void {
     const dialog = this.dialog.open(ValidationDialogComponent, {
       data: `Do you want to delete ${this.data.name}?`
     });
-    dialog.afterClosed().subscribe((result) => {
+    this.dialogSub = dialog.afterClosed().subscribe((result) => {
       if (result) {
-        this.stockService.delete(this.data.id).subscribe();
+        this.deleteSub = this.stockService.delete(this.data.id)
+          .subscribe(() => {
+            this.matSnackbar.open(`${this.data.name} deleted. Redirected...`, 'clock', {duration: 5000})
+            this.router.navigate(['staff/stocks']);
+          });
       }
     });
   }
@@ -98,9 +120,8 @@ export class StockEditComponent implements OnInit {
       items: []
     };
 
-    const formatSub = this.stockService.getFormats()
+    this.formatsSub = this.stockService.getFormats()
       .subscribe((res) => {
-        formatSub.unsubscribe();
         if (res.data) {
           this.formats = res.data;
         }
@@ -116,9 +137,8 @@ export class StockEditComponent implements OnInit {
       items: []
     };
 
-    const typeSub = this.stockService.getTypes()
+    this.typesSub = this.stockService.getTypes()
     .subscribe((res) => {
-      typeSub.unsubscribe();
       if (res.data) {
         this.types = res.data;
       }
@@ -126,7 +146,7 @@ export class StockEditComponent implements OnInit {
     });
   }
 
-  private insertItems<T, V>(array:SelectItem[], apiData:ApiItem[]):void {
+  private insertItems(array:SelectItem[], apiData:ApiItem[]):void {
     if (!apiData) {
       return;
     }
@@ -172,10 +192,9 @@ export class StockEditComponent implements OnInit {
 
   public update():void {
     window.setTimeout(() => {
-      const updateSub = this.stockService
+      this.updateSub = this.stockService
         .update(this.data)
         .subscribe((res) => {
-          updateSub.unsubscribe();
           this.afterupdate.emit(res.data);
         });
     });

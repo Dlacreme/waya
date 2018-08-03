@@ -1,3 +1,19 @@
-<p>
-  product works!
-</p>
+<div class="product">
+  <div class="details">
+    <h5>{{ data.name }}</h5>
+    <p class="flex-grow">
+      {{ data.desc }}
+    </p>
+    <div class="price" *ngIf="data.valid">
+      <span matTooltip="Normal Price">VND {{ data.price.base }}</span>
+       -
+      <span matTooltip="Member Price">VND {{ data.price.member }}</span>
+    </div>
+    <div class="compo" *ngIf="canSeeCompo" (click)="showCompo()">
+      Show Compo
+    </div>
+    <div class="edit" *ngIf="canEdit" (click)="openDetails()">
+      Èdit
+    </div>
+  </div>
+</div>

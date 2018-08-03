@@ -1,0 +1,40 @@
+<app-loader *ngIf="product === undefined"></app-loader>
+<div *ngIf="product">
+
+  <div class="module-title">
+    <h1>{{product.name}}</h1>
+    <div class="mid"></div>
+    <div class="actions">
+      <button mat-button (click)="openDeleteValidation()" ><mat-icon>delete</mat-icon></button>
+    </div>
+  </div>
+
+  <mat-card>
+    <h3>Information</h3>
+    <div class="flex">
+      <app-input class="name-input" [options]="nameOptions" (onchange)="updateName($event)"></app-input>
+      <app-select class="category-input" [options]="categoryOptions" (onchange)="updateCategory($event)"></app-select>
+      <app-input [options]="descOptions" (onchange)="updateDesc($event)"></app-input>
+    </div>
+  </mat-card>
+
+  <div class="flex">
+    <mat-card class="compo card">
+      <h3>Compo</h3>
+      <app-compo-edit [compo]="product.compos" (onchange)="updateCompo($event)"></app-compo-edit>
+    </mat-card>
+
+    <mat-card class="price card">
+      <h3>Price</h3>
+      <app-price-edit [price]="product.price" (onchange)="updatePrice($event)"></app-price-edit>
+    </mat-card>
+  </div>
+
+  <div class="actions update-action">
+    <div class="flex-grow"></div>
+    <div class="flex">
+      <p class="info">Your changes won't be saved unless you use this action =></p><button mat-raised-button color="green" (click)="update();">Update</button>
+    </div>
+  </div>
+
+</div>

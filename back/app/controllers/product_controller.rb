@@ -1,23 +1,27 @@
 class ProductController < ApplicationController
 
+  #.where('product_prices.end_date IS null || product_prices.end_date > NOW()').references(:product_prices)
   def index
     data Product
       .where(is_disabled: false)
-      .includes([:product_prices, :stocks => [:stock_format, :stock_type]])
-      .where('product_prices.end_date IS null || product_prices.end_date > NOW()').references(:product_prices)
+      .includes([:product_category, :product_prices, :stocks => [:stock_format, :stock_type]])
       .as_json(include: {
-        :stocks => {
+        :product_stocks => {
           include: [
-            :stock_type,
-            :stock_format => {
+            :stock => {
               include: [
-                :stock_unit
+                :stock_type,
+                :stock_format => {
+                  include: [
+                    :stock_unit
+                  ]
+                },
               ]
             },
-          ]},
-        :product_prices => {
-
-        }
+          ]
+        },
+        :product_category => {},
+        :product_prices => {}
       })
   end
 
@@ -29,8 +33,8 @@ class ProductController < ApplicationController
     ps = param_update
     form = ProductForm.new(Product.new)
     process_form form, {:name => ps[:name], :desc => ps[:desc], :product_category_id => ps[:product_category_id]}
-    form.model.update_product_stocks(ps[:stocks])
-    form.model.update_price(ps[:product_price])
+    form.model.update_product_stocks(ps[:product_stocks]) unless ps[:product_stocks] == nil
+    form.model.update_price(ps[:product_prices].first) unless ps[:product_prices] == nil
     data Product
       .where(id: form.model.id)
       .as_json()
@@ -40,8 +44,8 @@ class ProductController < ApplicationController
   def update
     ps = param_update
     form = ProductForm.new(Product.find(params[:id]))
-    form.model.update_product_stocks(ps[:stocks])
-    form.model.update_price(ps[:product_price])
+    form.model.update_product_stocks(ps[:product_stocks]) unless ps[:product_stocks] == nil
+    form.model.update_price(ps[:product_prices].first) unless ps[:product_prices] == nil
     process_form form, {:name => ps[:name], :desc => ps[:desc], :product_category_id => ps[:product_category_id]}
 
     data load(form.model.id)
@@ -55,27 +59,32 @@ class ProductController < ApplicationController
 private
 
   def param_update
-    params.permit(:name, :desc, :product_category_id, product_price: [:price, :member_price, :start_date], stocks: [:product_stock_id, :stock_id, :quantity])
+    params.permit(:name, :desc, :product_category_id, product_prices: [:price, :member_price, :start_date], product_stocks: [:id, :stock_id, :quantity])
   end
 
   def load(stock_id)
     Product
     .where(id: stock_id)
-    .includes([:product_prices, :stocks => [:stock_format, :stock_type]])
+    .includes([:product_category, :product_prices, :stocks => [:stock_format, :stock_type]])
     .where('product_prices.end_date IS null || product_prices.end_date > NOW()').references(:product_prices)
-    .first().as_json(include: {
-      :stocks => {
+    .first()
+    .as_json(include: {
+      :product_stocks => {
         include: [
-          :stock_type,
-          :stock_format => {
+          :stock => {
             include: [
-              :stock_unit
+              :stock_type,
+              :stock_format => {
+                include: [
+                  :stock_unit
+                ]
+              },
             ]
           },
-        ]},
-      :product_prices => {
-
-      }
+        ]
+      },
+      :product_category => {},
+      :product_prices => {}
     })
   end
 

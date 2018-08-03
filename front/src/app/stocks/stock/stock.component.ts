@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Stock } from '../../api/stock.service';
+import { StockDto } from '../../api/stock.service';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -9,12 +9,18 @@ import { MatSnackBar } from '@angular/material';
 })
 export class StockComponent {
 
-  public data:Stock;
+  public data:StockDto;
+  public canEdit = false;
   public isEditable = false;
 
   @Input()
-  set stock(stock:Stock) {
+  set stock(stock:StockDto) {
     this.data = stock;
+  }
+
+  @Input()
+  set editable(canEdit:boolean) {
+    this.canEdit = canEdit;
   }
 
   constructor(
@@ -25,7 +31,7 @@ export class StockComponent {
     this.isEditable = isEditable;
   }
 
-  public afterUpdate(stock:Stock):void {
+  public afterUpdate(stock:StockDto):void {
     this.data = Object.assign(this.data, stock);
     this.isEditable = false;
     this.matSnackBar.open('Stock successfully updated', 'close', {duration: 5000});

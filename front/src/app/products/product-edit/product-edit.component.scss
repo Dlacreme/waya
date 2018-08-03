@@ -1,0 +1,67 @@
+@import '../../../sass/variables';
+
+.name-input, .category-input {
+  flex-basis: 0;
+  margin-right: 30px;
+}
+
+.actions {
+  text-align: right;
+}
+
+h3 {
+  margin-bottom: 30px;
+}
+
+.flex {
+  .compo, .price {
+    width: 50%;
+  }
+}
+
+.mat-card {
+  margin: 10px;
+}
+
+.info {
+  margin-top: 10px;
+}
+
+.compo-list {
+
+  .compo-item {
+    line-height: 40px;
+  }
+
+  .delete-compo {
+    float: right;
+    color: $yana-red;
+  }
+}
+
+.add-compo-icon {
+  color: $green-color;
+  height: 40px;
+  margin-top: 5px;
+}
+
+.price-list {
+  flex-grow: 1;
+  flex-basis: 0;
+  text-align: center;
+
+  h6 {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.8em;
+  }
+}
+
+.update-action {
+  display: flex;
+  padding: 20px;
+
+  p {
+    margin-right: 15px;
+  }
+}

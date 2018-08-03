@@ -1,0 +1,96 @@
+.product {
+  display: inline-block;
+  background-color: whitesmoke;
+  height: 120px;
+  width: 250px;
+  border-radius: 5px;
+  box-shadow: 0 0 1px 0px grey;
+  text-align: center;
+
+  background-image: url('/assets/images/drink.jpg');
+  color: #ffffff;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+
+  &:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    opacity: 0.7;
+    background: #565656;
+  }
+
+  &:hover {
+    .compo, .edit {
+      display: block !important;
+    }
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+
+    h5 {
+      margin: 10px;
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    p {
+      display: table-cell;
+      vertical-align: middle;
+      padding: 10px;
+    }
+
+    .price {
+      font-size: 1em;
+      font-weight: bold;
+      margin: 10px;
+    }
+
+    .compo {
+      display: none;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: #000000d6;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-size: 0.8em;
+      padding: 10px;
+      box-shadow: 0px -1px 0px 0px #6b6b6b;
+
+      &:hover {
+        font-weight: bold;
+      }
+    }
+
+    .edit {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      background-color: #000000d6;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-size: 0.8em;
+      padding: 10px;
+      box-shadow: 0px -1px 0px 0px #6b6b6b;
+
+      &:hover {
+        font-weight: bold;
+      }
+    }
+
+  }
+
+}

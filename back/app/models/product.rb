@@ -3,18 +3,34 @@ class Product < ApplicationRecord
   has_many :product_prices
 
   has_many :order_products
-  has_many :orders, through: :order_products  
+  has_many :orders, through: :order_products
 
   has_many :product_stocks
   has_many :stocks, through: :product_stocks
 
   def update_product_stocks(product_stocks)
+    product_stocks_array = []
+    # ProductStock
+    #   .where(product_id: self.id)
+    #   .each do |x|
+    #     p "xxxxxxxxxxx"
+    #     p x
+    #   end
     product_stocks.each do |x|
       x[:product_id] = self.id
       existing_item = get_existing_product_stock(x)
       form = existing_item ? ProductStockForm.new(existing_item) : ProductStockForm.new(ProductStock.new)
       form.validate(x) && form.save
+      product_stocks_array.push(form.id)
     end
+    p "owdjqiodjwq"
+
+    p product_stocks_array
+
+    ProductStock
+      .where(product_id: self.id)
+      .where.not(:id => product_stocks_array)
+      .delete_all
   end
 
   def update_price(product_price)
@@ -31,8 +47,8 @@ class Product < ApplicationRecord
 
 private
   def get_existing_product_stock(item)
-    return nil unless item.key?("product_stock_id")
-    ProductStock.find_by_id(item[:product_stock_id])
+    return nil unless item.key?("id")
+    ProductStock.find_by_id(item[:id])
   end
 
 end

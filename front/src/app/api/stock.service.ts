@@ -3,26 +3,26 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Api, URI, HttpMethod, ApiResult } from './api';
 
-export interface StockUnit {
+export interface StockUnitDto {
   id:number;
   name:string;
   is_disabled:boolean;
 }
 
-export interface StockType {
+export interface StockTypeDto {
   id:number;
   name:string;
   is_disabled:boolean;
 }
 
-export interface StockFormat {
+export interface StockFormatDto {
   id:number;
   name:string;
   is_disabled:boolean;
-  stock_unit:StockUnit;
+  stock_unit:StockUnitDto;
 }
 
-export interface Stock {
+export interface StockDto {
   id:number;
   name:string;
   desc:string;
@@ -32,9 +32,9 @@ export interface Stock {
   created_at:Date;
   updated_at:Date;
   stock_type_id:number;
-  stock_type:StockType;
+  stock_type:StockTypeDto;
   stock_format_id:number;
-  stock_format:StockFormat;
+  stock_format:StockFormatDto;
 }
 
 @Injectable({
@@ -49,20 +49,27 @@ export class StockService extends Api {
   };
 
   constructor(
-    protected httpClient: HttpClient
+    protected httpClient:HttpClient
   ) {
     super(httpClient);
   }
 
-  public get():Observable<ApiResult<Stock[]>> {
-    return this.query<Stock[]>({
+  public get(id:number):Observable<ApiResult<StockDto>> {
+    return this.query<StockDto>({
+      endpoint: `${this.endpoints.stock}/${id}`,
+      method: HttpMethod.GET
+    });
+  }
+
+  public list():Observable<ApiResult<StockDto[]>> {
+    return this.query<StockDto[]>({
       endpoint: this.endpoints.stock,
       method: HttpMethod.GET
     });
   }
 
-  public update(stock:Stock):Observable<ApiResult<Stock>> {
-    return this.query<Stock>({
+  public update(stock:StockDto):Observable<ApiResult<StockDto>> {
+    return this.query<StockDto>({
       endpoint: `${this.endpoints.stock}/${stock.id}`,
       method: HttpMethod.PUT,
       params: stock
@@ -76,17 +83,25 @@ export class StockService extends Api {
     });
   }
 
-  public getFormats():Observable<ApiResult<StockFormat[]>> {
-    return this.query<StockFormat[]>({
+  public getFormats():Observable<ApiResult<StockFormatDto[]>> {
+    return this.query<StockFormatDto[]>({
       endpoint: `${this.endpoints.format}`,
       method: HttpMethod.GET
     });
   }
 
-  public getTypes():Observable<ApiResult<StockType[]>> {
-    return this.query<StockFormat[]>({
+  public getTypes():Observable<ApiResult<StockTypeDto[]>> {
+    return this.query<StockFormatDto[]>({
       endpoint: `${this.endpoints.type}`,
       method: HttpMethod.GET
+    });
+  }
+
+  public import(stockImport:StockDto[]):Observable<ApiResult<void>> {
+    return this.query<void>({
+      endpoint: `${this.endpoints.stock}`,
+      method: HttpMethod.POST,
+      params: stockImport
     });
   }
 

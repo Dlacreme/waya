@@ -1,0 +1,46 @@
+<div id="import">
+
+  <div class="module-title">
+    <h1>Import Stock</h1>
+    <div class="mid"></div>
+    <div class="actions">
+      <button mat-button><mat-icon>cloud_upload</mat-icon> Import from CSV file</button>
+    </div>
+  </div>
+
+  <mat-card class="stock-list">
+    <div class="flex" *ngFor="let stock of stocks ; let i = index">
+      <div class="flex-grow">
+        {{ stock.stock.name }} - {{ stock.stock.stock_type.name }} ({{ stock.stock.stock_format.name }} {{ stock.stock.size }} {{ stock.stock.stock_format.stock_unit.name }})
+      </div>
+      <div class="link"></div>
+      <div>
+        <app-input [options]="stock.importOptions" (onchange)="updateImportNumber(stock, $event)"></app-input>
+      </div>
+      <button mat-button (click)="removeFromImport(i)" class="icon-button"><mat-icon>remove</mat-icon></button>
+    </div>
+
+    <button mat-raised-button color="green" (click)="import();" *ngIf="stocks.length > 0">Import</button>
+  </mat-card>
+
+  <div class="add-block">
+    <h4>Add Manually</h4>
+
+    <div class="inputs flex">
+      <app-input [options]="nameOptions" (onchange)="updateName($event)"></app-input>
+      <app-input [options]="descOptions" (onchange)="updateDesc($event)"></app-input>
+      <app-select [options]="typeOptions" (onchange)="updateType($event)"></app-select>
+      <app-select [options]="formatOptions" (onchange)="updateFormat($event)"></app-select>
+      <app-input [options]="sizeOptions" (onchange)="updateSize($event)"></app-input>
+      <span class="unit" *ngIf="manualStock.stock_format">{{ manualStock.stock_format.stock_unit.name }}</span>
+      <button mat-button (click)="pushManual()"><mat-icon>add</mat-icon></button>
+    </div>
+
+    <h4>OR Pick an existing item</h4>
+    <div class="add-existing flex">
+      <app-select [options]="stockListOptions" (onchange)="pickStock($event)"></app-select>
+      <button mat-button (click)="pushExisting()"><mat-icon>add</mat-icon></button>
+    </div>
+
+  </div>
+</div>

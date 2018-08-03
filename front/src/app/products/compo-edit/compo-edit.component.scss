@@ -1,0 +1,24 @@
+@import '../../../sass/variables';
+
+.compo-item {
+
+  line-height: 40px;
+
+  .delete-compo {
+    float: right;
+    color: $yana-red;
+  }
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.add-compo {
+
+  button {
+    height: 40px;
+    margin-top: 10px;
+  }
+
+}
