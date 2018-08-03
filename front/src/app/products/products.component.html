@@ -3,12 +3,18 @@
   <div class="module-title">
     <h1>Products</h1>
     <div class="mid"></div>
-    <div class="actions">
-      <button mat-button><mat-icon>add</mat-icon> Create New Product</button>
+    <div class="actions flex">
+      <div *ngIf="showCreate" class="create-actions flex">
+        <app-input class="name-input" [options]="nameOptions" (onchange)="updateName($event)"></app-input>
+        <app-select class="category-input" [options]="categoryOptions" (onchange)="updateCategory($event)"></app-select>
+        <button mat-button matTooltip="Valid Creation" (click)="createProduct()">Create</button>
+      </div>
+      <button *ngIf="!showCreate" mat-button matTooltip="Create new Product" (click)="openCreate(true)"><mat-icon>add</mat-icon></button>
+      <button *ngIf="showCreate" mat-button matTooltip="Hide new Product form" (click)="openCreate(false)"><mat-icon>remove</mat-icon></button>
     </div>
   </div>
 
-  <div class="product-grid">
+  <div class="grid">
     <app-product *ngFor="let product of products" [product]="product" editable="true"></app-product>
   </div>
 

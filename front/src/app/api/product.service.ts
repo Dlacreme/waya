@@ -78,6 +78,14 @@ export class ProductService extends Api {
     });
   }
 
+  public create(product:ProductDto):Observable<ApiResult<void>> {
+    return this.query<void>({
+      endpoint: this.endpoints.product,
+      method: HttpMethod.POST,
+      params: product
+    });
+  }
+
   public delete(productId:number):Observable<ApiResult<void>> {
     return this.query<void>({
       endpoint: `${this.endpoints.product}/${productId}`,

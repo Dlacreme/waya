@@ -76,8 +76,6 @@ export class Product {
   }
 
   public updateCompo(compos:Compo[]):void {
-
-
     console.log(compos);
 
     this.compos = compos;
@@ -91,7 +89,6 @@ export class Product {
       });
     });
     this.source.product_stocks = sourceCompo;
-    console.log(this);
   }
 
 }

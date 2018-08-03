@@ -21,29 +21,7 @@
   <div class="flex">
     <mat-card class="compo card">
       <h3>Compo</h3>
-      <app-compo-edit [compo]="product.compos" (onchange)="updateCompo($event )"></app-compo-edit>
-      <!-- <div class="compo-list">
-        <div class="compo-item flex" *ngFor="let compo of tmpCompos">
-          <div>
-          {{ compo.quantity }} {{ compo.stock.stock_format.stock_unit.name }}
-          {{ compo.stock.name }} - {{ compo.stock.stock_type.name }} ({{ compo.stock.stock_format.name }} {{ compo.stock.size }} {{ compo.stock.stock_format.stock_unit.name }})
-          </div>
-          <div class="flex-grow"></div>
-          <a class="delete-compo" mat-button matTooltip="Delete compo" (click)="deleteCompo(compo)">
-            <mat-icon>delete</mat-icon>
-          </a>
-        </div>
-      </div>
-      <div class="add-compo flex">
-        <app-select [options]="compoListOptions" (onchange)="updateCompoStock($event)"></app-select>
-        <app-input [options]="compoQuantityOptions" (onchange)="updateCompoQuantity($event)"></app-input>
-        <button mat-button class="add-compo-icon" (onchange)="addCompo()"><mat-icon>add</mat-icon></button>
-      </div>
-
-      <div class="actions">
-        <button mat-raised-button color="green" (click)="updateCompo();">Set Compo</button>
-        <p class="info">You still need to use `update` to save your changes</p>
-      </div> -->
+      <app-compo-edit [compo]="product.compos" (onchange)="updateCompo($event)"></app-compo-edit>
     </mat-card>
 
     <mat-card class="price card">

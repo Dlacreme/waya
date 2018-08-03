@@ -48,3 +48,8 @@ html, body, app-root {
 .bold {
   font-weight: bold;
 }
+
+.grow {
+  display: flex;
+  flex-wrap: wrap;
+}

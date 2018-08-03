@@ -23,6 +23,7 @@ export class ProductComponent implements OnDestroy {
   @Input()
   set product(product:ProductDto) {
     this.data = new Product(product);
+    this.canSeeCompo = this.canSeeCompo && this.data.compos && this.data.compos.length > 0;
   }
 
   @Input()
@@ -32,7 +33,7 @@ export class ProductComponent implements OnDestroy {
 
   @Input()
   set showcompo(showCompo:boolean) {
-    this.canSeeCompo = showCompo;
+    this.canSeeCompo = showCompo && this.data.compos && this.data.compos.length > 0;
   }
 
   constructor(

@@ -68,6 +68,7 @@ export class CompoEditComponent implements OnInit, OnDestroy {
       this.compoListOptions.default = '';
       this.compoQuantityOptions.default = '';
       this.data.push(this.tmpCompo);
+      this.tmpCompo = {} as Compo;
       this.submit();
     }
   }

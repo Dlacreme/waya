@@ -1,10 +1,10 @@
-<div class="product" *ngIf="data.valid">
+<div class="product">
   <div class="details">
     <h5>{{ data.name }}</h5>
     <p class="flex-grow">
       {{ data.desc }}
     </p>
-    <div class="price">
+    <div class="price" *ngIf="data.valid">
       <span matTooltip="Normal Price">VND {{ data.price.base }}</span>
        -
       <span matTooltip="Member Price">VND {{ data.price.member }}</span>

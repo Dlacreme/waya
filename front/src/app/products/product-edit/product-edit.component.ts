@@ -8,7 +8,6 @@ import { ValidationDialogComponent } from '../../form/validation-dialog/validati
 import { InputOptions, InputType } from '../../form/input/input.component';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { ApiItem } from '../../api/api';
-import { StockService, StockDto } from '../../api/stock.service';
 
 @Component({
   selector: 'app-product-edit',
