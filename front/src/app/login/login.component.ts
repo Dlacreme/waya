@@ -45,7 +45,12 @@ export class LoginComponent implements OnDestroy {
   public saveSession(session: LoginSession): void {
     this.sessionApiSub = this.sessionApiService
       .login(session)
-      .subscribe(() => this.router.navigate(['staff/dashboard']));
+      .subscribe((res) => {
+        if (res.data) {
+          this.sessionApiService.setToken(res.data.token || '');
+        }
+        this.router.navigate(['staff/dashboard'])
+      });
   }
 
   public ngOnDestroy(): void {
