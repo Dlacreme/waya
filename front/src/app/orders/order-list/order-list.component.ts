@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { OrderDto } from '../../api/order.service';
 
 @Component({
   selector: 'app-order-list',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderListComponent implements OnInit {
 
+  public data:OrderDto[] = [];
+
+  public label:string;
+
   constructor() { }
 
-  ngOnInit() {
+  @Input()
+  set orders(orders:OrderDto[]) {
+    this.data = orders;
+  }
+
+  @Input()
+  set title(title:string) {
+    this.label = title;
+  }
+
+  public ngOnInit():void {
   }
 
 }
