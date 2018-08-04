@@ -37,7 +37,7 @@ export class Api {
   ) { }
 
   public setToken(token:string):void {
-    console.log('Set token > ', token);
+    localStorage.setItem(environment.tokenLocalStorage, token);
   }
 
   protected query<T>(uri: URI): Observable<ApiResult<T>> {

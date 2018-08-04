@@ -24,8 +24,8 @@ class SessionController < ApplicationController
     status = process_form @form, param_provider_formatted
     return render_json status, "Cannot login" if status > 200
     user = @form.model.output
-    user[:token] = JsonWebToken.encode(user_id: user[:id])
-    return render_json(200, "OK", user, nil)  
+    user[:token] = JsonWebToken.encode(user_id: user['id'])
+    return render_json(200, "OK", user, nil)
   end
 
 private
@@ -43,9 +43,9 @@ private
   def param_signin
     params.require(:session).permit(:email, :username, :password)
   end
-  
+
   def param_provider
-    params.require(:session).permit(:email, :username, :password, :provider, :id, :token)    
+    params.require(:session).permit(:email, :username, :password, :provider, :id, :token)
   end
 
   def param_provider_formatted

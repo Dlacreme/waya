@@ -4,11 +4,19 @@ import {Observable, of} from 'rxjs';
 import {finalize, tap} from 'rxjs/operators';
 import {EventService} from './services/event.service';
 import {HttpCacheService} from './services/http-cache.service';
+import { environment } from '../environments/environment';
+import { Router } from '@angular/router';
 
 enum RequestStatus {
   Pending,
   Success,
-  Error
+  Error,
+}
+
+enum HttpCode {
+  InvalidQuery = 400,
+  AccessDenied = 401,
+  Error = 500
 }
 
 @Injectable()
@@ -18,7 +26,8 @@ export class ApiInterceptor implements HttpInterceptor {
 
   constructor(
     private eventService:EventService,
-    private httpCacheService:HttpCacheService
+    private httpCacheService:HttpCacheService,
+    private router:Router
   ) {}
 
   public intercept(request:HttpRequest<any>, next:HttpHandler):Observable<HttpEvent<any>> {
@@ -41,6 +50,16 @@ export class ApiInterceptor implements HttpInterceptor {
   private doRequest(request:HttpRequest<any>, next: HttpHandler):Observable<HttpEvent<any>> {
     let status:RequestStatus = RequestStatus.Pending;
 
+    const token = localStorage.getItem(environment.tokenLocalStorage)
+
+    if (token) {
+      request = request.clone({
+        setHeaders: {
+          Authorization: token
+        }
+      });
+    }
+
     return next.handle(request).pipe(
       tap(
         event => {
@@ -50,7 +69,12 @@ export class ApiInterceptor implements HttpInterceptor {
               this.httpCacheService.set(request.url, event, this.TTL);
             }
           }
-        }, error => status = RequestStatus.Error
+        }, error => {
+          if (error.status === HttpCode.AccessDenied) {
+            this.router.navigate(['/']);
+          }
+          status = RequestStatus.Error
+        }
       ),
       finalize(() => {
         this.eventService.loaderInProgress.emit(false);

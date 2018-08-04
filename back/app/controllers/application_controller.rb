@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
 
-protected  
+protected
 
   # render_json return data with appropriate code
   def render_json(code = 200, message = "OK", data = nil, errors = nil)
@@ -60,6 +60,9 @@ protected
 
   def logged_in?
     parse_jwt
+    p "JTW "
+    p @jwt
+
     @current_user ||= User.find(@jwt[:user_id]) if @jwt && @jwt[:user_id]
   end
 
