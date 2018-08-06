@@ -16,6 +16,14 @@
     <button class="cancel-update" mat-button *ngIf="update.any" (click)="resetUpdate()" matTooltip="Cancel Update"><mat-icon>delete</mat-icon></button>
   </div>
 
+  <div *ngIf="update.table">
+    Update Table
+  </div>
+
+  <div *ngIf="update.customer">
+    Update customer
+  </div>
+
   <div class="columns flex">
     <div class="history separator right">
 

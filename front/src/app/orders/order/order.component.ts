@@ -4,7 +4,6 @@ import { ProductDto } from '../../api/product.service';
 import { EventService } from '../../services/event.service';
 import { Subscription } from 'rxjs';
 import { OrderProduct, OrderProductType } from '../order.service';
-import { Product } from '../../models/product';
 
 interface Update {
   table:boolean;
