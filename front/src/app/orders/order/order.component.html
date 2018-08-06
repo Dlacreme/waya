@@ -5,13 +5,26 @@
     <div>{{ data.price }} <span class="currency">VND</span></div>
   </div>
 
+  <div class="actions flex">
+    <button mat-button (click)="openTableUpdate()">Update Table</button>
+    <button mat-button (click)="openCustomerUpdate()">Update Customer</button>
+    <button mat-button (click)="openProductUpdate()">Update Products</button>
+    <div class="flex-grow"></div>
+    <button mat-raised-button color="green" *ngIf="update.table">Confirm Table</button>
+    <button mat-raised-button color="green" *ngIf="update.customer">Confirm Customer</button>
+    <button mat-raised-button color="green" *ngIf="update.products">Confirm Products</button>
+    <button class="cancel-update" mat-button *ngIf="update.any" (click)="resetUpdate()" matTooltip="Cancel Update"><mat-icon>delete</mat-icon></button>
+  </div>
+
   <div class="columns flex">
     <div class="history separator right">
 
     </div>
 
-    <div class="products flex">
-      <app-order-product *ngFor="let product of data.products" [product]="product"></app-order-product>
+    <div class="products">
+      <div class="flex wrap">
+        <app-order-product *ngFor="let product of data.products; let i = index" [product]="product" (onremove)="removeProduct($event, i)" [type]="orderProductType"></app-order-product>
+      </div>
     </div>
   </div>
 

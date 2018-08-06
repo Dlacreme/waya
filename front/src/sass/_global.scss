@@ -1,5 +1,9 @@
 @import './variables';
 
+.flex.wrap {
+  flex-wrap: wrap;
+}
+
 .module-title {
   display: flex;
   margin: -25px;
@@ -130,4 +134,12 @@ app-input, app-picker, app-select {
   font-weight: bold;
   font-size: 0.6em;
   color: #ccc;
+}
+
+app-order-product {
+  margin: 2px;
+}
+
+.text-right {
+  text-align: right;
 }

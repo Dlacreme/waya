@@ -35,4 +35,12 @@ export class Order {
     this.source.order_status_id = status;
   }
 
+  public addProduct(product:ProductDto):void {
+    this.source.products.push(product);
+  }
+
+  public removeProduct(productIndex:number):void {
+    this.source.products.splice(productIndex, 1);
+  }
+
 }

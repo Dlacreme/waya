@@ -36,7 +36,11 @@
   padding-top: 25px;
 }
 
-
 mat-icon.delete {
   color: $error-color;
+}
+
+mat-icon.add {
+  color: $green-color;
+  font-weight: bold;
 }

@@ -1,3 +1,5 @@
+@import '../../../sass/variables';
+
 #order {
   padding: 30px;
   margin-top: 40px;
@@ -10,11 +12,18 @@
   }
 }
 
-.product {
+.products {
+  width: calc(100% - 300px);
+}
 
-  flex-wrap: wrap;
+.actions {
+  margin-top: 30px;
+}
 
-  app-order-product {
-    margin: 10px;
-  }
+.cancel-update {
+  margin-left: 20px;
+  width: 40px;
+  min-width: 40px;
+  padding: 0;
+  color: $error-color;
 }

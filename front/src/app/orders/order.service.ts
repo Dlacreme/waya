@@ -1,18 +1,19 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Order } from '../models/order';
-import { Product } from '../models/product';
 import { EventService } from '../services/event.service';
 import { Subscription } from 'rxjs';
+import { ProductDto } from '../api/product.service';
 
 export enum OrderProductType {
   Add = 1,
+  None = 0,
   Remove = -1
 }
 
 export interface OrderProduct {
   type:OrderProductType;
   order:Order;
-  product:Product;
+  product:ProductDto;
 }
 
 @Injectable({

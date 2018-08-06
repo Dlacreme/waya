@@ -11,4 +11,5 @@ export class EventService {
   orderUpdate = new EventEmitter<Order>();
   openOrder = new EventEmitter<Order>();
   updateProducts = new EventEmitter<OrderProduct>();
+  openOrderProducts = new EventEmitter<boolean>();
 }

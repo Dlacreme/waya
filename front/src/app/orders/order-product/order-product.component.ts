@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { ProductDto } from '../../api/product.service';
+import { OrderProductType } from '../order.service';
 
 @Component({
   selector: 'app-order-product',
@@ -9,16 +10,33 @@ import { ProductDto } from '../../api/product.service';
 export class OrderProductComponent implements OnInit {
 
   public data:ProductDto = {} as ProductDto;
+  public orderProductType:OrderProductType|undefined;
+  public orderProductTypeEnum = OrderProductType;
+
+  @Output() onremove = new EventEmitter();
+  @Output() onadd = new EventEmitter();
 
   @Input()
   set product(product:ProductDto) {
     this.data = product;
-    console.log(this.data);
+  }
+
+  @Input()
+  set type(type:OrderProductType) {
+    this.orderProductType = type;
   }
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  public add():void {
+    this.onadd.emit(this.data);
+  }
+
+  public remove():void {
+    this.onremove.emit(this.data);
   }
 
 }

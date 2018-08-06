@@ -3,6 +3,8 @@ import { OrderService, OrderDto, OrderStatus } from '../api/order.service';
 import { Subscription } from 'rxjs';
 import { EventService } from '../services/event.service';
 import { Order } from '../models/order';
+import { ProductDto, ProductService } from '../api/product.service';
+import { OrderProductType } from './order.service';
 
 @Component({
   selector: 'app-orders',
@@ -17,14 +19,19 @@ export class OrdersComponent implements OnInit, OnDestroy {
   public readyOrders:OrderDto[] = [];
 
   public pickedOrder:Order|undefined;
+  public products:ProductDto[] = [];
+  public orderProductType:OrderProductType = OrderProductType.None;
 
   private ordersSub = Subscription.EMPTY;
   private updateListenerSub = Subscription.EMPTY;
   private openSub = Subscription.EMPTY;
+  private productsSub = Subscription.EMPTY;
+  private openOrderProductsSub:Subscription = Subscription.EMPTY;
 
   constructor(
     private orderService:OrderService,
-    private eventService:EventService
+    private eventService:EventService,
+    private productService:ProductService
   ) { }
 
   public ngOnInit():void {
@@ -34,13 +41,28 @@ export class OrdersComponent implements OnInit, OnDestroy {
           this.splitOrders(res.data);
         }
       });
+    this.openOrderProductsSub = this.eventService.openOrderProducts
+      .subscribe((isOpen) => this.orderProductType = isOpen ? OrderProductType.Add : OrderProductType.None);
     this.listenForUpdate();
+    this.loadProducts();
   }
 
   public ngOnDestroy():void {
     this.ordersSub.unsubscribe();
     this.updateListenerSub.unsubscribe();
     this.openSub.unsubscribe();
+    this.productsSub.unsubscribe();
+    this.openOrderProductsSub.unsubscribe();
+  }
+
+  public addProduct(product:ProductDto):void {
+    if (this.pickedOrder) {
+      this.eventService.updateProducts.emit({
+        type: OrderProductType.Add,
+        order: this.pickedOrder,
+        product: product,
+      });
+    }
   }
 
   private listenForUpdate():void {
@@ -53,6 +75,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
       .subscribe((order:Order) => {
         this.pickedOrder = order;
       })
+  }
+
+  private loadProducts():void {
+    this.productsSub = this.productService.list()
+      .subscribe((res) => this.products = res.data || []);
   }
 
   private splitOrders(orders:OrderDto[]):void {

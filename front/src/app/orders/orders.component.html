@@ -6,3 +6,9 @@
 </div>
 
 <app-order *ngIf="pickedOrder" [order]="pickedOrder"></app-order>
+
+<mat-card *ngIf="pickedOrder" class="product-list">
+  <div class="flex">
+    <app-order-product *ngFor="let product of products; let i = index" [product]="product" (onadd)="addProduct($event)" [type]="orderProductType"></app-order-product>
+  </div>
+</mat-card>
