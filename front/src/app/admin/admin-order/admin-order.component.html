@@ -8,10 +8,26 @@
 
     <div class="tables">
       <mat-chip-list *ngIf="!isEditable">
-        <mat-chip color="yana" *ngFor="let table of tables">
+        <mat-chip color="yana" *ngFor="let table of tablesw">
           {{ table.source.name }}
         </mat-chip>
       </mat-chip-list>
+
+      <div *ngIf="isEditable">
+        <div *ngFor="let table of tables" class="inline-edit">
+          <button mat-button color="red" matTooltip="Remove" (click)="openTableDeleteValidation(table)"><mat-icon>delete</mat-icon></button>
+          <app-input class="name-input" [options]="table.options" (onchange)="updateTableName(table, $event)"></app-input>
+          <div class="link"></div>
+          <button mat-button color="green" matTooltip="Confirm Update" (click)="updateTable(table)"><mat-icon>check</mat-icon></button>
+        </div>
+
+        <div class="inline-edit">
+          <app-input class="name-input" [options]="newTable.options" (onchange)="updateTableName(newTable, $event)"></app-input>
+          <div class="link"></div>
+          <button mat-button color="green" matTooltip="Create" (click)="createTable(newTable)"><mat-icon>add</mat-icon></button>
+        </div>
+      </div>
+
     </div>
 
   </div>

@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { TableDto, OrderService } from '../../api/order.service';
 import { InputOptions } from '../../form/input/input.component';
 import { MatDialog, MatSnackBar } from '@angular/material';
+import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
 
 interface OrderSubs {
   table:Subscription;
@@ -52,6 +53,49 @@ export class AdminOrderComponent implements OnInit, OnDestroy {
 
   public switchEdit(isEditable:boolean):void {
     this.isEditable = isEditable;
+  }
+
+  // Table
+  public updateTableName(table:EditableTable, value:string):void {
+    table.source.name = value;
+  }
+
+  public updateTable(table:EditableTable):void {
+    this.updateSub.table = this.orderService.tableUpdate(table.source)
+      .subscribe(() => this.matSnackBar.open(`Table ${table.source.name} updated`, 'close'));
+  }
+
+  public createTable(table:EditableTable):void {
+    this.createSub.table = this.orderService.tableCreate(table.source)
+      .subscribe((res) => {
+        if (res.data) {
+          this.tables.push({
+            source: res.data,
+            options: {
+              placeholder: 'Name',
+              default: res.data.name
+            }
+          });
+        }
+      });
+  }
+
+  public openTableDeleteValidation(table:EditableTable):void {
+    const dialog = this.dialog.open(ValidationDialogComponent, {
+      data: `Do you want to delete ${table.source.name}?`
+    });
+    this.dialogSub.table = dialog.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleteSub.table = this.orderService.tableDelete(table.source.id)
+          .subscribe(() => {
+            const index = this.tables.findIndex((item) => item.source.id === table.source.id);
+            if (index !== -1) {
+              this.tables.splice(index, 1);
+            }
+            this.matSnackBar.open(`${table.source.name} deleted.`, 'close', {duration: 5000})
+          });
+      }
+    });
   }
 
   private getDataLists():void {
