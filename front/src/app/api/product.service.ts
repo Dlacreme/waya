@@ -108,4 +108,13 @@ export class ProductService extends Api {
     });
   };
 
+  // Category
+
+  public categoryList():Observable<ApiResult<ProductCategoryDto[]>> {
+    return this.query<ProductCategoryDto[]>({
+      endpoint: this.endpoints.category,
+      method: HttpMethod.GET
+    });
+  }
+
 }

@@ -1,3 +1,13 @@
-<p>
-  admin-product works!
-</p>
+<div id="admin-product">
+
+  <h4>Categories</h4>
+
+  <div class="flex">
+    <div class="category-list">
+      <div *ngFor="let category of categories">
+        {{ category.name }}
+      </div>
+    </div>
+  </div>
+
+</div>
