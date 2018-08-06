@@ -1,3 +1,39 @@
-<p>
-  admin-stock works!
-</p>
+<div id="admin-stock">
+
+  <div class="flex">
+    <h4 class="flex-grow">Type</h4>
+    <div>
+      <mat-slide-toggle [checked]="isEditable" (change)="switchEdit($event.checked)"></mat-slide-toggle> Edit Mode
+    </div>
+  </div>
+
+  <div class="types">
+    <mat-chip-list *ngIf="!isEditable">
+      <mat-chip color="yana" *ngFor="let type of types">
+        {{ type.name }}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <h4>Format</h4>
+
+  <div class="formats">
+    <mat-chip-list *ngIf="!isEditable">
+      <mat-chip color="yana" *ngFor="let format of formats">
+        {{ format.name }} ({{ format.stock_unit.name }})
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <h4>Format Units</h4>
+
+  <div class="units">
+    <mat-chip-list *ngIf="!isEditable">
+      <mat-chip color="yana" *ngFor="let unit of units">
+        {{ unit.name }}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+
+
+</div>
