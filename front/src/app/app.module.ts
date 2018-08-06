@@ -59,6 +59,7 @@ import { CompoEditComponent } from './products/compo-edit/compo-edit.component';
 import { StockImportComponent } from './stocks/stock-import/stock-import.component';
 import { OrderListComponent } from './orders/order-list/order-list.component'
 import { ApiInterceptor } from './api-interceptor';
+import { OrderCardComponent } from './orders/order-card/order-card.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +88,7 @@ import { ApiInterceptor } from './api-interceptor';
     CompoEditComponent,
     StockImportComponent,
     OrderListComponent,
+    OrderCardComponent,
   ],
   imports: [
     BrowserModule,
