@@ -75,7 +75,6 @@ export class AdminStockComponent implements OnInit, OnDestroy {
     this.isEditable = isEditable;
   }
 
-
   // Type
   public updateTypeName(type:EditableType, value:string):void {
     type.type.name = value;

@@ -1,3 +1,19 @@
-<p>
-  admin-order works!
-</p>
+<div id="admin-order">
+
+  <div class="flex">
+    <h4 class="flex-grow">Table</h4>
+    <div>
+      <mat-slide-toggle [checked]="isEditable" (change)="switchEdit($event.checked)"></mat-slide-toggle> Edit Mode
+    </div>
+
+    <div class="tables">
+      <mat-chip-list *ngIf="!isEditable">
+        <mat-chip color="yana" *ngFor="let table of tables">
+          {{ table.source.name }}
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+
+  </div>
+
+</div>
