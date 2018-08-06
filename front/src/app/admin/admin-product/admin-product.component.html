@@ -15,18 +15,21 @@
         </div>
       </div>
 
-      <div *ngIf="isEditable">
-        <div *ngFor="let category of categories">
-          <div class="">
-              <app-input class="name-input" [options]="category.options" (onchange)="updateCategoryName(category, $event)"></app-input>
-            <div>
-              <button mat-button color="red" matTooltip="Remove Category" (click)="openDeleteValidation(category)"><mat-icon>delete</mat-icon></button>
-              <button mat-button color="green" matTooltip="Confirm Update" (click)="updateCategory(category)"><mat-icon>check</mat-icon></button>
-            </div>
+      <div *ngIf="isEditable" class="edit-block">
+        <div class="edit-category-list">
+          <div *ngFor="let category of categories" class="inline-edit">
+            <button mat-button color="red" matTooltip="Remove Category" (click)="openDeleteValidation(category)"><mat-icon>delete</mat-icon></button>
+            <app-input class="name-input" [options]="category.options" (onchange)="updateCategoryName(category, $event)"></app-input>
+            <div class="link"></div>
+            <button mat-button color="green" matTooltip="Confirm Update" (click)="updateCategory(category)"><mat-icon>check</mat-icon></button>
           </div>
         </div>
-        <app-input class="name-input" [options]="newCategory.options" (onchange)="updateCategoryName(newCategory, $event)"></app-input>
-        <button mat-button color="green" matTooltip="Create category" (click)="createCategory(newCategory)"><mat-icon>check</mat-icon></button>
+
+        <div class="flex create-category inline-edit">
+          <app-input class="name-input" [options]="newCategory.options" (onchange)="updateCategoryName(newCategory, $event)"></app-input>
+          <div class="link"></div>
+          <button class="icon-button" mat-button color="green" matTooltip="Create category" (click)="createCategory(newCategory)"><mat-icon>check</mat-icon></button>
+        </div>
       </div>
     </div>
   </div>
