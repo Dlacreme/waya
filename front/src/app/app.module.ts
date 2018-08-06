@@ -21,7 +21,8 @@ import {
   MatSidenavModule,
   MatDialogModule,
   MatCardModule,
-  MatTabsModule
+  MatTabsModule,
+  MatChipsModule
 } from '@angular/material';
 
 // Core
@@ -129,7 +130,8 @@ import { AdminStockComponent } from './admin/admin-stock/admin-stock.component';
     MatTooltipModule,
     MatSidenavModule,
     MatCardModule,
-    MatTabsModule
+    MatTabsModule,
+    MatChipsModule
   ],
   providers: [
     SessionService,

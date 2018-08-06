@@ -39,3 +39,8 @@ app-select.max-width {
 .mat-button[color='red'] {
   color: $error-color;
 }
+
+[color='yana'] {
+  background-color: $yana-red !important;
+  color: white !important;
+}

@@ -3,17 +3,17 @@
   <div class="flex">
     <h4 class="flex-grow">Categories</h4>
     <div>
-        <mat-slide-toggle [checked]="isEditable" (change)="switchEdit($event.checked)"></mat-slide-toggle> Edit Mode
+      <mat-slide-toggle [checked]="isEditable" (change)="switchEdit($event.checked)"></mat-slide-toggle> Edit Mode
     </div>
   </div>
 
   <div class="flex">
     <div class="category-list">
-      <div *ngIf="!isEditable">
-        <div *ngFor="let category of categories">
+      <mat-chip-list *ngIf="!isEditable">
+        <mat-chip color="yana" *ngFor="let category of categories">
           {{ category.category.name }}
-        </div>
-      </div>
+        </mat-chip>
+      </mat-chip-list>
 
       <div *ngIf="isEditable" class="edit-block">
         <div class="edit-category-list">
