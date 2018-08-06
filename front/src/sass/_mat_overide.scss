@@ -1,3 +1,6 @@
+@import './mixins';
+@import './variables';
+
 .mat-drawer {
   box-shadow: 1px 0 0px 1px #dedede;
 }
@@ -12,4 +15,32 @@ app-select.max-width {
   .mat-form-field {
     width: 100%;
   }
+}
+
+.mat-tab-group.full {
+
+  @include box-shadow();
+
+  h4 {
+    margin-bottom: 15px;
+    font-size: 1.4em;
+    border-bottom: 1px solid #cecece;
+    margin-right: 30px;
+  }
+
+  .mat-tab-body-wrapper {
+    min-height: calc(100% - 50px);
+    background-color: white;
+    padding: 30px;
+  }
+
+}
+
+.mat-button[color='red'] {
+  color: $error-color;
+}
+
+[color='yana'] {
+  background-color: $yana-red !important;
+  color: white !important;
 }

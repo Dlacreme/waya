@@ -20,6 +20,7 @@ export interface StockFormatDto {
   name:string;
   is_disabled:boolean;
   stock_unit:StockUnitDto;
+  stock_unit_id:number;
 }
 
 export interface StockDto {
@@ -45,7 +46,8 @@ export class StockService extends Api {
   private readonly endpoints = {
     stock: 'stock',
     format: 'stock_format',
-    type: 'stock_type'
+    type: 'stock_type',
+    unit: 'stock_unit'
   };
 
   constructor(
@@ -104,5 +106,98 @@ export class StockService extends Api {
       params: stockImport
     });
   }
+
+  // Types
+  public typeList():Observable<ApiResult<StockTypeDto[]>> {
+    return this.query<StockTypeDto[]>({
+      endpoint: this.endpoints.type,
+      method: HttpMethod.GET
+    });
+  }
+
+  public typeCreate(type:StockTypeDto):Observable<ApiResult<StockTypeDto>> {
+    return this.query<StockTypeDto>({
+      endpoint: this.endpoints.type,
+      method: HttpMethod.POST,
+      params: type
+    });
+  }
+
+  public typeUpdate(type:StockTypeDto):Observable<ApiResult<StockTypeDto>> {
+    return this.query<StockTypeDto>({
+      endpoint: `${this.endpoints.type}/${type.id}`,
+      method: HttpMethod.PUT,
+      params: type
+    });
+  }
+
+  public typeDelete(typeId:number):Observable<ApiResult<void>> {
+    return this.query<void>({
+      endpoint: `${this.endpoints.type}/${typeId}`,
+      method: HttpMethod.DELETE
+    });
+  }
+
+  // Format
+  public formatList():Observable<ApiResult<StockFormatDto[]>> {
+    return this.query<StockFormatDto[]>({
+      endpoint: this.endpoints.format,
+      method: HttpMethod.GET
+    });
+  }
+
+  public formatCreate(format:StockFormatDto):Observable<ApiResult<StockFormatDto>> {
+    return this.query<StockFormatDto>({
+      endpoint: this.endpoints.format,
+      method: HttpMethod.POST,
+      params: format
+    });
+  }
+
+  public formatUpdate(format:StockFormatDto):Observable<ApiResult<StockFormatDto>> {
+    return this.query<StockFormatDto>({
+      endpoint: `${this.endpoints.format}/${format.id}`,
+      method: HttpMethod.PUT,
+      params: format
+    });
+  }
+
+  public formatDelete(formatId:number):Observable<ApiResult<void>> {
+    return this.query<void>({
+      endpoint: `${this.endpoints.format}/${formatId}`,
+      method: HttpMethod.DELETE
+    });
+  }
+
+    // Unit
+    public unitList():Observable<ApiResult<StockUnitDto[]>> {
+      return this.query<StockUnitDto[]>({
+        endpoint: this.endpoints.unit,
+        method: HttpMethod.GET
+      });
+    }
+
+    public unitCreate(unit:StockUnitDto):Observable<ApiResult<StockUnitDto>> {
+      return this.query<StockUnitDto>({
+        endpoint: this.endpoints.unit,
+        method: HttpMethod.POST,
+        params: unit
+      });
+    }
+
+    public unitUpdate(unit:StockUnitDto):Observable<ApiResult<StockUnitDto>> {
+      return this.query<StockUnitDto>({
+        endpoint: `${this.endpoints.unit}/${unit.id}`,
+        method: HttpMethod.PUT,
+        params: unit
+      });
+    }
+
+    public unitDelete(unitId:number):Observable<ApiResult<void>> {
+      return this.query<void>({
+        endpoint: `${this.endpoints.unit}/${unitId}`,
+        method: HttpMethod.DELETE
+      });
+    }
 
 }

@@ -3,6 +3,7 @@ import { Order } from '../models/order';
 import { EventService } from '../services/event.service';
 import { Subscription } from 'rxjs';
 import { ProductDto } from '../api/product.service';
+import { TableDto } from '../api/order.service';
 
 export enum OrderProductType {
   Add = 1,
@@ -26,18 +27,11 @@ export class OrderService implements OnDestroy {
   constructor(
     private eventService:EventService
   ) {
-    this.initUpdateSub();
   }
 
   public ngOnDestroy():void {
     this.updateSub.unsubscribe();
   }
 
-  private initUpdateSub():void {
-    this.updateSub = this.eventService.updateProducts
-      .subscribe((item) => {
-        console.log('DO > ', item);
-      });
-  }
 
 }

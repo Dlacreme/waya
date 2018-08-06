@@ -108,4 +108,35 @@ export class ProductService extends Api {
     });
   };
 
+  // Category
+  public categoryList():Observable<ApiResult<ProductCategoryDto[]>> {
+    return this.query<ProductCategoryDto[]>({
+      endpoint: this.endpoints.category,
+      method: HttpMethod.GET
+    });
+  }
+
+  public categoryCreate(category:ProductCategoryDto):Observable<ApiResult<ProductCategoryDto>> {
+    return this.query<ProductCategoryDto>({
+      endpoint: this.endpoints.category,
+      method: HttpMethod.POST,
+      params: category
+    });
+  }
+
+  public categoryUpdate(category:ProductCategoryDto):Observable<ApiResult<ProductCategoryDto>> {
+    return this.query<ProductCategoryDto>({
+      endpoint: `${this.endpoints.category}/${category.id}`,
+      method: HttpMethod.PUT,
+      params: category
+    });
+  }
+
+  public categoryDelete(categoryId:number):Observable<ApiResult<void>> {
+    return this.query<void>({
+      endpoint: `${this.endpoints.category}/${categoryId}`,
+      method: HttpMethod.DELETE
+    });
+  }
+
 }

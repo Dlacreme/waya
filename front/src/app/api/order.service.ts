@@ -61,7 +61,8 @@ export interface OrderDto {
 export class OrderService extends Api {
 
   private readonly endpoints = {
-    order: 'order'
+    order: 'order',
+    table: 'table'
   };
 
   constructor(
@@ -74,6 +75,37 @@ export class OrderService extends Api {
     return this.query<OrderDto[]>({
       method: HttpMethod.GET,
       endpoint: this.endpoints.order
+    });
+  }
+
+  // Tables
+  public tableList():Observable<ApiResult<TableDto[]>> {
+    return this.query<TableDto[]>({
+      endpoint: this.endpoints.table,
+      method: HttpMethod.GET
+    });
+  }
+
+  public tableCreate(table:TableDto):Observable<ApiResult<TableDto>> {
+    return this.query<TableDto>({
+      endpoint: this.endpoints.table,
+      method: HttpMethod.POST,
+      params: table
+    });
+  }
+
+  public tableUpdate(table:TableDto):Observable<ApiResult<TableDto>> {
+    return this.query<TableDto>({
+      endpoint: `${this.endpoints.table}/${table.id}`,
+      method: HttpMethod.PUT,
+      params: table
+    });
+  }
+
+  public tableDelete(tableId:number):Observable<ApiResult<void>> {
+    return this.query<void>({
+      endpoint: `${this.endpoints.table}/${tableId}`,
+      method: HttpMethod.DELETE
     });
   }
 
