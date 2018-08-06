@@ -92,7 +92,6 @@ export class AdminProductComponent implements OnInit, OnDestroy {
   }
 
   public createCategory(category:EditableCategory):void {
-    console.log('Created', category);
     this.createdSub = this.productService.categoryCreate(category.category)
       .subscribe((res) => {
         this.newCategory.category.name = '';

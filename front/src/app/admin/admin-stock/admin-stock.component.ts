@@ -1,11 +1,30 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { StockService, StockTypeDto, StockFormatDto, StockUnitDto } from '../../api/stock.service';
+import { InputOptions } from '../../form/input/input.component';
+import { SelectOptions, SelectItem } from '../../form/select/select.component';
+import { MatSnackBar } from '@angular/material';
 
 interface StockSubs {
   type:Subscription;
   format:Subscription;
   unit:Subscription;
+}
+
+interface EditableType {
+  type:StockTypeDto;
+  options:InputOptions;
+}
+
+interface EditableFormat {
+  format:StockFormatDto;
+  options:InputOptions;
+  unitOptions:SelectOptions;
+}
+
+interface EditableUnit {
+  unit:StockUnitDto;
+  options:InputOptions;
 }
 
 @Component({
@@ -17,9 +36,10 @@ export class AdminStockComponent implements OnInit, OnDestroy {
 
   public isEditable:boolean = false;
 
-  public types:StockTypeDto[] = [];
-  public formats:StockFormatDto[] = [];
-  public units:StockUnitDto[] = [];
+  public types:EditableType[] = [];
+  public formats:EditableFormat[] = [];
+  public units:EditableUnit[] = [];
+  public unitItems:SelectItem[] = [];
 
   private dialogSub:Subscription = Subscription.EMPTY;
   private listSub:StockSubs = this.getEmptyStockSubs();
@@ -28,7 +48,8 @@ export class AdminStockComponent implements OnInit, OnDestroy {
   private deleteSub:StockSubs = this.getEmptyStockSubs();
 
   constructor(
-    private stockService:StockService
+    private stockService:StockService,
+    private matSnackBar:MatSnackBar
   ) { }
 
   public ngOnInit():void {
@@ -47,25 +68,143 @@ export class AdminStockComponent implements OnInit, OnDestroy {
     this.isEditable = isEditable;
   }
 
+
+  // Type
+  public updateTypeName(type:EditableType, value:string):void {
+    type.type.name = value;
+  }
+
+  public updateType(type:EditableType):void {
+    this.updateSub.type = this.stockService.typeUpdate(type.type)
+      .subscribe(() => this.matSnackBar.open(`Type ${type.type.name} updated`, 'close'));
+  }
+
+  public createType(type:EditableType):void {
+    this.createSub.type = this.stockService.typeCreate(type.type)
+      .subscribe((res) => {
+        if (res.data) {
+          this.types.push({
+            type: res.data,
+            options: {
+              placeholder: 'Name',
+              default: res.data.name
+            }
+          });
+        }
+      });
+  }
+
+
+  // Format
+  public updateFormatName(format:EditableFormat, value:string):void {
+    format.format.name = value;
+  }
+
+  public updateFormat(format:EditableFormat):void {
+    this.updateSub.format = this.stockService.formatUpdate(format.format)
+      .subscribe(() => this.matSnackBar.open(`Type ${format.format.name} updated`, 'close'));
+  }
+
+  public createFormat(format:EditableFormat):void {
+    this.createSub.format = this.stockService.formatCreate(format.format)
+      .subscribe((res) => {
+        if (res.data) {
+          this.formats.push({
+            format: res.data,
+            options: {
+              placeholder: 'Name',
+              default: res.data.name
+            },
+            unitOptions: {
+              placeholder: 'Unit',
+              default: res.data.stock_unit.id,
+              items: this.unitItems
+            }
+          });
+        }
+      });
+  }
+
+  // Unit
+  public updateUnitName(unit:EditableUnit, value:string):void {
+    unit.unit.name = value;
+  }
+
+  public updateUnit(unit:EditableUnit):void {
+    this.updateSub.unit = this.stockService.unitUpdate(unit.unit)
+      .subscribe(() => this.matSnackBar.open(`Type ${unit.unit.name} updated`, 'close'));
+  }
+
+  public createUnit(unit:EditableUnit):void {
+    this.createSub.format = this.stockService.unitCreate(unit.unit)
+      .subscribe((res) => {
+        if (res.data) {
+          this.units.push({
+            unit: res.data,
+            options: {
+              placeholder: 'Name',
+              default: res.data.name
+            }
+          });
+        }
+      });
+  }
+
+
   private getDataLists():void {
     this.listSub.type = this.stockService.typeList()
-      .subscribe((res) => {
-        if (res.data) {
-          this.types = res.data
-        }
-      });
+      .subscribe((res) => this.types = res.data ? this.buildEditableTypes(res.data) : []);
+
     this.listSub.format = this.stockService.formatList()
-      .subscribe((res) => {
-        if (res.data) {
-          this.formats = res.data
-        }
-      });
+      .subscribe((res) => this.formats = res.data ? this.buildEditableFormats(res.data) : []);
+
     this.listSub.unit = this.stockService.unitList()
       .subscribe((res) => {
         if (res.data) {
-          this.units = res.data
+          res.data.forEach((item) => {
+            this.unitItems.push({
+              value: item.id,
+              text: item.name
+            });
+            this.units.push({
+              unit: item,
+              options: {
+                placeholder: 'Name',
+                default: item.name
+              }
+            });
+          });
         }
       });
+  }
+
+  private buildEditableTypes(types:StockTypeDto[]):EditableType[] {
+    const res:EditableType[] = [];
+    types.forEach((item) => res.push({
+      type: item,
+      options: {
+        placeholder: 'Name',
+        default: item.name
+      }
+    }));
+    return res;
+  }
+
+  private buildEditableFormats(types:StockFormatDto[]):EditableFormat[] {
+    const res:EditableFormat[] = [];
+    types.forEach((item) => res.push({
+      format: item,
+      options: {
+        placeholder: 'Name',
+        default: item.name
+      },
+      unitOptions: {
+        placeholder: 'Unit',
+        default: item.stock_unit.id,
+        items: this.unitItems
+      }
+    }));
+    return res;
   }
 
   private getEmptyStockSubs():StockSubs {

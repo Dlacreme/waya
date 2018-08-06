@@ -10,9 +10,19 @@
   <div class="types">
     <mat-chip-list *ngIf="!isEditable">
       <mat-chip color="yana" *ngFor="let type of types">
-        {{ type.name }}
+        {{ type.type.name }}
       </mat-chip>
     </mat-chip-list>
+
+    <div *ngIf="isEditable">
+      <div *ngFor="let type of types" class="inline-edit">
+        <button mat-button color="red" matTooltip="Remove" (click)="openTypeDeleteValidation(type)"><mat-icon>delete</mat-icon></button>
+        <app-input class="name-input" [options]="type.options" (onchange)="updateTypeName(type, $event)"></app-input>
+        <div class="link"></div>
+        <button mat-button color="green" matTooltip="Confirm Update" (click)="updateType(type)"><mat-icon>check</mat-icon></button>
+      </div>
+    </div>
+
   </div>
 
   <h4>Format</h4>
@@ -20,9 +30,19 @@
   <div class="formats">
     <mat-chip-list *ngIf="!isEditable">
       <mat-chip color="yana" *ngFor="let format of formats">
-        {{ format.name }} ({{ format.stock_unit.name }})
+        {{ format.format.name }} ({{ format.format.stock_unit.name }})
       </mat-chip>
     </mat-chip-list>
+
+    <div *ngIf="isEditable">
+      <div *ngFor="let format of formats" class="inline-edit">
+        <button mat-button color="red" matTooltip="Remove" (click)="openFormatDeleteValidation(format)"><mat-icon>delete</mat-icon></button>
+        <app-input class="name-input" [options]="format.options" (onchange)="updateFormatName(format, $event)"></app-input>
+        <div class="link"></div>
+        <button mat-button color="green" matTooltip="Confirm Update" (click)="updateFormat(format)"><mat-icon>check</mat-icon></button>
+      </div>
+    </div>
+
   </div>
 
   <h4>Format Units</h4>
@@ -30,9 +50,19 @@
   <div class="units">
     <mat-chip-list *ngIf="!isEditable">
       <mat-chip color="yana" *ngFor="let unit of units">
-        {{ unit.name }}
+        {{ unit.unit.name }}
       </mat-chip>
     </mat-chip-list>
+
+    <div *ngIf="isEditable">
+      <div *ngFor="let unit of units" class="inline-edit">
+        <button mat-button color="red" matTooltip="Remove" (click)="openUnitDeleteValidation(unit)"><mat-icon>delete</mat-icon></button>
+        <app-input class="name-input" [options]="unit.options" (onchange)="updateUnitName(unit, $event)"></app-input>
+        <div class="link"></div>
+        <button mat-button color="green" matTooltip="Confirm Update" (click)="updateUnit(unit)"><mat-icon>check</mat-icon></button>
+      </div>
+    </div>
+
   </div>
 
 
