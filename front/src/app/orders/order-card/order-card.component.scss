@@ -1,0 +1,20 @@
+.order-card {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+
+  .customer {
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  .currency {
+    font-weight: bold;
+    font-size: 0.6em;
+    color: #ccc;
+  }
+
+  .status-picker {
+    padding-top: 20px;
+  }
+}

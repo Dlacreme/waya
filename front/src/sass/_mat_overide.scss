@@ -7,3 +7,9 @@
   height: 40px !important;
   margin: auto;
 }
+
+app-select.max-width {
+  .mat-form-field {
+    width: 100%;
+  }
+}

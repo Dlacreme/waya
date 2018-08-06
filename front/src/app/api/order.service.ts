@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiResult, Api, HttpMethod } from './api';
 import { HttpClient } from '@angular/common/http';
+import { User, UserDto } from '../models/user';
+import { ProductDto } from './product.service';
 
 export enum OrderStatus {
   Pending = 1,
@@ -23,8 +25,27 @@ export enum OrderActions {
   Paid = 8
 }
 
+export interface OrderStatusDto {
+  name:string;
+}
+
 export interface OrderDto {
+  id:number;
+  customer_id:number|null;
+  customer:UserDto|null;
   order_status_id:OrderStatus;
+  order_status:OrderStatusDto;
+  products:ProductDto[];
+  table_id:number|null;
+  invoice_id:number|null;
+
+  amount_paid:number|null;
+  paid_at:Date;
+  payment_method_it:number|null;
+  total_price:number|null;
+
+  created_at:Date;
+  updated_at:Date;
 }
 
 @Injectable({

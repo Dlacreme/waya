@@ -1,3 +1,10 @@
-<p>
-  order-card works!
-</p>
+<div class="order-card">
+  <div class="flex">
+    <div>#{{ data.id }}</div>
+    <div class="flex-grow customer"> {{ data.customer ? data.customer.username : '' }}</div>
+    <div>{{ data.price }} <span class="currency">VND</span></div>
+  </div>
+  <div class="status-picker">
+    <app-select class="max-width" [options]="statusOptions" (onchange)="updateStatus($event)"></app-select>
+  </div>
+</div>
