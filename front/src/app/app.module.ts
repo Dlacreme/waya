@@ -61,6 +61,7 @@ import { OrderListComponent } from './orders/order-list/order-list.component'
 import { ApiInterceptor } from './api-interceptor';
 import { OrderCardComponent } from './orders/order-card/order-card.component';
 import { OrderProductComponent } from './orders/order-product/order-product.component';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { OrderProductComponent } from './orders/order-product/order-product.comp
     OrderListComponent,
     OrderCardComponent,
     OrderProductComponent,
+    AdminComponent,
   ],
   imports: [
     BrowserModule,
