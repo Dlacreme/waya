@@ -1,5 +1,9 @@
 @import './variables';
 
+.flex.wrap {
+  flex-wrap: wrap;
+}
+
 .module-title {
   display: flex;
   margin: -25px;
@@ -103,4 +107,39 @@ app-input, app-picker, app-select {
 .icon-button {
   height: 40px;
   line-height: 40px !important;
+}
+
+.text-align {
+  text-align: center;
+}
+
+.order-card-actions {
+  height: 30px;
+
+  .mat-button {
+    height: 30px;
+    padding: 0 !important;
+  }
+
+  .mat-icon {
+    font-size: 1.4em;
+  }
+
+  .step-button {
+    min-width: 30px;
+  }
+}
+
+.currency {
+  font-weight: bold;
+  font-size: 0.6em;
+  color: #ccc;
+}
+
+app-order-product {
+  margin: 2px;
+}
+
+.text-right {
+  text-align: right;
 }

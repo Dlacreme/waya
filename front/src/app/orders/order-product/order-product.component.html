@@ -1,0 +1,9 @@
+<div class="order-product">
+  <span class="name">{{ data.name }}</span>
+  <span class="price">123 <span class="currency">VND</span></span>
+
+  <div class="action" *ngIf="orderProductType !== orderProductTypeEnum.None">
+    <button *ngIf="orderProductType === orderProductTypeEnum.Add" mat-button matTooltip="Add to order" (click)="add()"><mat-icon class="add">add</mat-icon></button>
+    <button *ngIf="orderProductType === orderProductTypeEnum.Remove" mat-button matTooltip="Remove from order" (click)="remove()"><mat-icon class="delete">delete</mat-icon></button>
+  </div>
+</div>

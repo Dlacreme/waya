@@ -1,3 +1,14 @@
-<p>
-  orders works!
-</p>
+<div id="orders" class="flex">
+  <app-order-list [orders]="pendingOrders" label="Pending Validation"></app-order-list>
+  <app-order-list [orders]="validatedOrders" label="Validated"></app-order-list>
+  <app-order-list [orders]="readyOrders" label="Ready"></app-order-list>
+  <app-order-list [orders]="orders" label="On Going"></app-order-list>
+</div>
+
+<app-order *ngIf="pickedOrder" [order]="pickedOrder"></app-order>
+
+<mat-card *ngIf="pickedOrder" class="product-list">
+  <div class="flex">
+    <app-order-product *ngFor="let product of products; let i = index" [product]="product" (onadd)="addProduct($event)" [type]="orderProductType"></app-order-product>
+  </div>
+</mat-card>

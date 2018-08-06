@@ -32,7 +32,7 @@ export class SessionService extends Api {
     super(httpClient);
   }
 
-  public login(loginSession: LoginSession): Observable<ApiResult<LoginSession>> {
+  public login(loginSession: LoginSession):Observable<ApiResult<LoginSession>> {
     if (loginSession.provider) {
       return this.loginProvider(loginSession);
     }
@@ -43,7 +43,7 @@ export class SessionService extends Api {
     });
   }
 
-  private loginProvider(loginSession: LoginSession): Observable<ApiResult<LoginSession>> {
+  private loginProvider(loginSession: LoginSession):Observable<ApiResult<LoginSession>> {
     return this.query<LoginSession>({
       endpoint: this.endpoints.loginProvider,
       params: loginSession,

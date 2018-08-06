@@ -1,0 +1,12 @@
+#orders {
+  height: calc(100% - 100px );
+}
+
+app-order-list {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+.product-list .flex {
+  flex-wrap: wrap;
+}

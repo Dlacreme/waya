@@ -36,6 +36,10 @@ export class Api {
     protected httpClient: HttpClient
   ) { }
 
+  public setToken(token:string):void {
+    localStorage.setItem(environment.tokenLocalStorage, token);
+  }
+
   protected query<T>(uri: URI): Observable<ApiResult<T>> {
     switch (uri.method) {
       case HttpMethod.POST:

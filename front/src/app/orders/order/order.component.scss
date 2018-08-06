@@ -1,0 +1,29 @@
+@import '../../../sass/variables';
+
+#order {
+  padding: 30px;
+  margin-top: 40px;
+}
+
+.columns {
+  margin-top: 30px;
+  .history {
+    width: 300px;
+  }
+}
+
+.products {
+  width: calc(100% - 300px);
+}
+
+.actions {
+  margin-top: 30px;
+}
+
+.cancel-update {
+  margin-left: 20px;
+  width: 40px;
+  min-width: 40px;
+  padding: 0;
+  color: $error-color;
+}

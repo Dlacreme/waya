@@ -35,7 +35,7 @@ import { SessionService } from './api/session.service';
 // App Components
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PrivateComponent } from './private/private.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -56,7 +56,11 @@ import { CompoComponent } from './products/compo/compo.component';
 import { LoaderComponent } from './app/loader/loader.component';
 import { PriceEditComponent } from './products/price-edit/price-edit.component';
 import { CompoEditComponent } from './products/compo-edit/compo-edit.component';
-import { StockImportComponent } from './stocks/stock-import/stock-import.component'
+import { StockImportComponent } from './stocks/stock-import/stock-import.component';
+import { OrderListComponent } from './orders/order-list/order-list.component'
+import { ApiInterceptor } from './api-interceptor';
+import { OrderCardComponent } from './orders/order-card/order-card.component';
+import { OrderProductComponent } from './orders/order-product/order-product.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +88,9 @@ import { StockImportComponent } from './stocks/stock-import/stock-import.compone
     PriceEditComponent,
     CompoEditComponent,
     StockImportComponent,
+    OrderListComponent,
+    OrderCardComponent,
+    OrderProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -112,7 +119,8 @@ import { StockImportComponent } from './stocks/stock-import/stock-import.compone
   ],
   providers: [
     SessionService,
-    { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }
+    { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true}
   ],
   entryComponents: [
     ValidationDialogComponent,

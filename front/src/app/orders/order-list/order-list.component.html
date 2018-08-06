@@ -1,0 +1,7 @@
+<div class="order-list">
+  <h4>{{ title }}</h4>
+
+  <div *ngFor="let order of data">
+    <app-order-card [order]="order"></app-order-card>
+  </div>
+</div>

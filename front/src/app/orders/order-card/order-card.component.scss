@@ -1,0 +1,24 @@
+.order-card {
+  padding: 10px 10px 0 10px;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
+
+  .customer {
+    text-align: center;
+    padding: 0 8px;
+  }
+
+  .status-picker {
+    padding-top: 20px;
+  }
+
+  .order-card-actions {
+    margin-top: 10px;
+  }
+
+  .flex-grow {
+    button {
+      width: 100%;
+    }
+  }
+}

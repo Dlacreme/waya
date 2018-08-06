@@ -1,0 +1,46 @@
+@import '../../../sass/variables';
+
+.order-product {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+  position: relative;
+
+  &:hover {
+    .action {
+      display: block;
+    }
+  }
+
+}
+
+.name, .price {
+  display: block;
+  text-align: center;
+}
+
+.name {
+  margin-bottom: 15px;
+}
+
+.action {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  background-color: #211f1fc4;
+  padding-top: 25px;
+}
+
+mat-icon.delete {
+  color: $error-color;
+}
+
+mat-icon.add {
+  color: $green-color;
+  font-weight: bold;
+}
