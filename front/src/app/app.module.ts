@@ -20,7 +20,8 @@ import {
   MatTooltipModule,
   MatSidenavModule,
   MatDialogModule,
-  MatCardModule
+  MatCardModule,
+  MatTabsModule
 } from '@angular/material';
 
 // Core
@@ -62,6 +63,11 @@ import { ApiInterceptor } from './api-interceptor';
 import { OrderCardComponent } from './orders/order-card/order-card.component';
 import { OrderProductComponent } from './orders/order-product/order-product.component';
 import { AdminComponent } from './admin/admin.component';
+import { AdminCustomerComponent } from './admin/admin-customer/admin-customer.component';
+import { AdminStaffComponent } from './admin/admin-staff/admin-staff.component';
+import { AdminProductComponent } from './admin/admin-product/admin-product.component';
+import { AdminOrderComponent } from './admin/admin-order/admin-order.component';
+import { AdminStockComponent } from './admin/admin-stock/admin-stock.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +99,11 @@ import { AdminComponent } from './admin/admin.component';
     OrderCardComponent,
     OrderProductComponent,
     AdminComponent,
+    AdminCustomerComponent,
+    AdminStaffComponent,
+    AdminProductComponent,
+    AdminOrderComponent,
+    AdminStockComponent,
   ],
   imports: [
     BrowserModule,
@@ -117,7 +128,8 @@ import { AdminComponent } from './admin/admin.component';
     MatDialogModule,
     MatTooltipModule,
     MatSidenavModule,
-    MatCardModule
+    MatCardModule,
+    MatTabsModule
   ],
   providers: [
     SessionService,

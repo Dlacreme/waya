@@ -13,3 +13,12 @@ app-select.max-width {
     width: 100%;
   }
 }
+
+.mat-tab-group.full {
+
+  .mat-tab-body-wrapper {
+    min-height: calc(100% - 50px);
+    background-color: white;
+  }
+
+}
