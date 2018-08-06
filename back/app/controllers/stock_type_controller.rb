@@ -2,8 +2,8 @@ class StockTypeController < ApplicationController
 
   def index
     data StockType.where(is_disabled: false)
-  end  
-    
+  end
+
   def create
     save_form ItemForm.new(StockType.new), param_name
   end
