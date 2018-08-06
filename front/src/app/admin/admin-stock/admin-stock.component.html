@@ -21,6 +21,12 @@
         <div class="link"></div>
         <button mat-button color="green" matTooltip="Confirm Update" (click)="updateType(type)"><mat-icon>check</mat-icon></button>
       </div>
+
+      <div class="inline-edit">
+        <app-input class="name-input" [options]="newType.options" (onchange)="updateTypeName(newType, $event)"></app-input>
+        <div class="link"></div>
+        <button mat-button color="green" matTooltip="Create" (click)="createType(newType)"><mat-icon>add</mat-icon></button>
+      </div>
     </div>
 
   </div>
@@ -38,9 +44,18 @@
       <div *ngFor="let format of formats" class="inline-edit">
         <button mat-button color="red" matTooltip="Remove" (click)="openFormatDeleteValidation(format)"><mat-icon>delete</mat-icon></button>
         <app-input class="name-input" [options]="format.options" (onchange)="updateFormatName(format, $event)"></app-input>
+        <app-select class="name-input" [options]="format.unitOptions" (onchange)="updateFormatUnit(format, $event)"></app-select>
         <div class="link"></div>
         <button mat-button color="green" matTooltip="Confirm Update" (click)="updateFormat(format)"><mat-icon>check</mat-icon></button>
       </div>
+
+      <div class="inline-edit">
+        <app-input class="name-input" [options]="newFormat.options" (onchange)="updateFormatName(newFormat, $event)"></app-input>
+        <app-select class="name-input" [options]="newFormat.unitOptions" (onchange)="updateFormatUnit(newFormat, $event)"></app-select>
+        <div class="link"></div>
+        <button mat-button color="green" matTooltip="Create" (click)="createFormat(newFormat)"><mat-icon>add</mat-icon></button>
+      </div>
+
     </div>
 
   </div>
@@ -61,6 +76,13 @@
         <div class="link"></div>
         <button mat-button color="green" matTooltip="Confirm Update" (click)="updateUnit(unit)"><mat-icon>check</mat-icon></button>
       </div>
+
+      <div class="inline-edit">
+        <app-input class="name-input" [options]="newUnit.options" (onchange)="updateUnitName(newUnit, $event)"></app-input>
+        <div class="link"></div>
+        <button mat-button color="green" matTooltip="Create" (click)="createUnit(newUnit)"><mat-icon>add</mat-icon></button>
+      </div>
+
     </div>
 
   </div>

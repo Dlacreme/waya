@@ -3,7 +3,8 @@ import { Subscription } from 'rxjs';
 import { StockService, StockTypeDto, StockFormatDto, StockUnitDto } from '../../api/stock.service';
 import { InputOptions } from '../../form/input/input.component';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
 
 interface StockSubs {
   type:Subscription;
@@ -41,7 +42,11 @@ export class AdminStockComponent implements OnInit, OnDestroy {
   public units:EditableUnit[] = [];
   public unitItems:SelectItem[] = [];
 
-  private dialogSub:Subscription = Subscription.EMPTY;
+  public newType:EditableType;
+  public newFormat:EditableFormat;
+  public newUnit:EditableUnit;
+
+  private dialogSub:StockSubs = this.getEmptyStockSubs();
   private listSub:StockSubs = this.getEmptyStockSubs();
   private updateSub:StockSubs = this.getEmptyStockSubs();
   private createSub:StockSubs = this.getEmptyStockSubs();
@@ -49,15 +54,17 @@ export class AdminStockComponent implements OnInit, OnDestroy {
 
   constructor(
     private stockService:StockService,
-    private matSnackBar:MatSnackBar
+    private matSnackBar:MatSnackBar,
+    private dialog:MatDialog
   ) { }
 
   public ngOnInit():void {
     this.getDataLists();
+    this.initNew();
   }
 
   public ngOnDestroy():void {
-    this.dialogSub.unsubscribe();
+    this.unsubscribeSubs(this.dialogSub);
     this.unsubscribeSubs(this.listSub);
     this.unsubscribeSubs(this.updateSub);
     this.unsubscribeSubs(this.createSub);
@@ -94,15 +101,36 @@ export class AdminStockComponent implements OnInit, OnDestroy {
       });
   }
 
+  public openTypeDeleteValidation(type:EditableType):void {
+    const dialog = this.dialog.open(ValidationDialogComponent, {
+      data: `Do you want to delete ${type.type.name}?`
+    });
+    this.dialogSub.type = dialog.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleteSub.type = this.stockService.typeDelete(type.type.id)
+          .subscribe(() => {
+            const index = this.types.findIndex((item) => item.type.id === type.type.id);
+            if (index !== -1) {
+              this.types.splice(index, 1);
+            }
+            this.matSnackBar.open(`${type.type.name} deleted.`, 'close', {duration: 5000})
+          });
+      }
+    });
+  }
 
   // Format
   public updateFormatName(format:EditableFormat, value:string):void {
     format.format.name = value;
   }
 
+  public updateFormatUnit(format:EditableFormat, value:SelectItem):void {
+    format.format.stock_unit_id = value.value;
+  }
+
   public updateFormat(format:EditableFormat):void {
     this.updateSub.format = this.stockService.formatUpdate(format.format)
-      .subscribe(() => this.matSnackBar.open(`Type ${format.format.name} updated`, 'close'));
+      .subscribe(() => this.matSnackBar.open(`Format ${format.format.name} updated`, 'close'));
   }
 
   public createFormat(format:EditableFormat):void {
@@ -125,6 +153,24 @@ export class AdminStockComponent implements OnInit, OnDestroy {
       });
   }
 
+  public openFormatDeleteValidation(format:EditableFormat):void {
+    const dialog = this.dialog.open(ValidationDialogComponent, {
+      data: `Do you want to delete ${format.format.name}?`
+    });
+    this.dialogSub.format = dialog.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleteSub.format = this.stockService.formatDelete(format.format.id)
+          .subscribe(() => {
+            const index = this.formats.findIndex((item) => item.format.id === format.format.id);
+            if (index !== -1) {
+              this.formats.splice(index, 1);
+            }
+            this.matSnackBar.open(`${format.format.name} deleted.`, 'close', {duration: 5000})
+          });
+      }
+    });
+  }
+
   // Unit
   public updateUnitName(unit:EditableUnit, value:string):void {
     unit.unit.name = value;
@@ -132,11 +178,11 @@ export class AdminStockComponent implements OnInit, OnDestroy {
 
   public updateUnit(unit:EditableUnit):void {
     this.updateSub.unit = this.stockService.unitUpdate(unit.unit)
-      .subscribe(() => this.matSnackBar.open(`Type ${unit.unit.name} updated`, 'close'));
+      .subscribe(() => this.matSnackBar.open(`Unit ${unit.unit.name} updated`, 'close'));
   }
 
   public createUnit(unit:EditableUnit):void {
-    this.createSub.format = this.stockService.unitCreate(unit.unit)
+    this.createSub.unit = this.stockService.unitCreate(unit.unit)
       .subscribe((res) => {
         if (res.data) {
           this.units.push({
@@ -148,6 +194,24 @@ export class AdminStockComponent implements OnInit, OnDestroy {
           });
         }
       });
+  }
+
+  public openUnitDeleteValidation(unit:EditableUnit):void {
+    const dialog = this.dialog.open(ValidationDialogComponent, {
+      data: `Do you want to delete ${unit.unit.name}?`
+    });
+    this.dialogSub.unit = dialog.afterClosed().subscribe((result) => {
+      if (result) {
+        this.deleteSub.unit = this.stockService.unitDelete(unit.unit.id)
+          .subscribe(() => {
+            const index = this.units.findIndex((item) => item.unit.id === unit.unit.id);
+            if (index !== -1) {
+              this.units.splice(index, 1);
+            }
+            this.matSnackBar.open(`${unit.unit.name} deleted.`, 'close', {duration: 5000})
+          });
+      }
+    });
   }
 
 
@@ -205,6 +269,40 @@ export class AdminStockComponent implements OnInit, OnDestroy {
       }
     }));
     return res;
+  }
+
+  private initNew():void {
+    this.newType = {
+      type: {
+        name: ''
+      } as StockTypeDto,
+      options: {
+        placeholder: 'Create new Type',
+        default: ''
+      }
+    }
+    this.newFormat = {
+      format: {
+        name: ''
+      } as StockFormatDto,
+      options: {
+        placeholder: 'Create new Format',
+        default: ''
+      },
+      unitOptions: {
+        placeholder: 'Pick a unit',
+        items: this.unitItems
+      }
+    };
+    this.newUnit = {
+      unit: {
+        name: ''
+      } as StockUnitDto,
+      options: {
+        placeholder: 'Create new unit',
+        default: ''
+      }
+    }
   }
 
   private getEmptyStockSubs():StockSubs {

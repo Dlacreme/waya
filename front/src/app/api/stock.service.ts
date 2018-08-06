@@ -20,6 +20,7 @@ export interface StockFormatDto {
   name:string;
   is_disabled:boolean;
   stock_unit:StockUnitDto;
+  stock_unit_id:number;
 }
 
 export interface StockDto {

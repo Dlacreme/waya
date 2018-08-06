@@ -20,7 +20,6 @@ export class AdminProductComponent implements OnInit, OnDestroy {
   public categories:EditableCategory[] = [];
   public isEditable:boolean = false;
   public newCategory:EditableCategory;
-  public newOptions:InputOptions;
 
   private categorySub:Subscription = Subscription.EMPTY;
   private dialogSub:Subscription = Subscription.EMPTY;
