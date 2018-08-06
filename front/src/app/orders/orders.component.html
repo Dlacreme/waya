@@ -1,6 +1,8 @@
 <div id="orders" class="flex">
-  <app-order-list [orders]="pendingOrders" title="Pending Validation"></app-order-list>
-  <app-order-list [orders]="validatedOrders" title="Validated"></app-order-list>
-  <app-order-list [orders]="readyOrders" title="Ready"></app-order-list>
-  <app-order-list [orders]="orders" title="On Going"></app-order-list>
+  <app-order-list [orders]="pendingOrders" label="Pending Validation"></app-order-list>
+  <app-order-list [orders]="validatedOrders" label="Validated"></app-order-list>
+  <app-order-list [orders]="readyOrders" label="Ready"></app-order-list>
+  <app-order-list [orders]="orders" label="On Going"></app-order-list>
 </div>
+
+<app-order *ngIf="pickedOrder" [order]="pickedOrder"></app-order>

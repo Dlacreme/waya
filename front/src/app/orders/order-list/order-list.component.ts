@@ -10,7 +10,7 @@ export class OrderListComponent implements OnInit {
 
   public data:OrderDto[] = [];
 
-  public label:string;
+  public title:string;
 
   constructor() { }
 
@@ -20,8 +20,8 @@ export class OrderListComponent implements OnInit {
   }
 
   @Input()
-  set title(title:string) {
-    this.label = title;
+  set label(title:string) {
+    this.title = title;
   }
 
   public ngOnInit():void {

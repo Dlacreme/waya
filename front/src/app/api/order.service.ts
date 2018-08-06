@@ -25,7 +25,13 @@ export enum OrderActions {
   Paid = 8
 }
 
+export interface TableDto {
+  id:number;
+  name:string;
+}
+
 export interface OrderStatusDto {
+  id:number;
   name:string;
 }
 
@@ -37,6 +43,7 @@ export interface OrderDto {
   order_status:OrderStatusDto;
   products:ProductDto[];
   table_id:number|null;
+  table:TableDto|null;
   invoice_id:number|null;
 
   amount_paid:number|null;

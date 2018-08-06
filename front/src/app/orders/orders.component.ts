@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OrderService, OrderDto, OrderStatus } from '../api/order.service';
 import { Subscription } from 'rxjs';
 import { EventService } from '../services/event.service';
+import { Order } from '../models/order';
 
 @Component({
   selector: 'app-orders',
@@ -15,8 +16,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
   public validatedOrders:OrderDto[] = [];
   public readyOrders:OrderDto[] = [];
 
+  public pickedOrder:Order|undefined;
+
   private ordersSub = Subscription.EMPTY;
   private updateListenerSub = Subscription.EMPTY;
+  private openSub = Subscription.EMPTY;
 
   constructor(
     private orderService:OrderService,
@@ -35,11 +39,20 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy():void {
     this.ordersSub.unsubscribe();
+    this.updateListenerSub.unsubscribe();
+    this.openSub.unsubscribe();
   }
 
   private listenForUpdate():void {
     this.updateListenerSub = this.eventService.orderUpdate
-      .subscribe((order:OrderDto) => this.splitOrders(this.mergeOrders()));
+      .subscribe((order:Order) => {
+        this.splitOrders(this.mergeOrders());
+        this.pickedOrder = order;
+      });
+    this.openSub = this.eventService.openOrder
+      .subscribe((order:Order) => {
+        this.pickedOrder = order;
+      })
   }
 
   private splitOrders(orders:OrderDto[]):void {

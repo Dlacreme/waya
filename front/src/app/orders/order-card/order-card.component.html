@@ -1,10 +1,19 @@
 <div class="order-card">
   <div class="flex">
     <div>#{{ data.id }}</div>
-    <div class="flex-grow customer"> {{ data.customer ? data.customer.username : '' }}</div>
+    <div class="flex-grow text-align"> {{ data.table ? data.table.name : '' }}</div>
     <div>{{ data.price }} <span class="currency">VND</span></div>
   </div>
-  <div class="status-picker">
-    <app-select class="max-width" [options]="statusOptions" (onchange)="updateStatus($event)"></app-select>
+  <!-- <div class="flex">
+    <app-select class="flex-growmax-width" [options]="statusOptions" (onchange)="updateStatus($event)"></app-select>
+  </div> -->
+  <div class="flex order-card-actions">
+    <button mat-button class="step-button">
+      <mat-icon matTooltip="Move Previous">skip_previous</mat-icon>
+    </button>
+    <div class="flex-grow"><button mat-button (click)="openDetails()">Open Details</button></div>
+    <button mat-button class="step-button">
+      <mat-icon matTooltip="Move Next">skip_next</mat-icon>
+    </button>
   </div>
 </div>

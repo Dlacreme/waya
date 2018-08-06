@@ -28,9 +28,13 @@ export class OrderCardComponent implements OnInit {
     this.initStatusPicker();
   }
 
+  public openDetails():void {
+    this.eventService.openOrder.emit(this.data);
+  }
+
   public updateStatus(value:SelectItem):void {
     this.data.setStatus(value.value);
-    this.eventService.orderUpdate.emit(this.data.source);
+    this.eventService.orderUpdate.emit(this.data);
   }
 
   private initStatusPicker():void {

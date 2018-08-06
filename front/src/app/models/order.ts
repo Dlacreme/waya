@@ -1,4 +1,4 @@
-import { OrderDto, OrderStatus } from "../api/order.service";
+import { OrderDto, OrderStatus, TableDto } from "../api/order.service";
 import { ProductDto } from "../api/product.service";
 import { User, UserDto } from "./user";
 
@@ -11,12 +11,12 @@ export class Order {
   customer:User|null;
   status:OrderStatus;
   price:number;
+  table:TableDto|null;
 
   created_at:Date;
   updated_at:Date;
 
   constructor(order:OrderDto) {
-    console.log('ORDER > ', order);
     this.source = order;
 
     this.id = order.id;
@@ -24,6 +24,7 @@ export class Order {
     this.customer = order.customer_id ? new User(<UserDto>order.customer) : null;
     this.status = order.order_status_id;
     this.price = order.total_price || 0;
+    this.table = order.table || null;
 
     this.created_at = order.created_at;
     this.updated_at = order.updated_at;

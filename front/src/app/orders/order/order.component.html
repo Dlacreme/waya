@@ -1,3 +1,18 @@
-<p>
-  order works!
-</p>
+<mat-card id="order">
+  <div class="flex">
+    <div>#{{ data.id }}</div>
+    <div class="flex-grow customer"> {{ data.table ? data.table.name : '' }}</div>
+    <div>{{ data.price }} <span class="currency">VND</span></div>
+  </div>
+
+  <div class="columns flex">
+    <div class="history separator right">
+
+    </div>
+
+    <div class="products flex">
+      <app-order-product *ngFor="let product of data.products" [product]="product"></app-order-product>
+    </div>
+  </div>
+
+</mat-card>

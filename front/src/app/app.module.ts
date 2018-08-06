@@ -60,6 +60,7 @@ import { StockImportComponent } from './stocks/stock-import/stock-import.compone
 import { OrderListComponent } from './orders/order-list/order-list.component'
 import { ApiInterceptor } from './api-interceptor';
 import { OrderCardComponent } from './orders/order-card/order-card.component';
+import { OrderProductComponent } from './orders/order-product/order-product.component';
 
 @NgModule({
   declarations: [
@@ -89,6 +90,7 @@ import { OrderCardComponent } from './orders/order-card/order-card.component';
     StockImportComponent,
     OrderListComponent,
     OrderCardComponent,
+    OrderProductComponent,
   ],
   imports: [
     BrowserModule,

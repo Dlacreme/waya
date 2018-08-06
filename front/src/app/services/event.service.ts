@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { OrderDto } from '../api/order.service';
+import { Order } from '../models/order';
+import { OrderProduct } from '../orders/order.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,5 +8,7 @@ import { OrderDto } from '../api/order.service';
 export class EventService {
   loaderInProgress = new EventEmitter<boolean>();
   errorOccured = new EventEmitter<string>();
-  orderUpdate = new EventEmitter<OrderDto>();
+  orderUpdate = new EventEmitter<Order>();
+  openOrder = new EventEmitter<Order>();
+  updateProducts = new EventEmitter<OrderProduct>();
 }
