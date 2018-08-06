@@ -1,4 +1,5 @@
 @import './mixins';
+@import './variables';
 
 .mat-drawer {
   box-shadow: 1px 0 0px 1px #dedede;
@@ -30,4 +31,8 @@ app-select.max-width {
     padding: 30px;
   }
 
+}
+
+.mat-button[color='red'] {
+  color: $error-color;
 }

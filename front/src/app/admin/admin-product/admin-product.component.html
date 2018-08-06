@@ -1,11 +1,32 @@
 <div id="admin-product">
 
-  <h4>Categories</h4>
+  <div class="flex">
+    <h4 class="flex-grow">Categories</h4>
+    <div>
+        <mat-slide-toggle [checked]="isEditable" (change)="switchEdit($event.checked)"></mat-slide-toggle> Edit Mode
+    </div>
+  </div>
 
   <div class="flex">
     <div class="category-list">
-      <div *ngFor="let category of categories">
-        {{ category.name }}
+      <div *ngIf="!isEditable">
+        <div *ngFor="let category of categories">
+          {{ category.category.name }}
+        </div>
+      </div>
+
+      <div *ngIf="isEditable">
+        <div *ngFor="let category of categories">
+          <div class="">
+              <app-input class="name-input" [options]="category.options" (onchange)="updateCategoryName(category, $event)"></app-input>
+            <div>
+              <button mat-button color="red" matTooltip="Remove Category" (click)="openDeleteValidation(category)"><mat-icon>delete</mat-icon></button>
+              <button mat-button color="green" matTooltip="Confirm Update" (click)="updateCategory(category)"><mat-icon>check</mat-icon></button>
+            </div>
+          </div>
+        </div>
+        <app-input class="name-input" [options]="newCategory.options" (onchange)="updateCategoryName(newCategory, $event)"></app-input>
+        <button mat-button color="green" matTooltip="Create category" (click)="createCategory(newCategory)"><mat-icon>check</mat-icon></button>
       </div>
     </div>
   </div>
