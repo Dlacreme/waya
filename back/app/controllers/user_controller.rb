@@ -35,8 +35,12 @@ class UserController < ApplicationController
     data User.find(params[:id])
   end
 
-  def destroy
+  def update_role
+    process_form UserRoleForm.new(User.find(params[:id])), param_update_role
+    data User.find(params[:id])
+  end
 
+  def destroy
   end
 
 private
@@ -47,6 +51,10 @@ private
 
   def param_update
     params.permit(:email, :username, :password)
+  end
+
+  def param_update_role
+    params.permit(:role_id)
   end
 
 end

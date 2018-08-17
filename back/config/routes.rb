@@ -28,5 +28,6 @@ Rails.application.routes.draw do
   resources :user, only: [:index, :show, :create, :update, :destroy]
   get 'user/search/:query', to: 'user#search'
   get 'user/search_by_role/:role_id', to: 'user#search_by_role'
+  put 'user/role/:id', to: 'user#update_role'
 
 end
