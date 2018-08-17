@@ -1,3 +1,20 @@
-<p>
-  admin-staff works!
-</p>
+<div class="flex inline-edit">
+    <app-select [options]="userPromoteOptions" (onchange)="updatePickedCustomer($event)"></app-select>
+    <div class="flex-grow"></div>
+    <button mat-button color="green" matTooltip="Create" (click)="promotePickedUser()"><mat-icon>add</mat-icon></button>
+</div>
+
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let user of users">
+    <mat-expansion-panel-header class="flex panel-header">
+      <span class="bold">{{ user.username }}</span>
+      &nbsp;
+      {{ user.email }}
+    </mat-expansion-panel-header>
+    <div class="flex">
+      <button mat-raised-button>Go to {{user.username}} profile</button>
+      <div class="flex-grow"></div>
+      <button mat-raised-button color="red" (click)="demoteUser(user)">Remove {{user.username}} access</button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

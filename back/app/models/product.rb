@@ -23,9 +23,6 @@ class Product < ApplicationRecord
       form.validate(x) && form.save
       product_stocks_array.push(form.id)
     end
-    p "owdjqiodjwq"
-
-    p product_stocks_array
 
     ProductStock
       .where(product_id: self.id)

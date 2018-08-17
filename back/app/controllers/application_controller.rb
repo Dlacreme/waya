@@ -60,9 +60,6 @@ protected
 
   def logged_in?
     parse_jwt
-    p "JTW "
-    p @jwt
-
     @current_user ||= User.find(@jwt[:user_id]) if @jwt && @jwt[:user_id]
   end
 

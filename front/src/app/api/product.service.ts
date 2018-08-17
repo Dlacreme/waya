@@ -68,7 +68,7 @@ export class ProductService extends Api {
     return this.query<ProductDto>({
       endpoint: `${this.endpoints.product}/${productId}`,
       method: HttpMethod.GET
-    })
+    });
   }
 
   public list():Observable<ApiResult<ProductDto[]>> {

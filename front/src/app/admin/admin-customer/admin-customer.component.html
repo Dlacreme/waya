@@ -1,3 +1,20 @@
-<p>
-  admin-customer works!
-</p>
+
+<div class="flex inline-edit">
+    <app-input class="email-input" [options]="emailOptions" (onchange)="updateEmail($event)"></app-input>
+    <app-input class="name-input" [options]="nameOptions" (onchange)="updateName($event)"></app-input>
+    <div class="flex-grow"></div>
+    <button mat-button color="green" matTooltip="Create" (click)="createUser()"><mat-icon>add</mat-icon></button>
+</div>
+
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let user of users">
+    <mat-expansion-panel-header class="flex panel-header">
+      <span class="bold">{{ user.username }}</span>
+      &nbsp;
+      {{ user.email }}
+    </mat-expansion-panel-header>
+    <div class="text-center">
+      <button mat-raised-button>Go to {{user.username}} profile</button>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
