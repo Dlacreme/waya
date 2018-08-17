@@ -69,7 +69,7 @@ export class UserService extends Api {
 
   public updateRole(user:UserDto, role:UserRole):Observable<ApiResult<UserDto>> {
     return this.query<UserDto>({
-      endpoint: `${this.endpoints.user}/${user.id}`,
+      endpoint: `${this.endpoints.role}/${user.id}`,
       method: HttpMethod.PUT,
       params: {role_id: role}
     });
