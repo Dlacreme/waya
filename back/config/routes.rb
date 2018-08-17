@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'user(/:id)', to: "session#index"
   post 'signin', to: "session#signin"
   post 'login', to: "session#login"
   post 'login/:provider_id', to: "session#provider"
@@ -25,5 +24,9 @@ Rails.application.routes.draw do
   delete 'order/:id/voucher/:voucher_id', to: 'order#remove_voucher'
   # Vouchers
   resources :voucher, only: [:index, :show, :create, :destroy]
+  # Users
+  resources :user, only: [:index, :show, :create, :update, :destroy]
+  get 'user/search/:query', to: 'user#search'
+  get 'user/search_by_role/:role_id', to: 'user#search_by_role'
 
 end
