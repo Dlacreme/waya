@@ -1,6 +1,11 @@
 import { ProductDto, ProductStockDto, ProductPriceDto } from "../api/product.service";
 import { StockDto } from "../api/stock.service";
 
+export enum PriceType {
+  Default = 1,
+  Member = 2
+}
+
 export interface Compo {
   id:number;
   quantity:number;
@@ -47,6 +52,7 @@ export class Product {
       base: -1,
       member: -1
     };
+    console.log(product.product_prices);
     this.compos = [];
     product.product_stocks.forEach((productStock:ProductStockDto) => {
       this.compos.push({
