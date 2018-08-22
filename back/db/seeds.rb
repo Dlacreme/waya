@@ -34,6 +34,9 @@ ProductCategory.create(name: 'Alcohol')
 ProductCategory.create(name: 'Food')
 ProductCategory.create(name: 'Combo')
 
+ProductPriceType.create(name: 'Standard')
+ProductPriceType.create(name: 'Member')
+
 ## Orders
 PaymentMethod.create(name: 'Credit Card')
 PaymentMethod.create(name: 'Cash')

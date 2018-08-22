@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180711203528) do
+ActiveRecord::Schema.define(version: 20180820092805) do
 
   create_table "order_action_histories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "order_id"
@@ -67,10 +67,16 @@ ActiveRecord::Schema.define(version: 20180711203528) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "product_price_types", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "product_prices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "product_id"
+    t.integer "product_price_type_id"
     t.decimal "price", precision: 10
-    t.decimal "member_price", precision: 10
     t.date "start_date"
     t.date "end_date"
     t.datetime "created_at", null: false
@@ -184,7 +190,7 @@ ActiveRecord::Schema.define(version: 20180711203528) do
   create_table "voucher_consumptions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "voucher_id"
     t.integer "order_id"
-    t.integer "created_by"
+    t.integer "created_by_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -202,7 +208,7 @@ ActiveRecord::Schema.define(version: 20180711203528) do
     t.string "desc"
     t.decimal "value", precision: 10
     t.integer "voucher_type_id"
-    t.boolean "is_disabled"
+    t.boolean "is_disabled", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

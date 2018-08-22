@@ -3,6 +3,7 @@ import { Api, ApiResult, HttpMethod } from './api';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StockDto } from './stock.service';
+import { PriceType } from '../models/product';
 
 export interface ProductStockDto {
   id?:number;
@@ -30,7 +31,7 @@ export interface ProductPriceDto {
   created_at?:Date;
   updated_at?:Date;
   price:number;
-  member_price:number;
+  product_price_type_id:PriceType;
 }
 
 export interface ProductDto {
@@ -46,6 +47,8 @@ export interface ProductDto {
   product_category:ProductCategoryDto;
   product_stocks:ProductStockDto[];
   product_prices:ProductPriceDto[];
+  standard_price:ProductPriceDto|undefined;
+  member_price:ProductPriceDto|undefined;
 }
 
 @Injectable({

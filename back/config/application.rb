@@ -27,5 +27,7 @@ module Waya
         resource '*', headers: :any, methods: [:get, :post, :options, :delete, :put, :patch]
       end
     end
+
+    Mysql2::Client.default_query_options[:connect_flags] |= Mysql2::Client::MULTI_STATEMENTS
   end
 end

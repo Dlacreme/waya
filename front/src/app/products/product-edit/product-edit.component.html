@@ -26,7 +26,7 @@
 
     <mat-card class="price card">
       <h3>Price</h3>
-      <app-price-edit [price]="product.price" (onchange)="updatePrice($event)"></app-price-edit>
+      <app-price-edit [product]="product" (onchange)="updatePrice($event)"></app-price-edit>
     </mat-card>
   </div>
 

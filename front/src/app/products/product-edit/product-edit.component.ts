@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product, Price, Compo } from '../../models/product';
-import { ProductService, ProductCategoryDto } from '../../api/product.service';
+import { Product, Compo } from '../../models/product';
+import { ProductService, ProductCategoryDto, ProductPriceDto } from '../../api/product.service';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { ValidationDialogComponent } from '../../form/validation-dialog/validation-dialog.component';
 import { InputOptions, InputType } from '../../form/input/input.component';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { ApiItem } from '../../api/api';
+import { PricesEditResult } from '../price-edit/price-edit.component';
 
 @Component({
   selector: 'app-product-edit',
@@ -84,8 +85,13 @@ export class ProductEditComponent implements OnInit, OnDestroy {
     this.product.updateCompo(compo);
   }
 
-  public updatePrice(price:Price):void {
-    this.product.updatePrice(price);
+  public updatePrice(price:PricesEditResult):void {
+    if (price.standard) {
+      this.product.updatePrice(price.standard);
+    }
+    if (price.member) {
+      this.product.updatePrice(price.member);
+    }
   }
 
   public update():void {
