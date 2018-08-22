@@ -52,8 +52,8 @@ class ProductController < ApplicationController
     ps = param_update
     form = ProductForm.new(Product.find(params[:id]))
     form.model.update_product_stocks(ps[:product_stocks]) unless ps[:product_stocks] == nil
-    form.model.update_price(ps[:standard_price]) unless ps[:standard_price] == nil
-    form.model.update_price(ps[:member_price]) unless ps[:member_price] == nil
+    form.model.update_price(ps[:standard_price]) unless ps[:standard_price] == nil || ps[:standard_price][:id] != nil
+    form.model.update_price(ps[:member_price]) unless ps[:member_price] == nil || ps[:member_price][:id] != nil
     process_form form, {:name => ps[:name], :desc => ps[:desc], :product_category_id => ps[:product_category_id]}
 
     data load(form.model.id)
