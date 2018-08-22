@@ -8,7 +8,7 @@ class Order < ApplicationRecord
   has_many :voucher_consumptions
 
   has_many :order_products
-  has_many :products, through: :order_products  
+  has_many :products, through: :order_products
 
   def create_action(user, comment = nil)
     self.save_action(user.id, OrderActionEnum::Create, set_comment(user, comment ? comment : "created the order"))
@@ -23,10 +23,10 @@ class Order < ApplicationRecord
   def set_customer(user, user_id, comment)
     self.customer_id = user_id
     self.save
-    self.save_action(user.id, OrderActionEnum::Update, set_comment(user, comment ? comment : "update the customer #{user_id}"))  
+    self.save_action(user.id, OrderActionEnum::Update, set_comment(user, comment ? comment : "update the customer #{user_id}"))
   end
 
-  def add_products(ids = [])
+  def add_products(ids = nil)
     return unless ids
     OrderProduct.transaction do
       ids.each do |x|
@@ -39,7 +39,7 @@ class Order < ApplicationRecord
     calc_price
   end
 
-  def remove_products(ids = [])
+  def remove_products(ids = nil)
     return unless ids
     OrderProduct.where(id: ids).delete_all
     calc_price
@@ -69,7 +69,7 @@ class Order < ApplicationRecord
     calc_price
     self.save_action(user.id, OrderActionEnum::Update, set_comment(user, "add voucher"))
   end
-  
+
   def remove_voucher(user, voucher_id)
     VoucherConsumption.where(voucher_id: voucher_id).where(order_id: self.id).delete_all
     calc_price
@@ -94,8 +94,7 @@ class Order < ApplicationRecord
   end
 
   def self.calc_price(order_id)
-    ActiveRecord::Base.connection.execute("CALL calcul_price(#{order_id})")        
+    ActiveRecord::Base.connection.execute("CALL calcul_price(#{order_id})")
   end
-
 
 end

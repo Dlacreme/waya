@@ -5,14 +5,15 @@ CREATE PROCEDURE calcul_price
     (IN p_order_id INT)
 job:BEGIN
 
--- Get products Prices
+-- -- Get products Prices
 DROP TABLE IF EXISTS tmp_prices;
 CREATE TEMPORARY TABLE tmp_prices
 AS
 (
     SELECT
         p.id AS 'product_id',
-        pp.price
+        pp.price,
+        pp.product_price_type_id
     FROM orders o
     INNER JOIN order_products op
         ON o.id = op.order_id
@@ -22,10 +23,11 @@ AS
         ON p.id = pp.product_id
         AND pp.start_date <= op.created_at
         AND (pp.end_date IS NULL OR pp.end_date > op.created_at)
+        AND pp.product_price_type_id = (IF (o.customer_id IS NULL OR ((SELECT COUNT(*) FROM product_prices pptmp WHERE pptmp.product_id = pp.product_id AND pptmp.start_date <= op.created_at AND (pptmp.end_date IS NULL OR pptmp.end_date > op.created_at) AND pptmp.product_price_type_id = 2) = 0), 1, 2))
     WHERE o.id = p_order_id
 );
 
--- Get Voucher by with direct reduction (id = 2)
+-- -- Get Voucher by with direct reduction (id = 2)
 SET @direct_reduction = (
     SELECT
         SUM(v.value)
@@ -37,7 +39,7 @@ SET @direct_reduction = (
         AND v.voucher_type_id = 2
 );
 
--- Get Voucher by % (id = 1)
+-- -- Get Voucher by % (id = 1)
 SET @perc_reduction = (
     SELECT
         SUM(v.value)
@@ -48,7 +50,7 @@ SET @perc_reduction = (
         ON v.id = ov.voucher_id
         AND v.voucher_type_id = 1
 );
-    
+
     UPDATE orders
     SET total_price = (
         SELECT
@@ -68,4 +70,4 @@ SET @perc_reduction = (
 END //
 DELIMITER ;
 
--- CALL calcul_price(1);
+CALL calcul_price(1);
