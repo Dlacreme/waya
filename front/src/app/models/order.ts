@@ -17,6 +17,10 @@ export class Order {
   updated_at:Date;
 
   constructor(order:OrderDto) {
+    this.updateSource(order);
+  }
+
+  public updateSource(order:OrderDto):void {
     this.source = order;
 
     this.id = order.id;
@@ -42,5 +46,6 @@ export class Order {
   public removeProduct(productIndex:number):void {
     this.source.products.splice(productIndex, 1);
   }
+
 
 }

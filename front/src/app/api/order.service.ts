@@ -62,6 +62,7 @@ export class OrderService extends Api {
 
   private readonly endpoints = {
     order: 'order',
+    product: 'products',
     table: 'table'
   };
 
@@ -75,6 +76,17 @@ export class OrderService extends Api {
     return this.query<OrderDto[]>({
       method: HttpMethod.GET,
       endpoint: this.endpoints.order
+    });
+  }
+
+  public updateProducts(order:OrderDto, productIdsToAdd:number[], productIdsToRemove:number[]):Observable<ApiResult<OrderDto>> {
+    return this.query<OrderDto>({
+      endpoint: `${this.endpoints.order}/${order.id}/${this.endpoints.product}`,
+      method: HttpMethod.POST,
+      params: {
+        product_to_add_ids: productIdsToAdd,
+        product_to_remove_ids: productIdsToRemove
+      }
     });
   }
 

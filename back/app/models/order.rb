@@ -41,7 +41,9 @@ class Order < ApplicationRecord
 
   def remove_products(ids = nil)
     return unless ids
-    OrderProduct.where(id: ids).delete_all
+    ids.each do |id|
+      OrderProduct.where(order_id: self.id, product_id: id).first.delete
+    end
     calc_price
   end
 
@@ -86,7 +88,7 @@ class Order < ApplicationRecord
   end
 
   def set_comment(user, comment)
-    "#{user.id} (#{user.username}): #{comment}"
+    "#{user.username} (#{user.id}): #{comment}"
   end
 
   def calc_price()

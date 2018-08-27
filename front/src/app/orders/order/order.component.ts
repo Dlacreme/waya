@@ -2,8 +2,9 @@ import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { Order } from '../../models/order';
 import { ProductDto } from '../../api/product.service';
 import { EventService } from '../../services/event.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { OrderProduct, OrderProductType } from '../order.service';
+import { OrderService, OrderDto } from '../../api/order.service';
 
 interface Update {
   table:boolean;
@@ -24,9 +25,14 @@ export class OrderComponent implements OnInit, OnDestroy {
   public update:Update;
 
   private addProductSub:Subscription = Subscription.EMPTY;
+  private updateSub:Subscription = Subscription.EMPTY;
+
+  private productToAdd:number[] = [];
+  private productToRemove:number[] = [];
 
   constructor(
-    private eventService:EventService
+    private eventService:EventService,
+    private orderService:OrderService
   ) { }
 
   @Input()
@@ -41,14 +47,22 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy():void {
     this.addProductSub.unsubscribe();
+    this.updateSub.unsubscribe();
   }
 
   public addProduct(product:ProductDto):void {
     this.data.addProduct(product);
+    this.productToAdd.push(product.id);
   }
 
   public removeProduct(product:ProductDto, index:number):void {
     this.data.removeProduct(index);
+    const existingIndex = this.productToAdd.findIndex((item) => item === product.id);
+    if (existingIndex) {
+      this.productToAdd.splice(existingIndex, 1);
+    } else {
+      this.productToRemove.push(product.id);
+    }
   }
 
   public openTableUpdate():void {
@@ -74,6 +88,14 @@ export class OrderComponent implements OnInit, OnDestroy {
   public closeProductUpdate():void {
     this.orderProductType = OrderProductType.None;
     this.eventService.openOrderProducts.emit(false);
+  }
+
+  public updateProducts():void {
+    this.updateSub = this.orderService.updateProducts(this.data.source, this.productToAdd, this.productToRemove)
+      .subscribe((res) => {
+        this.data.updateSource(res.data as OrderDto);
+        this.resetUpdate();
+      });
   }
 
   public resetUpdate():void {
