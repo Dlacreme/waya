@@ -1,6 +1,7 @@
 import { OrderDto, OrderStatus, TableDto } from "../api/order.service";
-import { ProductDto } from "../api/product.service";
+import { ProductDto, ProductService } from "../api/product.service";
 import { User, UserDto } from "./user";
+import { StorageService } from "../services/storage.service";
 
 export class Order {
 
@@ -24,7 +25,11 @@ export class Order {
     this.source = order;
 
     this.id = order.id;
-    this.products = order.products;
+    this.products = [];
+    order.products.forEach((item) => {
+      this.products.push(StorageService.products.find((pdt) => item.id === pdt.id) as ProductDto);
+    });
+
     this.customer = order.customer_id ? new User(<UserDto>order.customer) : null;
     this.status = order.order_status_id;
     this.price = order.total_price || 0;

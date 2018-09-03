@@ -21,7 +21,6 @@ export class OrderProductComponent implements OnInit {
   @Input()
   set product(product:ProductDto) {
     this.data = product;
-    console.log(this.data);
   }
 
   @Input()
