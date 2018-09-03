@@ -15,13 +15,13 @@ class Order < ApplicationRecord
   end
 
   def set_table(user, table_id, comment)
-    self.table_id = table_id
+    self.table_id = table_id > 0 ? table_id : nil
     self.save
     self.save_action(user.id, OrderActionEnum::Update, set_comment(user, comment ? comment : "update the table #{table_id}"))
   end
 
   def set_customer(user, user_id, comment)
-    self.customer_id = user_id
+    self.customer_id = user_id > 0 ? user_id : nil
     self.save
     self.save_action(user.id, OrderActionEnum::Update, set_comment(user, comment ? comment : "update the customer #{user_id}"))
   end

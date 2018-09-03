@@ -63,7 +63,8 @@ export class OrderService extends Api {
   private readonly endpoints = {
     order: 'order',
     product: 'products',
-    table: 'table'
+    table: 'table',
+    customer: 'customer'
   };
 
   constructor(
@@ -76,6 +77,22 @@ export class OrderService extends Api {
     return this.query<OrderDto[]>({
       method: HttpMethod.GET,
       endpoint: this.endpoints.order
+    });
+  }
+
+  public updateCustomer(order:OrderDto, userId:Number, message:string|undefined = undefined) {
+    return this.query<OrderDto>({
+      endpoint: `${this.endpoints.order}/${order.id}/${this.endpoints.customer}`,
+      method: HttpMethod.POST,
+      params: message ? {user_id: userId, message: message} : {table_id: userId}
+    });
+  }
+
+  public updateTable(order:OrderDto, tableId:number, message:string|undefined = undefined) {
+    return this.query<OrderDto>({
+      endpoint: `${this.endpoints.order}/${order.id}/${this.endpoints.table}`,
+      method: HttpMethod.POST,
+      params: message ? {table_id: tableId, message: message} : {table_id: tableId}
     });
   }
 

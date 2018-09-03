@@ -10,18 +10,18 @@
     <button mat-button (click)="openCustomerUpdate()">Update Customer</button>
     <button mat-button (click)="openProductUpdate()">Update Products</button>
     <div class="flex-grow"></div>
-    <button mat-raised-button color="green" *ngIf="update.table" (click)="updateOrder()">Confirm Table</button>
-    <button mat-raised-button color="green" *ngIf="update.customer" (click)="updateOrder()">Confirm Customer</button>
+    <button mat-raised-button color="green" *ngIf="update.table" (click)="syncTable()">Confirm Table</button>
+    <button mat-raised-button color="green" *ngIf="update.customer" (click)="syncCustomer()">Confirm Customer</button>
     <button mat-raised-button color="green" *ngIf="update.products" (click)="updateProducts()">Confirm Products</button>
     <button class="cancel-update" mat-button *ngIf="update.any" (click)="resetUpdate()" matTooltip="Cancel Update"><mat-icon>delete</mat-icon></button>
   </div>
 
   <div *ngIf="update.table">
-    Update Table
+    <app-select [options]="tableOptions" (onchange)="updateTable($event)"></app-select>
   </div>
 
   <div *ngIf="update.customer">
-    Update customer
+    <app-select [options]="customerOptions" (onchange)="updateCustomer($event)"></app-select>
   </div>
 
   <div class="columns flex">
