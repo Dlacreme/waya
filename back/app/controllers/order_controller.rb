@@ -2,19 +2,21 @@ class OrderController < ApplicationController
   before_action :require_login
 
   def index
-    data Order
+    orders = Order
       .where(order_status_id: [OrderStatusEnum::Pending, OrderStatusEnum::Validated, OrderStatusEnum::Ready, OrderStatusEnum::Paid])
       .includes([:products])
-      .as_json(include: {
-        :table => {},
-        :customer => {},
-        :order_status => {},
-        :products => {
-          include: [
-            :product_prices => {}
-          ]
-        }
-      })
+
+    data orders.as_json(include: {
+      :table => {},
+      :customer => {},
+      :order_status => {},
+      :order_action_histories => {},
+      :products => {
+        include: [
+          :product_prices => {}
+        ]
+      }
+    })
   end
 
   def show
@@ -43,7 +45,7 @@ class OrderController < ApplicationController
 
   def products
     order = Order.find(params[:id])
-    order.remove_products(get_param_array(:order_product_to_remove_ids))
+    order.remove_products(get_param_array(:product_to_remove_ids))
     order.add_products(get_param_array(:product_to_add_ids))
     data order_detail(order.id)
   end

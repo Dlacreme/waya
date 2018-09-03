@@ -5,6 +5,7 @@ import { EventService } from '../services/event.service';
 import { Order } from '../models/order';
 import { ProductDto, ProductService } from '../api/product.service';
 import { OrderProductType } from './order.service';
+import { StorageService } from '../services/storage.service';
 
 @Component({
   selector: 'app-orders',
@@ -25,7 +26,6 @@ export class OrdersComponent implements OnInit, OnDestroy {
   private ordersSub = Subscription.EMPTY;
   private updateListenerSub = Subscription.EMPTY;
   private openSub = Subscription.EMPTY;
-  private productsSub = Subscription.EMPTY;
   private openOrderProductsSub:Subscription = Subscription.EMPTY;
 
   constructor(
@@ -44,14 +44,13 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.openOrderProductsSub = this.eventService.openOrderProducts
       .subscribe((isOpen) => this.orderProductType = isOpen ? OrderProductType.Add : OrderProductType.None);
     this.listenForUpdate();
-    this.loadProducts();
+    this.products = StorageService.products;
   }
 
   public ngOnDestroy():void {
     this.ordersSub.unsubscribe();
     this.updateListenerSub.unsubscribe();
     this.openSub.unsubscribe();
-    this.productsSub.unsubscribe();
     this.openOrderProductsSub.unsubscribe();
   }
 
@@ -75,11 +74,6 @@ export class OrdersComponent implements OnInit, OnDestroy {
       .subscribe((order:Order) => {
         this.pickedOrder = order;
       })
-  }
-
-  private loadProducts():void {
-    this.productsSub = this.productService.list()
-      .subscribe((res) => this.products = res.data || []);
   }
 
   private splitOrders(orders:OrderDto[]):void {

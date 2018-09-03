@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Api, ApiResult, HttpMethod } from './api';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { StockDto } from './stock.service';
 import { PriceType } from '../models/product';
 
@@ -55,6 +55,8 @@ export interface ProductDto {
   providedIn: 'root'
 })
 export class ProductService extends Api {
+
+  public productSub = Subscription.EMPTY;
 
   private readonly endpoints = {
     product: 'product',
