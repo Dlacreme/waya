@@ -84,7 +84,7 @@ export class OrderService extends Api {
     return this.query<OrderDto>({
       endpoint: `${this.endpoints.order}/${order.id}/${this.endpoints.customer}`,
       method: HttpMethod.POST,
-      params: message ? {user_id: userId, message: message} : {table_id: userId}
+      params: message ? {user_id: userId, message: message} : {user_id: userId}
     });
   }
 
