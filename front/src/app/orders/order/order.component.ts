@@ -58,7 +58,8 @@ export class OrderComponent implements OnInit, OnDestroy {
   public removeProduct(product:ProductDto, index:number):void {
     this.data.removeProduct(index);
     const existingIndex = this.productToAdd.findIndex((item) => item === product.id);
-    if (existingIndex) {
+    console.log(existingIndex);
+    if (existingIndex >= 0) {
       this.productToAdd.splice(existingIndex, 1);
     } else {
       this.productToRemove.push(product.id);
@@ -94,6 +95,8 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.updateSub = this.orderService.updateProducts(this.data.source, this.productToAdd, this.productToRemove)
       .subscribe((res) => {
         this.data.updateSource(res.data as OrderDto);
+        this.productToAdd.splice(0,this.productToAdd.length);
+        this.productToRemove.splice(0, this.productToRemove.length);
         this.resetUpdate();
       });
   }

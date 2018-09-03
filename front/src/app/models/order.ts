@@ -46,10 +46,12 @@ export class Order {
 
   public addProduct(product:ProductDto):void {
     this.source.products.push(product);
+    this.products.push(product);
   }
 
   public removeProduct(productIndex:number):void {
     this.source.products.splice(productIndex, 1);
+    this.products.splice(productIndex, 1);
   }
 
 
