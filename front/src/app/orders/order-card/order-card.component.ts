@@ -1,22 +1,25 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { OrderDto, OrderStatus } from '../../api/order.service';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { OrderDto, OrderStatus, OrderService } from '../../api/order.service';
 import { Order } from '../../models/order';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { EventService } from '../../services/event.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-order-card',
   templateUrl: './order-card.component.html',
   styleUrls: ['./order-card.component.scss']
 })
-export class OrderCardComponent implements OnInit {
+export class OrderCardComponent implements OnInit, OnDestroy {
 
   public data:Order = {} as Order;
-
   public statusOptions:SelectOptions;
 
+  private updateSub = Subscription.EMPTY;
+
   constructor(
-    private eventService:EventService
+    private eventService:EventService,
+    private orderService:OrderService
   ) { }
 
   @Input()
@@ -28,6 +31,10 @@ export class OrderCardComponent implements OnInit {
     this.initStatusPicker();
   }
 
+  public ngOnDestroy():void {
+    this.updateSub.unsubscribe();
+  }
+
   public openDetails():void {
     this.eventService.openOrder.emit(this.data);
   }
@@ -36,8 +43,14 @@ export class OrderCardComponent implements OnInit {
     if (!value) {
       return;
     }
-    this.data.setStatus(value);
-    this.eventService.orderUpdate.emit(this.data);
+    this.updateSub = this.orderService.updateStatus(this.data.source, value)
+      .subscribe((res) => {
+        if (res.data) {
+          this.data.setStatus(value);
+          this.data.updateSource(res.data);
+          this.eventService.orderUpdate.emit(this.data);
+        }
+      });
   }
 
   public prevStatus():OrderStatus|null {

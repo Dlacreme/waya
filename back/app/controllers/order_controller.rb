@@ -31,6 +31,12 @@ class OrderController < ApplicationController
     data order_detail(order.id)
   end
 
+  def status
+    order = Order.find(params[:id])
+    order.set_status(@current_user, get_param(:status_id), get_param(:comment))
+    data order_detail(params[:id])
+  end
+
   def table
     order = Order.find(params[:id])
     order.set_table(@current_user, get_param(:table_id), get_param(:comment))

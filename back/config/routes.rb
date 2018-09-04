@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :order, only: [:index, :show, :create]
   resources :table, only: [:index, :show, :create, :update, :destroy]
   post 'order/:id/delete', to: "order#destroy"
+  post 'order/:id/status', to: "order#status"
   post 'order/:id/table', to: "order#table"
   post 'order/:id/customer', to: "order#customer"
   post 'order/:id/products', to: "order#products"
