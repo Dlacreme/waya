@@ -32,9 +32,36 @@ export class OrderCardComponent implements OnInit {
     this.eventService.openOrder.emit(this.data);
   }
 
-  public updateStatus(value:SelectItem):void {
-    this.data.setStatus(value.value);
+  public updateStatus(value:OrderStatus|null):void {
+    if (!value) {
+      return;
+    }
+    this.data.setStatus(value);
     this.eventService.orderUpdate.emit(this.data);
+  }
+
+  public prevStatus():OrderStatus|null {
+    switch (this.data.status) {
+      case OrderStatus.Validated:
+        return OrderStatus.Pending;
+      case OrderStatus.Ready:
+        return OrderStatus.Validated;
+      case OrderStatus.Delivered:
+        return OrderStatus.Ready;
+    }
+    return null;
+  }
+
+  public nextStatus():OrderStatus|null {
+    switch (this.data.status) {
+      case OrderStatus.Pending:
+        return OrderStatus.Validated;
+      case OrderStatus.Validated:
+        return OrderStatus.Ready;
+      case OrderStatus.Ready:
+        return OrderStatus.Delivered;
+    }
+    return null;
   }
 
   private initStatusPicker():void {

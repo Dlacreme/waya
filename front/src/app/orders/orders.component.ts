@@ -85,14 +85,21 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   private spliceFromStatus(status:OrderStatus):OrderDto[] {
     const orders:OrderDto[] = [];
+    let item = this.dig(status);
+    while (item) {
+      orders.push(item);
+      item = this.dig(status);
+    }
+    return orders;
+  }
 
+  private dig(status:OrderStatus):OrderDto|null {
     for (var i = 0; i < this.orders.length ; i++) {
       if (this.orders[i].order_status_id === status) {
-        orders.push(this.orders.splice(i, 1)[0]);
+        return this.orders.splice(i, 1)[0];
       }
     }
-
-    return orders;
+    return null;
   }
 
   private mergeOrders():OrderDto[] {
