@@ -32,7 +32,9 @@
 
   <div class="columns flex">
     <div class="history separator right">
-
+      <div *ngFor="let history of data.source.order_action_histories">
+        [{{ displayDate(history.created_at) }}] {{ history.comment }}
+      </div>
     </div>
 
     <div class="products">

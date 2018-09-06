@@ -184,6 +184,10 @@ export class OrderComponent implements OnInit, OnDestroy {
     };
   }
 
+  public displayDate(date:string):string {
+    return date.split('T')[1].substr(0, 5);
+  }
+
   private listenProductAdd():void {
     this.addProductSub = this.eventService.updateProducts
       .subscribe((item:OrderProduct) => {

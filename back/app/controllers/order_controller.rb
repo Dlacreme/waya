@@ -25,7 +25,7 @@ class OrderController < ApplicationController
 
   def create
     order = Order.new
-    order.order_status_id = @current_user.staff? || @current_user.admin? ? OrderStatusEnum::Validated : OrderStatusEnum::Pending;
+    order.order_status_id = OrderStatusEnum::Pending;
     order.save!
     order.create_action(@current_user, get_param(:comment))
     data order_detail(order.id)
@@ -90,7 +90,8 @@ private
         :table => {},
         :customer => {},
         :order_status => {},
-        :products => {}
+        :products => {},
+        :order_action_histories => {},
       })
   end
 

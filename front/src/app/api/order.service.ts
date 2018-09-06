@@ -74,6 +74,13 @@ export class OrderService extends Api {
     super(httpClient)
   }
 
+  public create():Observable<ApiResult<OrderDto>> {
+    return this.query<OrderDto>({
+      endpoint: this.endpoints.order,
+      method: HttpMethod.POST
+    });
+  }
+
   public list():Observable<ApiResult<OrderDto[]>> {
     return this.query<OrderDto[]>({
       method: HttpMethod.GET,

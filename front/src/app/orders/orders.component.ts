@@ -26,6 +26,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   private ordersSub = Subscription.EMPTY;
   private updateListenerSub = Subscription.EMPTY;
   private openSub = Subscription.EMPTY;
+  private createSub = Subscription.EMPTY;
   private openOrderProductsSub:Subscription = Subscription.EMPTY;
 
   constructor(
@@ -46,6 +47,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.ordersSub.unsubscribe();
     this.updateListenerSub.unsubscribe();
     this.openSub.unsubscribe();
+    this.createSub.unsubscribe();
     this.openOrderProductsSub.unsubscribe();
   }
 
@@ -57,6 +59,11 @@ export class OrdersComponent implements OnInit, OnDestroy {
         product: product,
       });
     }
+  }
+
+  public new():void {
+    this.orderService.create()
+      .subscribe(() => {this.refresh()});
   }
 
   public refresh():void {
