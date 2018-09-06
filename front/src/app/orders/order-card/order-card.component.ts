@@ -14,6 +14,7 @@ export class OrderCardComponent implements OnInit, OnDestroy {
 
   public data:Order = {} as Order;
   public statusOptions:SelectOptions;
+  public classStatus = '';
 
   private updateSub = Subscription.EMPTY;
 
@@ -25,6 +26,14 @@ export class OrderCardComponent implements OnInit, OnDestroy {
   @Input()
   set order(order:OrderDto) {
     this.data = new Order(order);
+    const lastUpdate = new Date(order.updated_at);
+    if (new Date() > this.addMinutes(lastUpdate, 30)) {
+      this.classStatus = 'status-urgent';
+    } else if (new Date() > this.addMinutes(lastUpdate, 15)) {
+      this.classStatus = 'status-pending';
+    } else {
+      this.classStatus = 'status-ok';
+    }
   }
 
   public ngOnInit():void {
@@ -96,5 +105,9 @@ export class OrderCardComponent implements OnInit, OnDestroy {
       }]
     };
   }
+
+  private addMinutes(date, minutes):Date {
+    return new Date(date.getTime() + minutes*60000);
+}
 
 }

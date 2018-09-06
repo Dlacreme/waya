@@ -77,7 +77,7 @@ export class OrderService extends Api {
   public list():Observable<ApiResult<OrderDto[]>> {
     return this.query<OrderDto[]>({
       method: HttpMethod.GET,
-      endpoint: this.endpoints.order
+      endpoint: `${this.endpoints.order}?bustcache=${Date.now()}`
     });
   }
 

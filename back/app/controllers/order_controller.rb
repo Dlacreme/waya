@@ -46,6 +46,7 @@ class OrderController < ApplicationController
   def customer
     order = Order.find(params[:id])
     order.set_customer(@current_user, get_param(:user_id), get_param(:comment))
+    order.calc_price
     data order_detail(order.id)
   end
 

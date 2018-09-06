@@ -35,12 +35,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit():void {
-    this.ordersSub = this.orderService.list()
-      .subscribe((res) => {
-        if (res.data) {
-          this.splitOrders(res.data);
-        }
-      });
+    this.load();
     this.openOrderProductsSub = this.eventService.openOrderProducts
       .subscribe((isOpen) => this.orderProductType = isOpen ? OrderProductType.Add : OrderProductType.None);
     this.listenForUpdate();
@@ -64,20 +59,37 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }
   }
 
+  public refresh():void {
+    this.orders.splice(0, this.orders.length);
+    this.pendingOrders.splice(0, this.pendingOrders.length);
+    this.validatedOrders.splice(0, this.validatedOrders.length);
+    this.readyOrders.splice(0, this.readyOrders.length);
+    this.load();
+  }
+
+  private load():void {
+    this.orderService.list()
+      .subscribe((res) => {
+        if (res.data) {
+          this.splitOrders(res.data);
+        }
+      });
+  }
+
   private listenForUpdate():void {
     this.updateListenerSub = this.eventService.orderUpdate
       .subscribe((order:Order) => {
-        this.splitOrders(this.mergeOrders());
-        this.pickedOrder = order;
+        this.refresh();
       });
     this.openSub = this.eventService.openOrder
       .subscribe((order:Order) => {
         this.pickedOrder = order;
-      })
+      });
   }
 
   private splitOrders(orders:OrderDto[]):void {
-    this.orders = orders;
+    this.orders.splice(0, this.orders.length);
+    orders.forEach((item) => this.orders.push(item));
     this.pendingOrders = this.spliceFromStatus(OrderStatus.Pending);
     this.validatedOrders = this.spliceFromStatus(OrderStatus.Validated);
     this.readyOrders = this.spliceFromStatus(OrderStatus.Ready);

@@ -1,5 +1,25 @@
+@import '../../sass/variables';
+
 #orders {
   height: calc(100% - 100px );
+}
+
+.legend {
+  margin-top:30px;
+  padding: 0 20px;
+
+  span {
+    display: inline-block;
+    height: 28px;
+    width: 42px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+  .legend-item {
+    margin: 0 10px;
+    border-bottom: 1px solid #ccc;
+  }
 }
 
 app-order-list {
