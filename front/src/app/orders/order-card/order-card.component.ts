@@ -30,7 +30,7 @@ export class OrderCardComponent implements OnInit, OnDestroy {
     if (new Date() > this.addMinutes(lastUpdate, 30)) {
       this.classStatus = 'status-urgent';
     } else if (new Date() > this.addMinutes(lastUpdate, 15)) {
-      this.classStatus = 'status-pending';
+      this.classStatus = 'status-warning';
     } else {
       this.classStatus = 'status-ok';
     }
