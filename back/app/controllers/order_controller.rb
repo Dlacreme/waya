@@ -3,7 +3,26 @@ class OrderController < ApplicationController
 
   def index
     orders = Order
-      .where(order_status_id: [OrderStatusEnum::Pending, OrderStatusEnum::Validated, OrderStatusEnum::Ready, OrderStatusEnum::Paid])
+      .includes([:products])
+
+    data orders.as_json(include: {
+      :table => {},
+      :customer => {},
+      :order_status => {},
+      :order_action_histories => {},
+      :products => {
+        include: [
+          :product_prices => {}
+        ]
+      }
+    })
+  end
+
+  def search
+
+    # .where(order_status_id: params[:status_ids].split(','))
+    orders = Order
+      .where(:created_at => params[:from].to_datetime..params[:to].to_datetime)
       .includes([:products])
 
     data orders.as_json(include: {

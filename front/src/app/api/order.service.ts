@@ -14,17 +14,6 @@ export enum OrderStatus {
   Paid = 6
 }
 
-export enum OrderActions {
-  Create = 1,
-  Update = 2,
-  Comment = 3,
-  Validate = 4,
-  Cancel = 5,
-  Ready = 6,
-  Delivered = 7,
-  Paid = 8
-}
-
 export interface TableDto {
   id:number;
   name:string;
@@ -55,6 +44,12 @@ export interface OrderDto {
   updated_at:Date;
 }
 
+export interface Search {
+  to: Date;
+  from: Date;
+  status:OrderStatus[]
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -65,7 +60,8 @@ export class OrderService extends Api {
     product: 'products',
     table: 'table',
     customer: 'customer',
-    status: 'status'
+    status: 'status',
+    search: 'order/search'
   };
 
   constructor(
@@ -85,6 +81,13 @@ export class OrderService extends Api {
     return this.query<OrderDto[]>({
       method: HttpMethod.GET,
       endpoint: `${this.endpoints.order}?bustcache=${Date.now()}`
+    });
+  }
+
+  public search(search:Search):Observable<ApiResult<OrderDto[]>> {
+    return this.query<OrderDto[]>({
+      method: HttpMethod.GET,
+      endpoint: `${this.endpoints.search}/${search.from.toISOString().replace('.', '_')}/${search.to.toISOString().replace('.', '_')}/${search.status}?bustcache=${Date.now()}`
     });
   }
 

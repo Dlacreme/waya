@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { OrderService, OrderDto, OrderStatus } from '../api/order.service';
+import { OrderService, OrderDto, OrderStatus, Search } from '../api/order.service';
 import { Subscription } from 'rxjs';
 import { EventService } from '../services/event.service';
 import { Order } from '../models/order';
@@ -23,6 +23,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   public orders:OrderDto[] = [];
   public lists:OrderList[];
   public orderStatus:any = OrderStatus;
+  public search:Search = this.setSearch();
 
   public pickedOrder:Order|undefined;
   public products:ProductDto[] = [];
@@ -79,7 +80,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
   }
 
   private load():void {
-    this.orderService.list()
+    this.search.status = (this.lists.filter((item) => item.display) as OrderList[]).map((item) => item.status);
+    this.orderService.search(this.search)
       .subscribe((res) => {
         if (res.data) {
           this.splitOrders(res.data);
@@ -122,6 +124,17 @@ export class OrdersComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  private setSearch():Search {
+    const search = {
+      from: new Date(),
+      to: new Date(),
+      status: [OrderStatus.Pending, OrderStatus.Validated, OrderStatus.Ready]
+    }
+    search.from.setHours(0,0,0,0);
+    search.to.setHours(23,59,59,999);
+    return search;
   }
 
 }
