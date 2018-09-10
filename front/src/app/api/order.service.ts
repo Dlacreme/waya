@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiResult, Api, HttpMethod } from './api';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { User, UserDto } from '../models/user';
 import { ProductDto } from './product.service';
 
@@ -99,16 +99,13 @@ export class OrderService extends Api {
   }
 
   public payment(orderId:number, method:PaymentMethod):Observable<ApiResult<any>> {
-    let headers = new HttpHeaders().set('Content-Type', 'text/plain; charset=utf-8');
-    return this.httpClient.post<ApiResult<any>>(
-      this.buildUrl({
-        method: HttpMethod.POST,
-        endpoint: `${this.endpoints.order}/${orderId}/${this.endpoints.payment}`,
-      }), {
+    return this.query<any>({
+      method: HttpMethod.POST,
+      endpoint: `${this.endpoints.order}/${orderId}/${this.endpoints.payment}`,
+      params: {
         payment_method_id: method
-      },
-      {headers: headers}
-    );
+      }
+    });
   }
 
   public updateStatus(order:OrderDto, statusId:number, message:string|undefined = undefined):Observable<ApiResult<OrderDto>> {
