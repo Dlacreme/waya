@@ -1,8 +1,5 @@
 <div id="orders" class="flex">
-  <app-order-list [orders]="pendingOrders" label="Pending Validation"></app-order-list>
-  <app-order-list [orders]="validatedOrders" label="Validated"></app-order-list>
-  <app-order-list [orders]="readyOrders" label="Ready"></app-order-list>
-  <app-order-list [orders]="orders" label="On Going"></app-order-list>
+  <app-order-list *ngFor="let list of lists" [orders]="list.items" [label]="orderStatus[list.status]"></app-order-list>
 </div>
 
 <div class="legend flex">

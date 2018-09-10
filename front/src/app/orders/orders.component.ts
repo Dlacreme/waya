@@ -7,6 +7,11 @@ import { ProductDto, ProductService } from '../api/product.service';
 import { OrderProductType } from './order.service';
 import { StorageService } from '../services/storage.service';
 
+interface OrderList {
+  status: OrderStatus,
+  items: OrderDto[]
+}
+
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -15,9 +20,8 @@ import { StorageService } from '../services/storage.service';
 export class OrdersComponent implements OnInit, OnDestroy {
 
   public orders:OrderDto[] = [];
-  public pendingOrders:OrderDto[] = [];
-  public validatedOrders:OrderDto[] = [];
-  public readyOrders:OrderDto[] = [];
+  public lists:OrderList[];
+  public orderStatus:any = OrderStatus;
 
   public pickedOrder:Order|undefined;
   public products:ProductDto[] = [];
@@ -36,6 +40,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit():void {
+    this.initLists();
     this.load();
     this.openOrderProductsSub = this.eventService.openOrderProducts
       .subscribe((isOpen) => this.orderProductType = isOpen ? OrderProductType.Add : OrderProductType.None);
@@ -68,9 +73,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   public refresh():void {
     this.orders.splice(0, this.orders.length);
-    this.pendingOrders.splice(0, this.pendingOrders.length);
-    this.validatedOrders.splice(0, this.validatedOrders.length);
-    this.readyOrders.splice(0, this.readyOrders.length);
+    this.lists.forEach((item) => item.items.splice(0, item.items.length));
     this.load();
   }
 
@@ -96,33 +99,27 @@ export class OrdersComponent implements OnInit, OnDestroy {
 
   private splitOrders(orders:OrderDto[]):void {
     this.orders.splice(0, this.orders.length);
-    orders.forEach((item) => this.orders.push(item));
-    this.pendingOrders = this.spliceFromStatus(OrderStatus.Pending);
-    this.validatedOrders = this.spliceFromStatus(OrderStatus.Validated);
-    this.readyOrders = this.spliceFromStatus(OrderStatus.Ready);
-  }
-
-  private spliceFromStatus(status:OrderStatus):OrderDto[] {
-    const orders:OrderDto[] = [];
-    let item = this.dig(status);
-    while (item) {
-      orders.push(item);
-      item = this.dig(status);
-    }
-    return orders;
-  }
-
-  private dig(status:OrderStatus):OrderDto|null {
-    for (var i = 0; i < this.orders.length ; i++) {
-      if (this.orders[i].order_status_id === status) {
-        return this.orders.splice(i, 1)[0];
+    orders.forEach((item) => {
+      this.orders.push(item);
+      const list = this.lists.find((l) => l.status === (item.order_status_id as OrderStatus));
+      if (list) {
+        list.items.push(item);
       }
-    }
-    return null;
+    });
+    this.lists.sort((a ,b) => a.status > b.status ? 1 : -1);
   }
 
-  private mergeOrders():OrderDto[] {
-    return [...this.orders, ...this.pendingOrders, ...this.validatedOrders, ...this.readyOrders];
+  private initLists():void {
+    this.lists = [];
+    Object.keys(OrderStatus).map(key => {
+      const nKey = Number(key);
+      if (!isNaN(nKey)) {
+        this.lists.push({
+          status: (nKey as OrderStatus),
+          items: []
+        })
+      }
+    });
   }
 
 }
