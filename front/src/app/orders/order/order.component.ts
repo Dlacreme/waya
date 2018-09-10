@@ -4,7 +4,7 @@ import { ProductDto } from '../../api/product.service';
 import { EventService } from '../../services/event.service';
 import { Subscription, Subject } from 'rxjs';
 import { OrderProduct, OrderProductType } from '../order.service';
-import { OrderService, OrderDto, OrderStatus } from '../../api/order.service';
+import { OrderService, OrderDto, OrderStatus, PaymentMethod } from '../../api/order.service';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { StorageService } from '../../services/storage.service';
 
@@ -14,6 +14,7 @@ interface Update {
   customer:boolean;
   products:boolean;
   any:boolean;
+  payment:boolean;
 }
 
 @Component({
@@ -35,6 +36,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   public pickedTable:SelectItem|undefined;
   public pickedCustomer:SelectItem|undefined;
   public pickedStatus:SelectItem|undefined;
+  public paymentMethodOptions:SelectOptions;
 
   private addProductSub:Subscription = Subscription.EMPTY;
   private updateStatusSub:Subscription = Subscription.EMPTY;
@@ -98,6 +100,12 @@ export class OrderComponent implements OnInit, OnDestroy {
   public openCustomerUpdate():void {
     this.resetUpdate();
     this.update.customer = true;
+    this.update.any = true;
+  }
+
+  public openPayment():void {
+    this.resetUpdate();
+    this.update.payment = true;
     this.update.any = true;
   }
 
@@ -173,6 +181,14 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.pickedCustomer = item;
   }
 
+  public updatePaymentMethod(item:SelectItem):void {
+    console.log(item);
+  }
+
+  public confirmPayment():void {
+    console.log('MAKE PAYMENT');
+  }
+
   public resetUpdate():void {
     this.closeProductUpdate();
     this.update = {
@@ -180,7 +196,8 @@ export class OrderComponent implements OnInit, OnDestroy {
       table: false,
       customer: false,
       products: false,
-      any: false
+      any: false,
+      payment: false
     };
   }
 
@@ -198,13 +215,8 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   private initOptions():void {
-    Object.keys(OrderStatus).forEach((key) => {
-      if (isNaN(Number(key))) {return;}
-      this.statusItems.push({
-        text: OrderStatus[key],
-        value: key
-      });
-    });
+
+    this.pushToSelectItems(OrderStatus, this.statusItems);
     this.tableItems.push({
       text: 'None',
       value: -1
@@ -236,6 +248,22 @@ export class OrderComponent implements OnInit, OnDestroy {
       default: this.data.customer ? this.data.customer.id : -1,
       items: this.customerItems
     };
+    this.paymentMethodOptions = {
+      placeholder: 'Payment',
+      items: []
+    };
+    this.pushToSelectItems(PaymentMethod, this.paymentMethodOptions.items);
+  }
+
+  private pushToSelectItems(obj:any, a:SelectItem[]):SelectItem[] {
+    Object.keys(obj).forEach((key) => {
+      if (isNaN(Number(key))) {return;}
+      a.push({
+        text: obj[key],
+        value: key
+      });
+    });
+    return a;
   }
 
 }

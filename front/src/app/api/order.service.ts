@@ -5,6 +5,12 @@ import { HttpClient } from '@angular/common/http';
 import { User, UserDto } from '../models/user';
 import { ProductDto } from './product.service';
 
+export enum PaymentMethod {
+  CreditCard = 1,
+  Cash = 2,
+  Credit = 3
+}
+
 export enum OrderStatus {
   Pending = 1,
   Validated = 2,

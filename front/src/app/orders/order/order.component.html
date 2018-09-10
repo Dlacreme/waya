@@ -10,11 +10,13 @@
     <button mat-button (click)="openTableUpdate()">Update Table</button>
     <button mat-button (click)="openCustomerUpdate()">Update Customer</button>
     <button mat-button (click)="openProductUpdate()">Update Products</button>
+    <button mat-button (click)="openPayment()">Payment</button>
     <div class="flex-grow"></div>
     <button mat-raised-button color="green" *ngIf="update.status" (click)="syncStatus()">Confirm Status</button>
     <button mat-raised-button color="green" *ngIf="update.table" (click)="syncTable()">Confirm Table</button>
     <button mat-raised-button color="green" *ngIf="update.customer" (click)="syncCustomer()">Confirm Customer</button>
     <button mat-raised-button color="green" *ngIf="update.products" (click)="updateProducts()">Confirm Products</button>
+    <button mat-raised-button color="green" *ngIf="update.payment" (click)="confirmPayment()">Confirm Payment</button>
     <button class="cancel-update" mat-button *ngIf="update.any" (click)="resetUpdate()" matTooltip="Cancel Update"><mat-icon>close</mat-icon></button>
   </div>
 
@@ -28,6 +30,10 @@
 
   <div *ngIf="update.customer">
     <app-select [options]="customerOptions" (onchange)="updateCustomer($event)"></app-select>
+  </div>
+
+  <div *ngIf="update.payment">
+<app-select [options]="paymentMethodOptions" (onchange)="updatePaymentMethod($event)"></app-select>
   </div>
 
   <div class="columns flex">
