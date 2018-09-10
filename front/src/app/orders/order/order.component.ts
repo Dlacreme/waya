@@ -192,6 +192,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     if (!this.pickedPaymentMethod) {
       return;
     }
+    this.data.isPaid = true;
     const paymentSub = this.orderService.payment(this.data.id, this.pickedPaymentMethod.value)
       .subscribe((res) => {
         this.eventService.orderUpdate.emit(this.data);
