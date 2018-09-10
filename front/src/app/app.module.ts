@@ -29,7 +29,7 @@ import {
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 // Services
 import { SessionService } from './api/session.service';
@@ -113,6 +113,7 @@ import { AdminStockComponent } from './admin/admin-stock/admin-stock.component';
     SocialLoginModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
 
     MatInputModule,
     MatIconModule,

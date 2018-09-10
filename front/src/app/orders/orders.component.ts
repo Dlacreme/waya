@@ -9,7 +9,8 @@ import { StorageService } from '../services/storage.service';
 
 interface OrderList {
   status: OrderStatus,
-  items: OrderDto[]
+  items: OrderDto[],
+  display: boolean
 }
 
 @Component({
@@ -106,7 +107,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
         list.items.push(item);
       }
     });
-    this.lists.sort((a ,b) => a.status > b.status ? 1 : -1);
+    this.lists.forEach((item) => item.display = item.items.length > 0)
   }
 
   private initLists():void {
@@ -116,8 +117,9 @@ export class OrdersComponent implements OnInit, OnDestroy {
       if (!isNaN(nKey)) {
         this.lists.push({
           status: (nKey as OrderStatus),
-          items: []
-        })
+          items: [],
+          display: true
+        });
       }
     });
   }

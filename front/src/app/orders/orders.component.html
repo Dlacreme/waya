@@ -1,11 +1,15 @@
 <div id="orders" class="flex">
-  <app-order-list *ngFor="let list of lists" [orders]="list.items" [label]="orderStatus[list.status]"></app-order-list>
+  <app-order-list *ngFor="let list of lists" [ngClass]="{'hidden': !list.display}" [orders]="list.items" [label]="orderStatus[list.status]"></app-order-list>
 </div>
 
 <div class="legend flex">
   <button mat-raised-button color="green" (click)="new()"><mat-icon>add</mat-icon> New Order</button>
   <button mat-raised-button (click)="refresh()"><mat-icon>sync</mat-icon></button>
-  <div class="flex-grow"></div>
+  <div class="flex-grow">
+    <div class="list-display-picker" *ngFor="let list of lists">
+      <mat-checkbox [(ngModel)]="list.display" ></mat-checkbox> {{ orderStatus[list.status] }}
+    </div>
+  </div>
   <div class="legend-item">
     <span class="status-ok"></span>
     OK
