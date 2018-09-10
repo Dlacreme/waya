@@ -3,7 +3,7 @@
     <div class="flex">
       <div>#{{ data.id }}</div>
       <div class="flex-grow text-align"> {{ data.table ? data.table.name : '' }}</div>
-      <div>{{ data.price }} <span class="currency">VND</span></div>
+      <div>{{ data.price }} <span class="currency">VND</span> <mat-icon *ngIf="data.isPaid" class="paid-icon">attach_money</mat-icon></div>
     </div>
     <div class="customer" *ngIf="data.customer">{{ data.customer.username }}</div>
   </div>

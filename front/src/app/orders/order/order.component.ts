@@ -37,12 +37,14 @@ export class OrderComponent implements OnInit, OnDestroy {
   public pickedCustomer:SelectItem|undefined;
   public pickedStatus:SelectItem|undefined;
   public paymentMethodOptions:SelectOptions;
+  public pickedPaymentMethod:SelectItem|undefined;
 
   private addProductSub:Subscription = Subscription.EMPTY;
   private updateStatusSub:Subscription = Subscription.EMPTY;
   private updateTableSub:Subscription = Subscription.EMPTY;
   private updateCustomerSub:Subscription = Subscription.EMPTY;
   private updateProductsSub:Subscription = Subscription.EMPTY;
+  private paymentSub:Subscription = Subscription.EMPTY;
 
   private productToAdd:number[] = [];
   private productToRemove:number[] = [];
@@ -68,6 +70,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.updateCustomerSub.unsubscribe();
     this.updateTableSub.unsubscribe();
     this.updateProductsSub.unsubscribe();
+    this.paymentSub.unsubscribe();
   }
 
   public addProduct(product:ProductDto):void {
@@ -182,11 +185,18 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   public updatePaymentMethod(item:SelectItem):void {
-    console.log(item);
+    this.pickedPaymentMethod = item;
   }
 
   public confirmPayment():void {
-    console.log('MAKE PAYMENT');
+    if (!this.pickedPaymentMethod) {
+      return;
+    }
+    const paymentSub = this.orderService.payment(this.data.id, this.pickedPaymentMethod.value)
+      .subscribe((res) => {
+        this.eventService.orderUpdate.emit(this.data);
+        console.log(res);
+      });
   }
 
   public resetUpdate():void {
@@ -215,7 +225,6 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   private initOptions():void {
-
     this.pushToSelectItems(OrderStatus, this.statusItems);
     this.tableItems.push({
       text: 'None',

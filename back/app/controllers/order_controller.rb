@@ -19,7 +19,6 @@ class OrderController < ApplicationController
   end
 
   def search
-
     # .where(order_status_id: params[:status_ids].split(','))
     orders = Order
       .where(:created_at => params[:from].to_datetime..params[:to].to_datetime)

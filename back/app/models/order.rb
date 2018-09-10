@@ -63,7 +63,7 @@ class Order < ApplicationRecord
     self.payment_method_id = payment_method_id
     self.paid_at = DateTime.now
     self.amount_paid = self.total_price
-    self.order_status_id = OrderStatusEnum::Paid
+    # self.order_status_id = OrderStatusEnum::Paid
     self.save
     self.save_action(user.id, OrderActionEnum::Paid, set_comment(user, "made payment"))
   end
@@ -94,7 +94,7 @@ class Order < ApplicationRecord
   end
 
   def set_comment(user, comment)
-    "#{user.username} (#{user.id}): #{comment}"
+    "#{user.username} (##{user.id}): #{comment}"
   end
 
   def calc_price()

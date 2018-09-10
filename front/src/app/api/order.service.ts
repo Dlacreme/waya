@@ -67,7 +67,8 @@ export class OrderService extends Api {
     table: 'table',
     customer: 'customer',
     status: 'status',
-    search: 'order/search'
+    search: 'order/search',
+    payment: 'payment'
   };
 
   constructor(
@@ -94,6 +95,16 @@ export class OrderService extends Api {
     return this.query<OrderDto[]>({
       method: HttpMethod.GET,
       endpoint: `${this.endpoints.search}/${search.from.toISOString().replace('.', '_')}/${search.to.toISOString().replace('.', '_')}/${search.status}?bustcache=${Date.now()}`
+    });
+  }
+
+  public payment(orderId:number, method:PaymentMethod):Observable<ApiResult<any>> {
+    return this.query<any>({
+      method: HttpMethod.POST,
+      endpoint: `${this.endpoints.order}/${orderId}/${this.endpoints.payment}`,
+      params: {
+        payment_method_id: method
+      }
     });
   }
 
