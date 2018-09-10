@@ -14,6 +14,12 @@ class Order < ApplicationRecord
     self.save_action(user.id, OrderActionEnum::Create, set_comment(user, comment ? comment : "created the order"))
   end
 
+  def set_status(user, status_id, comment)
+    self.order_status_id = status_id
+    self.save
+    self.save_action(user.id, OrderActionEnum::Update, set_comment(user, comment ? comment : "update the status #{status_id}"))
+  end
+
   def set_table(user, table_id, comment)
     self.table_id = table_id > 0 ? table_id : nil
     self.save

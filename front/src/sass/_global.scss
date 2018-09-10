@@ -154,3 +154,15 @@ app-order-product {
     margin-bottom: 35px !important;
   }
 }
+
+.status-ok {
+  background-color: $green-color !important;
+}
+
+.status-warning {
+  background-color: $orange-color !important;
+}
+
+.status-urgent {
+  background-color: $error-color !important;
+}

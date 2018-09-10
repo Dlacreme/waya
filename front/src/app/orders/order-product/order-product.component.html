@@ -1,12 +1,12 @@
 <div class="order-product">
   <span class="name">{{ data.name }}</span>
   <span class="price">
-    <span *ngIf="data.standard_price" [ngClass]="{'noprice': !dataOrder.customer}">
+    <span *ngIf="data.standard_price" [ngClass]="{'noprice': dataOrder.customer}">
       {{ data.standard_price.price }}
       <span class="currency">VND</span>
     </span>
     &nbsp;
-    <span *ngIf="data.member_price" [ngClass]="{'noprice': dataOrder.customer}">
+    <span *ngIf="data.member_price" [ngClass]="{'noprice': !dataOrder.customer}">
       {{ data.member_price.price }}
       <span class="currency">VND</span>
     </span>

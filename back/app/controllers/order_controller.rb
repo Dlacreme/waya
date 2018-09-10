@@ -25,10 +25,16 @@ class OrderController < ApplicationController
 
   def create
     order = Order.new
-    order.order_status_id = @current_user.staff? || @current_user.admin? ? OrderStatusEnum::Validated : OrderStatusEnum::Pending;
+    order.order_status_id = OrderStatusEnum::Pending;
     order.save!
     order.create_action(@current_user, get_param(:comment))
     data order_detail(order.id)
+  end
+
+  def status
+    order = Order.find(params[:id])
+    order.set_status(@current_user, get_param(:status_id), get_param(:comment))
+    data order_detail(params[:id])
   end
 
   def table
@@ -40,6 +46,7 @@ class OrderController < ApplicationController
   def customer
     order = Order.find(params[:id])
     order.set_customer(@current_user, get_param(:user_id), get_param(:comment))
+    order.calc_price
     data order_detail(order.id)
   end
 
@@ -83,7 +90,8 @@ private
         :table => {},
         :customer => {},
         :order_status => {},
-        :products => {}
+        :products => {},
+        :order_action_histories => {},
       })
   end
 

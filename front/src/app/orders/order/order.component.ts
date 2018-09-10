@@ -4,11 +4,12 @@ import { ProductDto } from '../../api/product.service';
 import { EventService } from '../../services/event.service';
 import { Subscription, Subject } from 'rxjs';
 import { OrderProduct, OrderProductType } from '../order.service';
-import { OrderService, OrderDto } from '../../api/order.service';
+import { OrderService, OrderDto, OrderStatus } from '../../api/order.service';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { StorageService } from '../../services/storage.service';
 
 interface Update {
+  status:boolean;
   table:boolean;
   customer:boolean;
   products:boolean;
@@ -25,14 +26,18 @@ export class OrderComponent implements OnInit, OnDestroy {
   public data:Order;
   public orderProductType = OrderProductType.None;
   public update:Update;
+  public statusOptions:SelectOptions;
+  public statusItems:SelectItem[] = [];
   public tableOptions:SelectOptions;
   public tableItems:SelectItem[] = [];
   public customerOptions:SelectOptions;
   public customerItems:SelectItem[] = [];
   public pickedTable:SelectItem|undefined;
   public pickedCustomer:SelectItem|undefined;
+  public pickedStatus:SelectItem|undefined;
 
   private addProductSub:Subscription = Subscription.EMPTY;
+  private updateStatusSub:Subscription = Subscription.EMPTY;
   private updateTableSub:Subscription = Subscription.EMPTY;
   private updateCustomerSub:Subscription = Subscription.EMPTY;
   private updateProductsSub:Subscription = Subscription.EMPTY;
@@ -78,6 +83,12 @@ export class OrderComponent implements OnInit, OnDestroy {
     }
   }
 
+  public openStatusUpdate():void {
+    this.resetUpdate();
+    this.update.status = true;
+    this.update.any = true;
+  }
+
   public openTableUpdate():void {
     this.resetUpdate();
     this.update.table = true;
@@ -113,6 +124,19 @@ export class OrderComponent implements OnInit, OnDestroy {
       });
   }
 
+  public syncStatus():void {
+    if (!this.pickedStatus) {
+      return;
+    }
+    this.updateStatusSub = this.orderService.updateStatus(this.data.source, this.pickedStatus.value)
+      .subscribe((res) => {
+        this.data.updateSource(res.data as OrderDto);
+        this.statusOptions.default = this.data.source.order_status_id;
+        this.resetUpdate();
+        this.eventService.orderUpdate.emit(this.data);
+      });
+  }
+
   public syncTable():void {
     if (!this.pickedTable) {
       return;
@@ -137,6 +161,10 @@ export class OrderComponent implements OnInit, OnDestroy {
       });
   }
 
+  public updateStatus(item:SelectItem):void {
+    this.pickedStatus = item;
+  }
+
   public updateTable(item:SelectItem):void {
     this.pickedTable = item;
   }
@@ -148,11 +176,16 @@ export class OrderComponent implements OnInit, OnDestroy {
   public resetUpdate():void {
     this.closeProductUpdate();
     this.update = {
+      status: false,
       table: false,
       customer: false,
       products: false,
       any: false
     };
+  }
+
+  public displayDate(date:string):string {
+    return date.split('T')[1].substr(0, 5);
   }
 
   private listenProductAdd():void {
@@ -165,6 +198,13 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   private initOptions():void {
+    Object.keys(OrderStatus).forEach((key) => {
+      if (isNaN(Number(key))) {return;}
+      this.statusItems.push({
+        text: OrderStatus[key],
+        value: key
+      });
+    });
     this.tableItems.push({
       text: 'None',
       value: -1
@@ -177,9 +217,13 @@ export class OrderComponent implements OnInit, OnDestroy {
       text: item.name,
       value: item.id
     }));
-
+    this.statusOptions = {
+      placeholder: 'Status',
+      default: OrderStatus[this.data.status],
+      items: this.statusItems
+    };
     this.tableOptions = {
-      placeholder: 'Search table...',
+      placeholder: 'Table',
       default: this.data.table ? this.data.table.id : -1,
       items: this.tableItems
     };
@@ -188,7 +232,7 @@ export class OrderComponent implements OnInit, OnDestroy {
       value: item.id
     }));
     this.customerOptions = {
-      placeholder: 'Search customer...',
+      placeholder: 'Customer',
       default: this.data.customer ? this.data.customer.id : -1,
       items: this.customerItems
     };

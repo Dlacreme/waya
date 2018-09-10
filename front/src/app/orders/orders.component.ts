@@ -7,6 +7,12 @@ import { ProductDto, ProductService } from '../api/product.service';
 import { OrderProductType } from './order.service';
 import { StorageService } from '../services/storage.service';
 
+interface OrderList {
+  status: OrderStatus,
+  items: OrderDto[],
+  display: boolean
+}
+
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -15,9 +21,8 @@ import { StorageService } from '../services/storage.service';
 export class OrdersComponent implements OnInit, OnDestroy {
 
   public orders:OrderDto[] = [];
-  public pendingOrders:OrderDto[] = [];
-  public validatedOrders:OrderDto[] = [];
-  public readyOrders:OrderDto[] = [];
+  public lists:OrderList[];
+  public orderStatus:any = OrderStatus;
 
   public pickedOrder:Order|undefined;
   public products:ProductDto[] = [];
@@ -26,6 +31,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
   private ordersSub = Subscription.EMPTY;
   private updateListenerSub = Subscription.EMPTY;
   private openSub = Subscription.EMPTY;
+  private createSub = Subscription.EMPTY;
   private openOrderProductsSub:Subscription = Subscription.EMPTY;
 
   constructor(
@@ -35,12 +41,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
   ) { }
 
   public ngOnInit():void {
-    this.ordersSub = this.orderService.list()
-      .subscribe((res) => {
-        if (res.data) {
-          this.splitOrders(res.data);
-        }
-      });
+    this.initLists();
+    this.load();
     this.openOrderProductsSub = this.eventService.openOrderProducts
       .subscribe((isOpen) => this.orderProductType = isOpen ? OrderProductType.Add : OrderProductType.None);
     this.listenForUpdate();
@@ -51,6 +53,7 @@ export class OrdersComponent implements OnInit, OnDestroy {
     this.ordersSub.unsubscribe();
     this.updateListenerSub.unsubscribe();
     this.openSub.unsubscribe();
+    this.createSub.unsubscribe();
     this.openOrderProductsSub.unsubscribe();
   }
 
@@ -64,39 +67,61 @@ export class OrdersComponent implements OnInit, OnDestroy {
     }
   }
 
+  public new():void {
+    this.orderService.create()
+      .subscribe(() => {this.refresh()});
+  }
+
+  public refresh():void {
+    this.orders.splice(0, this.orders.length);
+    this.lists.forEach((item) => item.items.splice(0, item.items.length));
+    this.load();
+  }
+
+  private load():void {
+    this.orderService.list()
+      .subscribe((res) => {
+        if (res.data) {
+          this.splitOrders(res.data);
+        }
+      });
+  }
+
   private listenForUpdate():void {
     this.updateListenerSub = this.eventService.orderUpdate
       .subscribe((order:Order) => {
-        this.splitOrders(this.mergeOrders());
-        this.pickedOrder = order;
+        this.refresh();
       });
     this.openSub = this.eventService.openOrder
       .subscribe((order:Order) => {
         this.pickedOrder = order;
-      })
+      });
   }
 
   private splitOrders(orders:OrderDto[]):void {
-    this.orders = orders;
-    this.pendingOrders = this.spliceFromStatus(OrderStatus.Pending);
-    this.validatedOrders = this.spliceFromStatus(OrderStatus.Validated);
-    this.readyOrders = this.spliceFromStatus(OrderStatus.Ready);
-  }
-
-  private spliceFromStatus(status:OrderStatus):OrderDto[] {
-    const orders:OrderDto[] = [];
-
-    for (var i = 0; i < this.orders.length ; i++) {
-      if (this.orders[i].order_status_id === status) {
-        orders.push(this.orders.splice(i, 1)[0]);
+    this.orders.splice(0, this.orders.length);
+    orders.forEach((item) => {
+      this.orders.push(item);
+      const list = this.lists.find((l) => l.status === (item.order_status_id as OrderStatus));
+      if (list) {
+        list.items.push(item);
       }
-    }
-
-    return orders;
+    });
+    this.lists.forEach((item) => item.display = item.items.length > 0)
   }
 
-  private mergeOrders():OrderDto[] {
-    return [...this.orders, ...this.pendingOrders, ...this.validatedOrders, ...this.readyOrders];
+  private initLists():void {
+    this.lists = [];
+    Object.keys(OrderStatus).map(key => {
+      const nKey = Number(key);
+      if (!isNaN(nKey)) {
+        this.lists.push({
+          status: (nKey as OrderStatus),
+          items: [],
+          display: true
+        });
+      }
+    });
   }
 
 }

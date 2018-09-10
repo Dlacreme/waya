@@ -6,14 +6,20 @@
   </div>
 
   <div class="actions flex">
+    <button mat-button (click)="openStatusUpdate()">Update Status</button>
     <button mat-button (click)="openTableUpdate()">Update Table</button>
     <button mat-button (click)="openCustomerUpdate()">Update Customer</button>
     <button mat-button (click)="openProductUpdate()">Update Products</button>
     <div class="flex-grow"></div>
+    <button mat-raised-button color="green" *ngIf="update.status" (click)="syncStatus()">Confirm Status</button>
     <button mat-raised-button color="green" *ngIf="update.table" (click)="syncTable()">Confirm Table</button>
     <button mat-raised-button color="green" *ngIf="update.customer" (click)="syncCustomer()">Confirm Customer</button>
     <button mat-raised-button color="green" *ngIf="update.products" (click)="updateProducts()">Confirm Products</button>
-    <button class="cancel-update" mat-button *ngIf="update.any" (click)="resetUpdate()" matTooltip="Cancel Update"><mat-icon>delete</mat-icon></button>
+    <button class="cancel-update" mat-button *ngIf="update.any" (click)="resetUpdate()" matTooltip="Cancel Update"><mat-icon>close</mat-icon></button>
+  </div>
+
+  <div *ngIf="update.status">
+    <app-select [options]="statusOptions" (onchange)="updateStatus($event)"></app-select>
   </div>
 
   <div *ngIf="update.table">
@@ -26,7 +32,9 @@
 
   <div class="columns flex">
     <div class="history separator right">
-
+      <div *ngFor="let history of data.source.order_action_histories">
+        [{{ displayDate(history.created_at) }}] {{ history.comment }}
+      </div>
     </div>
 
     <div class="products">

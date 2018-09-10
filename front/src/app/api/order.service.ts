@@ -64,7 +64,8 @@ export class OrderService extends Api {
     order: 'order',
     product: 'products',
     table: 'table',
-    customer: 'customer'
+    customer: 'customer',
+    status: 'status'
   };
 
   constructor(
@@ -73,14 +74,29 @@ export class OrderService extends Api {
     super(httpClient)
   }
 
-  public list():Observable<ApiResult<OrderDto[]>> {
-    return this.query<OrderDto[]>({
-      method: HttpMethod.GET,
-      endpoint: this.endpoints.order
+  public create():Observable<ApiResult<OrderDto>> {
+    return this.query<OrderDto>({
+      endpoint: this.endpoints.order,
+      method: HttpMethod.POST
     });
   }
 
-  public updateCustomer(order:OrderDto, userId:Number, message:string|undefined = undefined) {
+  public list():Observable<ApiResult<OrderDto[]>> {
+    return this.query<OrderDto[]>({
+      method: HttpMethod.GET,
+      endpoint: `${this.endpoints.order}?bustcache=${Date.now()}`
+    });
+  }
+
+  public updateStatus(order:OrderDto, statusId:number, message:string|undefined = undefined):Observable<ApiResult<OrderDto>> {
+    return this.query<OrderDto>({
+      endpoint: `${this.endpoints.order}/${order.id}/${this.endpoints.status}`,
+      method: HttpMethod.POST,
+      params: message ? {status_id: statusId, message: message} : {status_id: statusId}
+    });
+  }
+
+  public updateCustomer(order:OrderDto, userId:Number, message:string|undefined = undefined):Observable<ApiResult<OrderDto>> {
     return this.query<OrderDto>({
       endpoint: `${this.endpoints.order}/${order.id}/${this.endpoints.customer}`,
       method: HttpMethod.POST,
@@ -88,7 +104,7 @@ export class OrderService extends Api {
     });
   }
 
-  public updateTable(order:OrderDto, tableId:number, message:string|undefined = undefined) {
+  public updateTable(order:OrderDto, tableId:number, message:string|undefined = undefined):Observable<ApiResult<OrderDto>> {
     return this.query<OrderDto>({
       endpoint: `${this.endpoints.order}/${order.id}/${this.endpoints.table}`,
       method: HttpMethod.POST,
