@@ -4,6 +4,7 @@ import { ApiResult, Api, HttpMethod } from './api';
 import { HttpClient } from '@angular/common/http';
 import { User, UserDto } from '../models/user';
 import { ProductDto } from './product.service';
+import { FileDto } from '../services/file.service';
 
 export enum PaymentMethod {
   CreditCard = 1,
@@ -45,6 +46,8 @@ export interface OrderDto {
   paid_at:Date;
   payment_method_it:number|null;
   total_price:number|null;
+
+  invoice:FileDto;
 
   created_at:Date;
   updated_at:Date;
@@ -98,8 +101,8 @@ export class OrderService extends Api {
     });
   }
 
-  public payment(orderId:number, method:PaymentMethod):Observable<ApiResult<any>> {
-    return this.query<any>({
+  public payment(orderId:number, method:PaymentMethod):Observable<ApiResult<OrderDto>> {
+    return this.query<OrderDto>({
       method: HttpMethod.POST,
       endpoint: `${this.endpoints.order}/${orderId}/${this.endpoints.payment}`,
       params: {

@@ -7,6 +7,8 @@ import { OrderProduct, OrderProductType } from '../order.service';
 import { OrderService, OrderDto, OrderStatus, PaymentMethod } from '../../api/order.service';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { StorageService } from '../../services/storage.service';
+import { FileService } from '../../services/file.service';
+import { ApiResult } from '../../api/api';
 
 interface Update {
   status:boolean;
@@ -51,7 +53,8 @@ export class OrderComponent implements OnInit, OnDestroy {
 
   constructor(
     private eventService:EventService,
-    private orderService:OrderService
+    private orderService:OrderService,
+    private fileService:FileService
   ) { }
 
   @Input()
@@ -196,7 +199,9 @@ export class OrderComponent implements OnInit, OnDestroy {
     const paymentSub = this.orderService.payment(this.data.id, this.pickedPaymentMethod.value)
       .subscribe((res) => {
         this.eventService.orderUpdate.emit(this.data);
-        console.log(res);
+        if (res.data) {
+          this.fileService.download(res.data.invoice);
+        }
       });
   }
 
