@@ -83,8 +83,7 @@ class OrderController < ApplicationController
   def payment
     order = Order.find(params[:id])
     order.payment(@current_user, get_param(:payment_method_id))
-    # data order_detail(order.id)
-    render :text => "<h1>lol</h1>"
+    data order_detail(order.id)
   end
 
   def add_voucher
@@ -111,6 +110,7 @@ private
         :order_status => {},
         :products => {},
         :order_action_histories => {},
+        :invoice => {}
       })
   end
 
