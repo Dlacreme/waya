@@ -24,6 +24,12 @@
   .actions {
     padding-top: 2px
   }
+
+  .back {
+    mat-icon {
+      padding: 7px 4px;
+    }
+  }
 }
 
 ul {
@@ -165,4 +171,8 @@ app-order-product {
 
 .status-urgent {
   background-color: $error-color !important;
+}
+
+.max-width {
+  margin: 0 -25px;
 }

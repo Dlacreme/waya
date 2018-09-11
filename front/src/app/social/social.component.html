@@ -1,3 +1,21 @@
-<p>
-  social works!
-</p>
+<div id="social" class="full">
+
+  <div class="module-title">
+    <h1>Social</h1>
+    <div class="mid"></div>
+    <div class="actions flex">
+      <a mat-button color="green" routerLink="new"><mat-icon>add</mat-icon></a>
+    </div>
+  </div>
+
+  <div class="max-width">
+    <div class="article" *ngFor="let article of articles">
+      <h4>
+        {{ article.name }}
+        <a [routerLink]="article.id" mat-button><mat-icon>edit</mat-icon></a>
+      </h4>
+      <p>{{article.desc}}</p>
+    </div>
+  </div>
+
+</div>

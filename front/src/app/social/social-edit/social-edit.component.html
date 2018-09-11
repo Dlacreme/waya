@@ -1,0 +1,32 @@
+<div id="social-edit" class="full">
+
+  <div class="module-title">
+    <a routerLink="/staff/social" class="back"><mat-icon>chevron_left</mat-icon></a>
+    <h1>Edit</h1>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="input-container">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="name" placeholder="Name">
+      </mat-form-field>
+    </div>
+
+    <div class="input-container">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="desc" placeholder="Introduction">
+      </mat-form-field>
+    </div>
+
+    <div  class="input-container">
+      <mat-form-field appearance="outline">
+        <input matInput formControlName="content" placeholder="Content">
+      </mat-form-field>
+    </div>
+
+
+    <button (click)="submit()" mat-raised-button color="green">Submit</button>
+
+  </form>
+
+</div>

@@ -72,6 +72,7 @@ import { AdminProductComponent } from './admin/admin-product/admin-product.compo
 import { AdminOrderComponent } from './admin/admin-order/admin-order.component';
 import { AdminStockComponent } from './admin/admin-stock/admin-stock.component';
 import { SocialComponent } from './social/social.component';
+import { SocialEditComponent } from './social/social-edit/social-edit.component';
 
 @NgModule({
   declarations: [
@@ -109,6 +110,7 @@ import { SocialComponent } from './social/social.component';
     AdminOrderComponent,
     AdminStockComponent,
     SocialComponent,
+    SocialEditComponent,
   ],
   imports: [
     BrowserModule,

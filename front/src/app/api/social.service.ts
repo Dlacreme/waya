@@ -4,12 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface ArticleDto {
-  id:number;
+  id?:number;
   name:string;
   desc:string;
   content:string;
-  created_at:Date;
-  updated_at:Date;
+  created_at?:Date;
+  updated_at?:Date;
 }
 
 @Injectable({
