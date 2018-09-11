@@ -22,7 +22,9 @@ import {
   MatDialogModule,
   MatCardModule,
   MatTabsModule,
-  MatChipsModule
+  MatChipsModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 } from '@angular/material';
 
 // Core
@@ -129,6 +131,8 @@ import { AdminStockComponent } from './admin/admin-stock/admin-stock.component';
     MatMenuModule,
     MatDialogModule,
     MatTooltipModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     MatSidenavModule,
     MatCardModule,
     MatTabsModule,

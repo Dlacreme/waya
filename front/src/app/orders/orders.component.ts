@@ -133,7 +133,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
       status: [OrderStatus.Pending, OrderStatus.Validated, OrderStatus.Ready]
     }
     search.from.setHours(0,0,0,0);
-    search.to.setHours(23,59,59,999);
+    search.to.setDate(search.to.getDate() + 1);
+    search.to.setHours(7,0,0,0);
     return search;
   }
 

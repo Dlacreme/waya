@@ -9,8 +9,22 @@
   padding: 0 20px;
 
   button {
+    height: 42px;
     margin-right: 20px;
     font-weight: bold;
+  }
+
+  mat-form-field {
+    margin-right: 10px;
+    width: 160px;
+  }
+
+  .date-input-container {
+    margin-top: -5px;
+  }
+
+  .refresh {
+    width: 42px;
   }
 
   span {
