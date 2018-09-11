@@ -1,4 +1,4 @@
-import { OrderDto, OrderStatus, TableDto } from "../api/order.service";
+import { OrderDto, OrderStatus, TableDto, PaymentMethod } from "../api/order.service";
 import { ProductDto, ProductService } from "../api/product.service";
 import { User, UserDto } from "./user";
 import { StorageService } from "../services/storage.service";
@@ -13,6 +13,7 @@ export class Order {
   status:OrderStatus;
   price:number;
   table:TableDto|null;
+  isPaid:boolean;
 
   created_at:Date;
   updated_at:Date;
@@ -37,6 +38,7 @@ export class Order {
 
     this.created_at = order.created_at;
     this.updated_at = order.updated_at;
+    this.isPaid = order.paid_at != null;
   }
 
   public setStatus(status:OrderStatus, comment:string|undefined = undefined):void {
@@ -54,5 +56,8 @@ export class Order {
     this.products.splice(productIndex, 1);
   }
 
+  private generateInvoice():void {
+
+  }
 
 }

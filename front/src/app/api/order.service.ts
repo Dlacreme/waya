@@ -4,6 +4,13 @@ import { ApiResult, Api, HttpMethod } from './api';
 import { HttpClient } from '@angular/common/http';
 import { User, UserDto } from '../models/user';
 import { ProductDto } from './product.service';
+import { FileDto } from '../services/file.service';
+
+export enum PaymentMethod {
+  CreditCard = 1,
+  Cash = 2,
+  Credit = 3
+}
 
 export enum OrderStatus {
   Pending = 1,
@@ -12,17 +19,6 @@ export enum OrderStatus {
   Ready = 4,
   Delivered = 5,
   Paid = 6
-}
-
-export enum OrderActions {
-  Create = 1,
-  Update = 2,
-  Comment = 3,
-  Validate = 4,
-  Cancel = 5,
-  Ready = 6,
-  Delivered = 7,
-  Paid = 8
 }
 
 export interface TableDto {
@@ -51,8 +47,16 @@ export interface OrderDto {
   payment_method_it:number|null;
   total_price:number|null;
 
+  invoice:FileDto;
+
   created_at:Date;
   updated_at:Date;
+}
+
+export interface Search {
+  to: Date;
+  from: Date;
+  status:OrderStatus[]
 }
 
 @Injectable({
@@ -65,7 +69,9 @@ export class OrderService extends Api {
     product: 'products',
     table: 'table',
     customer: 'customer',
-    status: 'status'
+    status: 'status',
+    search: 'order/search',
+    payment: 'payment'
   };
 
   constructor(
@@ -85,6 +91,23 @@ export class OrderService extends Api {
     return this.query<OrderDto[]>({
       method: HttpMethod.GET,
       endpoint: `${this.endpoints.order}?bustcache=${Date.now()}`
+    });
+  }
+
+  public search(search:Search):Observable<ApiResult<OrderDto[]>> {
+    return this.query<OrderDto[]>({
+      method: HttpMethod.GET,
+      endpoint: `${this.endpoints.search}/${search.from.toISOString().replace('.', '_')}/${search.to.toISOString().replace('.', '_')}/${search.status}?bustcache=${Date.now()}`
+    });
+  }
+
+  public payment(orderId:number, method:PaymentMethod):Observable<ApiResult<OrderDto>> {
+    return this.query<OrderDto>({
+      method: HttpMethod.POST,
+      endpoint: `${this.endpoints.order}/${orderId}/${this.endpoints.payment}`,
+      params: {
+        payment_method_id: method
+      }
     });
   }
 

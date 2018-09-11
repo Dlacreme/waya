@@ -2,6 +2,7 @@ class Order < ApplicationRecord
 
   belongs_to :table, optional: true
   belongs_to :customer, class_name: "User", foreign_key: "customer_id", optional: true
+  belongs_to :invoice, class_name: "Document", foreign_key: "invoice_id", optional: true
   belongs_to :order_status
   belongs_to :payment_method, optional: true
   has_many :order_action_histories
@@ -63,7 +64,8 @@ class Order < ApplicationRecord
     self.payment_method_id = payment_method_id
     self.paid_at = DateTime.now
     self.amount_paid = self.total_price
-    self.order_status_id = OrderStatusEnum::Paid
+    # self.order_status_id = OrderStatusEnum::Paid # `Paid` status should not be a thing... My bad.
+    self.invoice_id = (Document.push("Order ##{self.id}", 'text/html', self.generateInvoice())).id
     self.save
     self.save_action(user.id, OrderActionEnum::Paid, set_comment(user, "made payment"))
   end
@@ -94,7 +96,7 @@ class Order < ApplicationRecord
   end
 
   def set_comment(user, comment)
-    "#{user.username} (#{user.id}): #{comment}"
+    "#{user.username} (##{user.id}): #{comment}"
   end
 
   def calc_price()
@@ -103,6 +105,10 @@ class Order < ApplicationRecord
 
   def self.calc_price(order_id)
     ActiveRecord::Base.connection.execute("CALL calcul_price(#{order_id})")
+  end
+
+  def generateInvoice
+    ActionView::Base.new('app/views').render(file: 'orders/invoice', locals: {order: self})
   end
 
 end

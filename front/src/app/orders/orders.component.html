@@ -3,14 +3,26 @@
 </div>
 
 <div class="legend flex">
-  <button mat-raised-button color="green" (click)="new()"><mat-icon>add</mat-icon> New Order</button>
-  <button mat-raised-button (click)="refresh()"><mat-icon>sync</mat-icon></button>
+  <button mat-raised-button color="green" (click)="new()"><mat-icon>add</mat-icon></button>
+  <button class="refresh" mat-raised-button (click)="refresh()"><mat-icon>sync</mat-icon></button>
   <div class="flex-grow">
     <div class="list-display-picker" *ngFor="let list of lists">
       <mat-checkbox [(ngModel)]="list.display" ></mat-checkbox> {{ orderStatus[list.status] }}
     </div>
   </div>
-  <div class="legend-item">
+  <div class="flex date-input-container" *ngIf="search">
+    <mat-form-field *ngIf="search.from">
+      <input matInput [matDatepicker]="startDate" placeholder="Search from" [value]="search.from">
+      <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+      <mat-datepicker #startDate></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field *ngIf="search.to">
+      <input matInput [matDatepicker]="endDate" placeholder="Search to" [value]="search.to">
+      <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+      <mat-datepicker #endDate></mat-datepicker>
+    </mat-form-field>
+  </div>
+<!--  <div class="legend-item">
     <span class="status-ok"></span>
     OK
   </div>
@@ -21,7 +33,7 @@
     <div class="legend-item">
     <span class="status-urgent"></span>
     Urgent
-  </div>
+  </div>-->
 </div>
 
 <app-order *ngIf="pickedOrder" [order]="pickedOrder"></app-order>

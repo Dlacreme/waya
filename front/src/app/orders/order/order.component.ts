@@ -4,9 +4,11 @@ import { ProductDto } from '../../api/product.service';
 import { EventService } from '../../services/event.service';
 import { Subscription, Subject } from 'rxjs';
 import { OrderProduct, OrderProductType } from '../order.service';
-import { OrderService, OrderDto, OrderStatus } from '../../api/order.service';
+import { OrderService, OrderDto, OrderStatus, PaymentMethod } from '../../api/order.service';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { StorageService } from '../../services/storage.service';
+import { FileService } from '../../services/file.service';
+import { ApiResult } from '../../api/api';
 
 interface Update {
   status:boolean;
@@ -14,6 +16,7 @@ interface Update {
   customer:boolean;
   products:boolean;
   any:boolean;
+  payment:boolean;
 }
 
 @Component({
@@ -35,19 +38,23 @@ export class OrderComponent implements OnInit, OnDestroy {
   public pickedTable:SelectItem|undefined;
   public pickedCustomer:SelectItem|undefined;
   public pickedStatus:SelectItem|undefined;
+  public paymentMethodOptions:SelectOptions;
+  public pickedPaymentMethod:SelectItem|undefined;
 
   private addProductSub:Subscription = Subscription.EMPTY;
   private updateStatusSub:Subscription = Subscription.EMPTY;
   private updateTableSub:Subscription = Subscription.EMPTY;
   private updateCustomerSub:Subscription = Subscription.EMPTY;
   private updateProductsSub:Subscription = Subscription.EMPTY;
+  private paymentSub:Subscription = Subscription.EMPTY;
 
   private productToAdd:number[] = [];
   private productToRemove:number[] = [];
 
   constructor(
     private eventService:EventService,
-    private orderService:OrderService
+    private orderService:OrderService,
+    private fileService:FileService
   ) { }
 
   @Input()
@@ -66,6 +73,7 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.updateCustomerSub.unsubscribe();
     this.updateTableSub.unsubscribe();
     this.updateProductsSub.unsubscribe();
+    this.paymentSub.unsubscribe();
   }
 
   public addProduct(product:ProductDto):void {
@@ -98,6 +106,12 @@ export class OrderComponent implements OnInit, OnDestroy {
   public openCustomerUpdate():void {
     this.resetUpdate();
     this.update.customer = true;
+    this.update.any = true;
+  }
+
+  public openPayment():void {
+    this.resetUpdate();
+    this.update.payment = true;
     this.update.any = true;
   }
 
@@ -173,6 +187,24 @@ export class OrderComponent implements OnInit, OnDestroy {
     this.pickedCustomer = item;
   }
 
+  public updatePaymentMethod(item:SelectItem):void {
+    this.pickedPaymentMethod = item;
+  }
+
+  public confirmPayment():void {
+    if (!this.pickedPaymentMethod) {
+      return;
+    }
+    this.data.isPaid = true;
+    const paymentSub = this.orderService.payment(this.data.id, this.pickedPaymentMethod.value)
+      .subscribe((res) => {
+        this.eventService.orderUpdate.emit(this.data);
+        if (res.data) {
+          this.fileService.download(res.data.invoice);
+        }
+      });
+  }
+
   public resetUpdate():void {
     this.closeProductUpdate();
     this.update = {
@@ -180,7 +212,8 @@ export class OrderComponent implements OnInit, OnDestroy {
       table: false,
       customer: false,
       products: false,
-      any: false
+      any: false,
+      payment: false
     };
   }
 
@@ -198,13 +231,7 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   private initOptions():void {
-    Object.keys(OrderStatus).forEach((key) => {
-      if (isNaN(Number(key))) {return;}
-      this.statusItems.push({
-        text: OrderStatus[key],
-        value: key
-      });
-    });
+    this.pushToSelectItems(OrderStatus, this.statusItems);
     this.tableItems.push({
       text: 'None',
       value: -1
@@ -236,6 +263,22 @@ export class OrderComponent implements OnInit, OnDestroy {
       default: this.data.customer ? this.data.customer.id : -1,
       items: this.customerItems
     };
+    this.paymentMethodOptions = {
+      placeholder: 'Payment',
+      items: []
+    };
+    this.pushToSelectItems(PaymentMethod, this.paymentMethodOptions.items);
+  }
+
+  private pushToSelectItems(obj:any, a:SelectItem[]):SelectItem[] {
+    Object.keys(obj).forEach((key) => {
+      if (isNaN(Number(key))) {return;}
+      a.push({
+        text: obj[key],
+        value: key
+      });
+    });
+    return a;
   }
 
 }

@@ -23,7 +23,7 @@ const routes: Routes = [
     { path: 'stocks', component: StocksComponent },
     { path: 'import', component: StockImportComponent },
     { path: 'product/:id', component: ProductEditComponent },
-    { path: 'admin', component: AdminComponent }
+    { path: 'admin', component: AdminComponent },
   ]}
 ];
 

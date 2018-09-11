@@ -1,0 +1,25 @@
+<style type="text/css">
+  .content {
+    width: 180px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div class="content">
+    <h1>YANA</h1>
+
+    <div><%= order.id %></div>
+
+    <ul>
+      <% order.products.each do |product| %>
+        <li><%= product.name %></li>
+      <% end %>
+    </ul>
+
+    <p>TOTAL : <%= order.total_price %> VND</p>
+
+    <p>Thank you</p>
+  </div>
+</body>
