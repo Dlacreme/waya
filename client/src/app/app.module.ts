@@ -32,13 +32,28 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { SessionService } from './services/session.service';
+import { HttpClientModule, HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
+import { SessionService } from './services/session.service';
+import { LandingComponent } from './landing/landing.component';
+import { HomeComponent } from './home/home.component';
+import { NewsFeedComponent } from './news-feed/news-feed.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { Routes, RouterModule } from '@angular/router';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
     AppComponent,
+    LandingComponent,
+    HomeComponent,
+    NewsFeedComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +63,13 @@ import { SessionService } from './services/session.service';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+      }
+    }),
 
     MatInputModule,
     MatIconModule,

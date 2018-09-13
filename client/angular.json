@@ -63,7 +63,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "client:build"
+            "browserTarget": "interactive-form:build"
           }
         },
         "test": {
@@ -74,10 +74,11 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "src/sass//styles.css"
+              "src/sass/styles.css"
             ],
             "scripts": [],
             "assets": [
+              "src/i18n",
               "src/favicon.ico",
               "src/assets"
             ]

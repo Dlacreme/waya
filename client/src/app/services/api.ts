@@ -31,16 +31,27 @@ export interface ApiItem {
 export class Api {
 
   protected readonly wayaApi = environment.wayaApi;
+  private tokenSet = false;
 
   constructor(
-    protected httpClient: HttpClient
+    protected httpClient: HttpClient,
   ) { }
 
   public setToken(token:string):void {
     localStorage.setItem(environment.tokenLocalStorage, token);
+    this.tokenSet = true;
+  }
+
+  public unsetToken():void {
+    localStorage.setItem(environment.tokenLocalStorage, '');
+    this.tokenSet = false;
+    window.location.reload();
   }
 
   protected query<T>(uri: URI): Observable<ApiResult<T>> {
+    if (!this.tokenSet) {
+
+    }
     switch (uri.method) {
       case HttpMethod.POST:
         return this.httpClient.post<ApiResult<T>>(this.buildUrl(uri), uri.params);
