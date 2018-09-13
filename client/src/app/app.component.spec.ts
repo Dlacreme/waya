@@ -7,6 +7,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { AppComponent } from './app.component';
 import { HttpLoaderFactory } from './app.module';
 import { RouterModule } from '@angular/router';
+import { SessionService } from './services/session.service';
+import { MatIconModule } from '@angular/material';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -19,11 +21,13 @@ describe('AppComponent', () => {
         AppComponent,
       ],
       providers: [
+        SessionService
       ],
       imports: [
         HttpClientTestingModule,
         RouterModule,
         RouterTestingModule,
+        MatIconModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

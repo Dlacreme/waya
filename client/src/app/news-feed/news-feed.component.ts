@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewsFeedComponent implements OnInit {
 
+  public loading = false;
+
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit():void {
+    this.loadFeed();
+  }
+
+  public loadFeed():void {
+    this.loading = true;
   }
 
 }
