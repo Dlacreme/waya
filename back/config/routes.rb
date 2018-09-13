@@ -32,5 +32,8 @@ Rails.application.routes.draw do
   get 'user/search/:query', to: 'user#search'
   get 'user/search_by_role/:role_id', to: 'user#search_by_role'
   put 'user/role/:id', to: 'user#update_role'
+  # Articles
+  resources :article, only: [:index, :show, :create, :update, :destroy]
+  resources :event, only: [:index, :show, :create, :update, :destroy]
 
 end

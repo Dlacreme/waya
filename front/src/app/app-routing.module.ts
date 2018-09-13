@@ -11,6 +11,8 @@ import { StocksComponent } from './stocks/stocks.component';
 import { ProductEditComponent } from './products/product-edit/product-edit.component';
 import { StockImportComponent } from './stocks/stock-import/stock-import.component';
 import { AdminComponent } from './admin/admin.component';
+import { SocialComponent } from './social/social.component';
+import { SocialEditComponent } from './social/social-edit/social-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -23,6 +25,8 @@ const routes: Routes = [
     { path: 'stocks', component: StocksComponent },
     { path: 'import', component: StockImportComponent },
     { path: 'product/:id', component: ProductEditComponent },
+    { path: 'social', component: SocialComponent },
+    { path: 'social/:type/:id', component: SocialEditComponent },
     { path: 'admin', component: AdminComponent },
   ]}
 ];

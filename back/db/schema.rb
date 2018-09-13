@@ -10,12 +10,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180911153106) do
+ActiveRecord::Schema.define(version: 20180911163650) do
+
+  create_table "articles", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.string "desc"
+    t.text "content"
+    t.boolean "is_disabled", default: false
+    t.boolean "is_published", default: false
+    t.integer "cover_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "documents", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "filename"
     t.string "content_type"
     t.binary "file_content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name"
+    t.integer "slots"
+    t.integer "article_id"
+    t.datetime "event_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -83,7 +103,7 @@ ActiveRecord::Schema.define(version: 20180911153106) do
 
   create_table "product_prices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "product_id"
-    t.integer "product_price_type_id"
+    t.integer "product_price_type_id", default: 1
     t.decimal "price", precision: 10
     t.date "start_date"
     t.date "end_date"

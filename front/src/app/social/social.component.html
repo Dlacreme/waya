@@ -1,0 +1,33 @@
+<div id="social" class="full">
+
+  <div class="module-title">
+    <h1>Social</h1>
+    <div class="mid"></div>
+    <div class="actions flex">
+      <a mat-button color="green" routerLink="article/new"><mat-icon>add</mat-icon>Article</a>
+      <a mat-button color="green" routerLink="event/new"><mat-icon>add</mat-icon>Event</a>
+    </div>
+  </div>
+
+  <div class="max-width flex">
+    <div class="article-container">
+      <div class="article" *ngFor="let article of articles">
+        <h4>
+          {{ article.name }}
+          <a [routerLink]="'article/' + article.id" mat-button><mat-icon>edit</mat-icon></a>
+        </h4>
+        <p>{{article.desc}}</p>
+      </div>
+    </div>
+    <div class="article-container">
+      <div class="article" *ngFor="let article of events">
+        <h4>
+          {{ article.name }}
+          <a [routerLink]="'event/' + article.id" mat-button><mat-icon>edit</mat-icon></a>
+        </h4>
+        <p>{{article.desc}}</p>
+      </div>
+    </div>
+  </div>
+
+</div>
