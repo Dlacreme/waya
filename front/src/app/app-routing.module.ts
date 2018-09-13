@@ -26,7 +26,7 @@ const routes: Routes = [
     { path: 'import', component: StockImportComponent },
     { path: 'product/:id', component: ProductEditComponent },
     { path: 'social', component: SocialComponent },
-    { path: 'social/:id', component: SocialEditComponent },
+    { path: 'social/:type/:id', component: SocialEditComponent },
     { path: 'admin', component: AdminComponent },
   ]}
 ];

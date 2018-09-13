@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SocialService, ArticleDto } from '../api/social.service';
+import { SocialService, ArticleDto, EventDto } from '../api/social.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -10,8 +10,10 @@ import { Subscription } from 'rxjs';
 export class SocialComponent implements OnInit, OnDestroy {
 
   public articles:ArticleDto[] = [];
+  public events:EventDto[] = [];
 
-  private listSub = Subscription.EMPTY;
+  private articleListSub = Subscription.EMPTY;
+  private eventListSub = Subscription.EMPTY;
 
   constructor(
     private socialService:SocialService
@@ -22,12 +24,15 @@ export class SocialComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy():void {
-    this.listSub.unsubscribe();
+    this.articleListSub.unsubscribe();
+    this.eventListSub.unsubscribe();
   }
 
   public load():void {
-    this.listSub = this.socialService.listArticle()
+    this.articleListSub = this.socialService.listArticle()
       .subscribe((res) => this.articles = res.data as ArticleDto[]);
+    this.eventListSub = this.socialService.listEvent()
+      .subscribe((res) => this.events = res.data as EventDto[]);
   }
 
 }

@@ -17,6 +17,8 @@ ActiveRecord::Schema.define(version: 20180911163650) do
     t.string "desc"
     t.text "content"
     t.boolean "is_disabled", default: false
+    t.boolean "is_published", default: false
+    t.integer "cover_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -33,6 +35,7 @@ ActiveRecord::Schema.define(version: 20180911163650) do
     t.string "name"
     t.integer "slots"
     t.integer "article_id"
+    t.datetime "event_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

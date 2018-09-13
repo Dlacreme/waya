@@ -86,7 +86,7 @@ export class ApiInterceptor implements HttpInterceptor {
   }
 
   private shouldUseCache(request:HttpRequest<any>):boolean {
-    return request.method === 'GET';
+    return false;
   }
 
 }

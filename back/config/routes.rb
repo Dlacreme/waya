@@ -34,5 +34,6 @@ Rails.application.routes.draw do
   put 'user/role/:id', to: 'user#update_role'
   # Articles
   resources :article, only: [:index, :show, :create, :update, :destroy]
+  resources :event, only: [:index, :show, :create, :update, :destroy]
 
 end
