@@ -8,4 +8,21 @@
   .desktop {
     display: none !important;
   }
+
+  .cart-container {
+    .product-item {
+      width: 1000px;
+      padding-left: 100px;
+      overflow: hidden;
+    }
+  }
+
+  .cart-container.opened {
+    .product-item {
+      width: inherit !important;
+      padding-left: inherit !important;
+      overflow: auto;
+    }
+  }
+
 }

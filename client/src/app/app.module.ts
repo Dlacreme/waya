@@ -49,6 +49,7 @@ import { DataService } from './services/data.service';
 import { ProductService } from './services/product.service';
 import { OrderService } from './services/order.service';
 import { CartComponent } from './cart/cart.component';
+import { ProductItemComponent } from './product-item/product-item.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './i18n/', '.json');
@@ -65,6 +66,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ReaderComponent,
     NewOrderComponent,
     CartComponent,
+    ProductItemComponent,
   ],
   imports: [
     BrowserModule,

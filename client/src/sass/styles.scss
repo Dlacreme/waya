@@ -20,11 +20,14 @@ $mat-font-family: Roboto, 'Helvetica Neue', sans-serif;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
 }
 
 html, body, app-root {
   height: 100%;
   width: 100%;
+
+  color: $font-color;
 }
 
 .full {
@@ -50,4 +53,13 @@ html, body, app-root {
 
 .screen-height {
   height: calc(100vh - 55px);
+}
+
+.price {
+
+  i {
+    font-size: 0.8em;
+    color: #968888;
+    margin-left: 4px;
+  }
 }

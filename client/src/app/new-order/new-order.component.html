@@ -1,5 +1,12 @@
 <div id="new-order" class="screen-height flex">
-  <div class="flex-grow"></div>
+  <div [ngClass]="{'hidden': isOpen}" class="flex-grow">
+    <h1>{{ 'NEW_ORDER.TITLE' | translate }}</h1>
+
+    <div class="product-list">
+      <app-product-item *ngFor="let product of products" [product]="product"></app-product-item>
+    </div>
+
+  </div>
 
   <div class="cart-container" [ngClass]="{'opened': isOpen}">
     <mat-icon *ngIf="!isOpen" class="open-close-button open" (click)="open(true)">arrow_back_ios</mat-icon>

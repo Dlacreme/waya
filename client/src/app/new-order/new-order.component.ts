@@ -11,14 +11,14 @@ export class NewOrderComponent implements OnInit {
 
   public isOpen = false;
 
-  private products:Product[];
+  private products:Product[] = this.dataService.getProducts();
 
   constructor(
     private dataService:DataService
   ) { }
 
   public ngOnInit():void {
-    this.products = this.dataService.getProducts();
+
   }
 
   public open(isOpen:boolean):void {

@@ -8,9 +8,14 @@
     "EVENTS": "Events"
   },
   "NEW_ORDER": {
-
+    "TITLE": "Our Products"
   },
   "CART": {
     "TITLE": "My Cart"
+  },
+  "GLOBAL": {
+    "CURRENCY": {
+      "VND": "VND"
+    }
   }
 }

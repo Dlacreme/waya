@@ -5,4 +5,14 @@
     {{ 'CART.TITLE' | translate }}
   </h3>
 
+  <div *ngFor="let product of products" class="product-item flex">
+    <div class="product-name">{{ product.name }}</div>
+    <div class="flex-grow"></div>
+    <div class="price">
+      <span>{{ product.price.member }}</span>
+      <i>{{ 'GLOBAL.CURRENCY.VND' | translate }}</i>
+    </div>
+    <button class="remove" (click)="removeItem(product)"><mat-icon>clear</mat-icon></button>
+  </div>
+
 </div>

@@ -13,11 +13,24 @@ h3 {
   text-transform: uppercase;
   font-weight: bold;
   min-width: 200px;
+  margin-bottom: 20px;
 
   mat-icon {
     float: left;
-    margin-top: -6px;
   }
+}
+
+.product-name {
+  color: $font-color;
+}
+
+.remove {
+  background-color: transparent;
+  color: $error-color;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-left: 20px;
 }
 
 @media screen and (min-width: 768px) {

@@ -8,7 +8,8 @@ import { Product } from '../models/product';
 })
 export class DataService implements OnDestroy {
 
-  private products:Product[];
+  private cart:Product[] = [];
+  private products:Product[] = [];
 
   private getProductsSub = Subscription.EMPTY;
 
@@ -26,6 +27,17 @@ export class DataService implements OnDestroy {
 
   public getProducts():Product[] {
     return this.products;
+  }
+
+  public getCart():Product[] {
+    return this.cart;
+  }
+
+  public removeFromCart(productId:number):void {
+    const index = this.cart.findIndex((item) => item.id === productId);
+    if (index >= 0) {
+      this.cart.splice(index, 1);
+    }
   }
 
 }

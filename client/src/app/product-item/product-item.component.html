@@ -1,0 +1,16 @@
+<div class="product-item">
+  <div class="flex">
+    <div [ngClass]="{'disabled': data.disabled}" class="info">
+      <span class="name">{{ data.name }}</span>
+      <span class="category">{{ data.category }}</span>
+      <div class="price">
+        <span>{{ data.price.member }}</span>
+        <i>{{ 'GLOBAL.CURRENCY.VND' | translate }}</i>
+      </div>
+    </div>
+
+    <button class="add" *ngIf="!data.disabled" matTooltip="Add to Cart" (click)="addToCart()"><mat-icon>add</mat-icon></button>
+    <button *ngIf="data.disabled" matTooltip="Out of stock"><mat-icon>block</mat-icon></button>
+
+  </div>
+</div>
