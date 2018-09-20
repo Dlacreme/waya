@@ -29,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
     const token = window.localStorage.getItem(environment.authToken);
     if (token) {
       this.sessionService.setToken(token);
-      this.router.navigate(['my-yana']);
+      // this.router.navigate(['my-yana/news']);
     }
   }
 

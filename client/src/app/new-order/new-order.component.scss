@@ -1,0 +1,62 @@
+@import '../../sass/variables';
+
+.cart-container {
+  position: relative;
+  background-color: $cart-background;
+}
+
+@media screen and (min-width: 768px) {
+  .cart-container {
+    width: 300px;
+  }
+  .open-close-button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cart-container {
+    width: 50px;
+    overflow: hidden;
+  }
+
+  .cart-container.opened {
+    width: 100% !important;
+
+    app-cart {
+      top: 0px !important;
+    }
+  }
+
+  app-cart {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .open-close-button {
+    font-size: 1.3em;
+    position: absolute;
+    z-index: 9;
+    color: $yana-red;
+  }
+
+  .open-close-button.open {
+    border-bottom: 1px solid #ccc;
+    right: 0;
+    left: 0;
+    width: auto;
+    text-align: center;
+    padding-left: 10px;
+    height: 26px;
+    top: 8px;
+  }
+
+  .open-close-button.close {
+    top: 12px;
+    right: 15px;
+  }
+
+}

@@ -9,6 +9,7 @@ header {
     text-align: center;
     font-size: 1.8em;
     padding-top: 5px;
+    cursor: pointer;
   }
 
   button {
@@ -27,4 +28,22 @@ header {
     }
   }
 
+}
+
+.new-order-floating-button {
+  position: fixed;
+  bottom: 100px;
+  right: 150px;
+  border-radius: 100px;
+  width: 40px;
+  height: 40px;
+  min-width: 60px;
+  height: 60px;
+  z-index: 9999;
+  background-color: $dark-grey;
+  line-height: 58px;
+
+  mat-icon {
+    color: $yana-red;
+  }
 }

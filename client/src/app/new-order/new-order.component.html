@@ -1,0 +1,10 @@
+<div id="new-order" class="screen-height flex">
+  <div class="flex-grow"></div>
+
+  <div class="cart-container" [ngClass]="{'opened': isOpen}">
+    <mat-icon *ngIf="!isOpen" class="open-close-button open" (click)="open(true)">arrow_back_ios</mat-icon>
+    <mat-icon *ngIf="isOpen" class="open-close-button close" (click)="open(false)">arrow_forward_ios</mat-icon>
+    <app-cart></app-cart>
+  </div>
+
+</div>

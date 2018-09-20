@@ -42,7 +42,7 @@ export class LandingComponent {
           this.sessionService.setToken(res.data.token || '');
           window.localStorage.setItem(environment.authToken, res.data.token);
         }
-        this.router.navigate(['mYana'], {queryParamsHandling: 'merge'});
+        this.router.navigate(['my-yana/news'], {queryParamsHandling: 'merge'});
       });
   }
 

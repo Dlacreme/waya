@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import { MatIconModule } from '@angular/material';
+import { MatIconModule, MatTooltipModule } from '@angular/material';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../app.module';
 import { HttpClient } from '@angular/common/http';
@@ -9,6 +9,7 @@ import { NewsFeedComponent } from '../news-feed/news-feed.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthService } from 'angularx-social-login';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -24,6 +25,8 @@ describe('HomeComponent', () => {
       imports: [
         MatIconModule,
         HttpClientTestingModule,
+        RouterTestingModule,
+        MatTooltipModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,

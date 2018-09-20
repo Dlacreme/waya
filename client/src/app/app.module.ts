@@ -42,6 +42,13 @@ import { HomeComponent } from './home/home.component';
 import { NewsFeedComponent } from './news-feed/news-feed.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { Routes, RouterModule } from '@angular/router';
+import { PreviewComponent } from './news-feed/preview/preview.component';
+import { ReaderComponent } from './reader/reader.component';
+import { NewOrderComponent } from './new-order/new-order.component';
+import { DataService } from './services/data.service';
+import { ProductService } from './services/product.service';
+import { OrderService } from './services/order.service';
+import { CartComponent } from './cart/cart.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './i18n/', '.json');
@@ -54,6 +61,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     NewsFeedComponent,
     NotFoundComponent,
+    PreviewComponent,
+    ReaderComponent,
+    NewOrderComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,
@@ -94,6 +105,9 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   providers: [
     SessionService,
+    DataService,
+    ProductService,
+    OrderService,
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs },
   ],
   entryComponents: [
