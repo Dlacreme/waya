@@ -10,6 +10,7 @@ import { Product } from '../models/product';
 export class CartComponent implements OnInit {
 
   public products:Product[] = this.dataService.getCart();
+  public editable = false;
 
   constructor(
     private dataService:DataService
@@ -20,6 +21,10 @@ export class CartComponent implements OnInit {
 
   public removeItem(product:Product):void {
     this.dataService.removeFromCart(product.id);
+  }
+
+  public isEditable(editable:boolean):void {
+    this.editable = editable;
   }
 
 }

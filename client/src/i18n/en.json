@@ -11,7 +11,8 @@
     "TITLE": "Our Products"
   },
   "CART": {
-    "TITLE": "My Cart"
+    "TITLE": "My Cart",
+    "REMOVE": "Remove items"
   },
   "GLOBAL": {
     "CURRENCY": {

@@ -33,6 +33,10 @@ h3 {
   margin-left: 20px;
 }
 
+.button.remove-button {
+  color: $error-color !important;
+}
+
 @media screen and (min-width: 768px) {
 
 }

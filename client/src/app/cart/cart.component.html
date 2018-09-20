@@ -12,7 +12,11 @@
       <span>{{ product.price.member }}</span>
       <i>{{ 'GLOBAL.CURRENCY.VND' | translate }}</i>
     </div>
-    <button class="remove" (click)="removeItem(product)"><mat-icon>clear</mat-icon></button>
+    <button [ngClass]="{'hidden': !editable}" class="remove" (click)="removeItem(product)"><mat-icon>clear</mat-icon></button>
+  </div>
+
+  <div>
+    <button class="remove-button" mat-raised-button color="red">{{ 'CART.REMOVE' | translate }}</button>
   </div>
 
 </div>
