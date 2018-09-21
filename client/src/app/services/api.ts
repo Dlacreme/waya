@@ -1,6 +1,6 @@
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export enum HttpMethod {
   GET,
@@ -49,9 +49,6 @@ export class Api {
   }
 
   protected query<T>(uri: URI): Observable<ApiResult<T>> {
-    if (!this.tokenSet) {
-
-    }
     switch (uri.method) {
       case HttpMethod.POST:
         return this.httpClient.post<ApiResult<T>>(this.buildUrl(uri), uri.params);

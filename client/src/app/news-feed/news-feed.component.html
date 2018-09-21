@@ -1,3 +1,8 @@
+<div *ngIf="displaySuccessOrder" class="success-order">
+  {{ 'CART.SUCCESS' | translate }}
+  <mat-icon (click)="displaySuccessOrder = false">close</mat-icon>
+</div>
+
 <mat-tab-group class="equal">
   <mat-tab label="{{ 'NEWS_FEED.ARTICLES' | translate }}">
     <mat-spinner class="full" *ngIf="loadingArticle"></mat-spinner>

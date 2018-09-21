@@ -50,6 +50,7 @@ import { ProductService } from './services/product.service';
 import { OrderService } from './services/order.service';
 import { CartComponent } from './cart/cart.component';
 import { ProductItemComponent } from './product-item/product-item.component';
+import { ApiInterceptor } from './api-interceptor';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './i18n/', '.json');
@@ -111,6 +112,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProductService,
     OrderService,
     { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs },
+    { provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true}
   ],
   entryComponents: [
   ],

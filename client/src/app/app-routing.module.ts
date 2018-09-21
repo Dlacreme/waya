@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'my-yana', component: HomeComponent, children: [
     { path: 'news', component: NewsFeedComponent },
+    { path: 'news/:action', component: NewsFeedComponent },
     { path: 'order/new', component: NewOrderComponent },
   ]},
   { path: 'not-found', component: NotFoundComponent },

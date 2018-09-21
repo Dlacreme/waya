@@ -14,7 +14,14 @@
   "CART": {
     "TITLE": "My Cart",
     "REMOVE": "Remove items",
-    "ORDER": "Order"
+    "NEXT": "Next",
+    "TOTAL": "Total",
+    "ORDER": "Order Now",
+    "TABLE_NAME": "Table",
+    "DELIVERY": "Pay at Delivery",
+    "CREDIT": "Pay with Credit",
+    "COMMENT": "Anything you want to add?",
+    "SUCCESS": "Thank you. Your order will be ready soon."
   },
   "GLOBAL": {
     "CURRENCY": {
