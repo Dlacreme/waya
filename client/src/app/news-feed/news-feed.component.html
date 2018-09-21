@@ -3,14 +3,4 @@
   <mat-icon (click)="displaySuccessOrder = false">close</mat-icon>
 </div>
 
-<mat-tab-group class="equal">
-  <mat-tab label="{{ 'NEWS_FEED.ARTICLES' | translate }}">
-    <mat-spinner class="full" *ngIf="loadingArticle"></mat-spinner>
-    <app-preview (click)="readArticle(article.id)" *ngFor="let article of articles" [article]="article"></app-preview>
-  </mat-tab>
-
-  <mat-tab label="{{ 'NEWS_FEED.EVENTS' | translate }}">
-    <mat-spinner class="full" *ngIf="loadingEvent"></mat-spinner>
-    <app-preview (click)="readEvent(event.id)" *ngFor="let event of events" [article]="event.article" [event]="event"></app-preview>
-  </mat-tab>
-</mat-tab-group>
+<app-preview (click)="readArticle(article.id)" *ngFor="let article of articles" [article]="article"></app-preview>

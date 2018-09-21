@@ -15,7 +15,6 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   public displaySuccessOrder = false;
 
   public articles:ArticleDto[] = [];
-  public events:EventDto[] = [];
 
   private getArticlesSub = Subscription.EMPTY;
   private getEventsSub = Subscription.EMPTY;
@@ -28,7 +27,6 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
 
   public ngOnInit():void {
     this.loadArticles();
-    this.loadEvents();
     this.paramSub = this.route.params
     .subscribe((p) => {
       if (p.action && p.action === 'order_validated') {
@@ -38,6 +36,8 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy():void {
+    this.getArticlesSub.unsubscribe();
+    this.getEventsSub.unsubscribe();
     this.paramSub.unsubscribe();
   }
 
@@ -47,15 +47,6 @@ export class NewsFeedComponent implements OnInit, OnDestroy {
       .subscribe((res) => {
         this.articles = res.data as ArticleDto[];
         this.loadingArticle = false;
-      });
-  }
-
-  public loadEvents():void {
-    this.loadingEvent = true;
-    this.getArticlesSub = this.socialService.listEvent()
-      .subscribe((res) => {
-        this.events = res.data as EventDto[];
-        this.loadingEvent = false;
       });
   }
 
