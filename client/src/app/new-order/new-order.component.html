@@ -1,0 +1,20 @@
+<div id="new-order" class="screen-height flex">
+  <div [ngClass]="{'hidden': isOpen}" class="flex-grow">
+
+    <div class="searchbox">
+      <input matInput type="text" placeholder="{{ 'NEW_ORDER.SEARCH' | translate }}" [(ngModel)]="search">
+    </div>
+
+    <div class="product-list">
+      <app-product-item *ngFor="let product of products" [product]="product"></app-product-item>
+    </div>
+
+  </div>
+
+  <div class="cart-container" [ngClass]="{'opened': isOpen}">
+    <mat-icon *ngIf="!isOpen" class="open-close-button open" (click)="open(true)">arrow_back_ios</mat-icon>
+    <mat-icon *ngIf="isOpen" class="open-close-button close" (click)="open(false)">arrow_forward_ios</mat-icon>
+    <app-cart></app-cart>
+  </div>
+
+</div>

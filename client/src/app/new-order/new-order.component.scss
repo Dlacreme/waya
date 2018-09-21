@@ -1,0 +1,98 @@
+@import '../../sass/variables';
+
+.cart-container {
+  position: relative;
+  background-color: $cart-background;
+}
+
+.searchbox {
+  margin-top: 1px;
+
+  input {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+
+  input {
+    height: 50px;
+  }
+
+  h1 {
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .cart-container {
+    width: 300px;
+  }
+  .open-close-button {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  input {
+    height: 34px;
+  }
+
+
+h1 {
+  padding: 10px;
+  font-size: 1.3em;
+  border-bottom: 1px solid #ccc;
+}
+
+
+  .cart-container {
+    width: 50px;
+    overflow: hidden;
+  }
+
+  .cart-container.opened {
+    width: 100% !important;
+
+    app-cart {
+      top: 0px !important;
+    }
+  }
+
+  app-cart {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
+  .open-close-button {
+    font-size: 1.3em;
+    position: absolute;
+    z-index: 9;
+    color: $yana-red;
+  }
+
+  .open-close-button.open {
+    border-bottom: 1px solid #ccc;
+    right: 0;
+    left: 0;
+    width: auto;
+    text-align: center;
+    padding-left: 10px;
+    height: 26px;
+    top: 8px;
+  }
+
+  .open-close-button.close {
+    top: 17px;
+    right: 15px;
+  }
+
+}

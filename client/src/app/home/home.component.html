@@ -1,0 +1,12 @@
+<header>
+  <nav class="flex">
+    <button mat-button class="language-picker" (click)="switchLanguage(availableLanguage)"><mat-icon class="desktop">language</mat-icon><span>{{ availableLanguage }}</span></button>
+    <h1 (click)="goHome()" class="flex-grow">Yana</h1>
+    <button mat-button (click)="profile()"><mat-icon>person</mat-icon><span class="desktop">{{ 'HOME.PROFILE' | translate }}</span></button>
+  </nav>
+</header>
+
+
+<router-outlet class="full"></router-outlet>
+
+<a *ngIf="showOrder()" [routerLink]="['order/new']" mat-raised-button class="new-order-floating-button" matTooltip="{{'HOME.NEW_ORDER' | translate}}" ><mat-icon>shoping_cart</mat-icon></a>

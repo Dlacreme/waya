@@ -1,0 +1,35 @@
+@media screen and (min-width: 768px) {
+  .mobile {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .desktop {
+    display: none !important;
+  }
+
+  .cart-container {
+    .product-item {
+      width: 1000px;
+      padding-left: 100px;
+      overflow: hidden;
+    }
+
+    .remove-button, .confirm-button {
+      display: none;
+    }
+  }
+
+  .cart-container.opened {
+    .product-item {
+      width: inherit !important;
+      padding-left: inherit !important;
+      overflow: auto;
+    }
+    .remove-button, .confirm-button {
+      display: inherit;
+    }
+  }
+
+}

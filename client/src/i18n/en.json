@@ -1,0 +1,31 @@
+{
+  "HOME": {
+    "NEW_ORDER": "New Order",
+    "PROFILE": "My Yana"
+  },
+  "NEWS_FEED": {
+    "ARTICLES": "Articles",
+    "EVENTS": "Events"
+  },
+  "NEW_ORDER": {
+    "TITLE": "Our Products",
+    "SEARCH": "Search"
+  },
+  "CART": {
+    "TITLE": "My Cart",
+    "REMOVE": "Remove items",
+    "NEXT": "Next",
+    "TOTAL": "Total",
+    "ORDER": "Order Now",
+    "TABLE_NAME": "Table",
+    "DELIVERY": "Pay at Delivery",
+    "CREDIT": "Pay with Credit",
+    "COMMENT": "Anything you want to add?",
+    "SUCCESS": "Thank you. Your order will be ready soon."
+  },
+  "GLOBAL": {
+    "CURRENCY": {
+      "VND": "VND"
+    }
+  }
+}

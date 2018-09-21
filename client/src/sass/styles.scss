@@ -1,0 +1,71 @@
+@import './mat-override';
+@import './variables';
+@import './responsive';
+
+@import '~@angular/material/theming';
+@import url('//fonts.googleapis.com/icon?family=Material+Icons');
+
+@include mat-core();
+
+$primary: mat-palette($mat-light-blue, 800);
+$accent:  mat-palette($mat-deep-orange, 500, A200, A400);
+$warn:    mat-palette($mat-red, 500);
+
+$theme: mat-light-theme($primary, $accent, $warn);
+@include angular-material-theme($theme);
+
+$mat-font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
+}
+
+html, body, app-root {
+  height: 100%;
+  width: 100%;
+
+  color: $font-color;
+}
+
+.full {
+  width: 100%;
+  height: 100%;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex.column {
+  flex-direction: column;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.hidden {
+  display: none;
+}
+
+.screen-height {
+  height: calc(100vh - 55px);
+}
+
+.price {
+  i {
+    font-size: 0.8em;
+    color: #968888;
+    margin-left: 4px;
+  }
+}
+.mat-button-wrapper {
+  margin: auto;
+}

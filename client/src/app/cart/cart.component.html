@@ -1,0 +1,65 @@
+<div id="cart">
+
+  <h3>
+    <mat-icon>shopping_cart</mat-icon>
+    {{ 'CART.TITLE' | translate }}
+    <div class="order-length">{{ products.length }}</div>
+  </h3>
+
+  <div class="flex column">
+    <div *ngFor="let product of products" class="product-item flex">
+      <div class="product-name">{{ product.name }}</div>
+      <div class="flex-grow"></div>
+      <div class="price">
+        <span>{{ product.price.member }}</span>
+        <i>{{ 'GLOBAL.CURRENCY.VND' | translate }}</i>
+      </div>
+      <button [ngClass]="{'hidden': !editable}" class="remove" (click)="removeItem(product)"><mat-icon>clear</mat-icon></button>
+    </div>
+
+    <div class="flex-grow"></div>
+
+    <div *ngIf="!loading">
+      <div *ngIf="!secondStep" class="flex">
+        <button *ngIf="!editable" class="remove-button" mat-raised-button color="red" matTooltip="{{ 'CART.REMOVE' | translate }}" (click)="isEditable(true)"><mat-icon>delete</mat-icon></button>
+        <button *ngIf="editable" class="remove-button" mat-raised-button color="red" (click)="isEditable(false)"><mat-icon>close</mat-icon></button>
+        <button [disabled]="products.length === 0" (click)="stepTwo(true)" class="confirm-button flex-grow" mat-raised-button>{{ 'CART.NEXT' | translate }}</button>
+      </div>
+
+      <div *ngIf="secondStep">
+        <form [formGroup]="form">
+          <div  class="input-container">
+            <mat-form-field>
+              <input matInput formControlName="comment" placeholder="{{ 'CART.COMMENT' | translate }}" />
+            </mat-form-field>
+          </div>
+          <div  class="input-container">
+            <mat-form-field>
+              <mat-select formControlName="table" placeholder="{{ 'CART.TABLE_NAME' | translate }}">
+                <mat-option *ngFor="let table of tables" [value]="table.id">{{ table.name }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <mat-radio-group class="flex" formControlName="paymentMethod">
+            <mat-radio-button [value]="paymentMethod.OnDelivery">
+              {{ 'CART.DELIVERY' | translate }}
+            </mat-radio-button>
+            <mat-radio-button [value]="paymentMethod.Credit" [disabled]="!hasEnoughCredit">
+              {{ 'CART.CREDIT' | translate }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </form>
+        <div class="flex">
+          <button (click)="stepTwo(false)" class="back-step-button" mat-raised-button color="red" (click)="isEditable(false)"><mat-icon>arrow_back_ios</mat-icon></button>
+          <button (click)="confirm()" class="confirm-button flex-grow" mat-raised-button>{{ 'CART.ORDER' | translate }}</button>
+        </div>
+      </div>
+
+
+    </div>
+
+    <mat-spinner *ngIf="loading"></mat-spinner>
+
+  </div>
+
+</div>

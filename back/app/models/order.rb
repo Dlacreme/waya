@@ -47,7 +47,7 @@ class Order < ApplicationRecord
   end
 
   def remove_products(ids = nil)
-    return unless ids
+    return unless ids && ids.length > 0
     ids.each do |id|
       OrderProduct.where(order_id: self.id, product_id: id).first.delete
     end
