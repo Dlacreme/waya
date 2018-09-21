@@ -3,20 +3,27 @@
   <h3>
     <mat-icon>shopping_cart</mat-icon>
     {{ 'CART.TITLE' | translate }}
+    <div class="order-length">{{ products.length }}</div>
   </h3>
 
-  <div *ngFor="let product of products" class="product-item flex">
-    <div class="product-name">{{ product.name }}</div>
-    <div class="flex-grow"></div>
-    <div class="price">
-      <span>{{ product.price.member }}</span>
-      <i>{{ 'GLOBAL.CURRENCY.VND' | translate }}</i>
+  <div class="flex column">
+    <div *ngFor="let product of products" class="product-item flex">
+      <div class="product-name">{{ product.name }}</div>
+      <div class="flex-grow"></div>
+      <div class="price">
+        <span>{{ product.price.member }}</span>
+        <i>{{ 'GLOBAL.CURRENCY.VND' | translate }}</i>
+      </div>
+      <button [ngClass]="{'hidden': !editable}" class="remove" (click)="removeItem(product)"><mat-icon>clear</mat-icon></button>
     </div>
-    <button [ngClass]="{'hidden': !editable}" class="remove" (click)="removeItem(product)"><mat-icon>clear</mat-icon></button>
-  </div>
 
-  <div>
-    <button class="remove-button" mat-raised-button color="red">{{ 'CART.REMOVE' | translate }}</button>
+    <div class="flex-grow"></div>
+
+    <div class="flex">
+      <button *ngIf="!editable" class="remove-button" mat-raised-button color="red" matTooltip="{{ 'CART.REMOVE' | translate }}" (click)="isEditable(true)"><mat-icon>delete</mat-icon></button>
+      <button *ngIf="editable" class="remove-button" mat-raised-button color="red" (click)="isEditable(false)"><mat-icon>close</mat-icon></button>
+      <button class="confirm-button flex-grow" mat-raised-button>{{ 'CART.ORDER' | translate }}</button>
+    </div>
   </div>
 
 </div>

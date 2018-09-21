@@ -39,6 +39,10 @@ html, body, app-root {
   display: flex;
 }
 
+.flex.column {
+  flex-direction: column;
+}
+
 .flex-grow {
   flex-grow: 1;
 }
@@ -56,10 +60,12 @@ html, body, app-root {
 }
 
 .price {
-
   i {
     font-size: 0.8em;
     color: #968888;
     margin-left: 4px;
   }
+}
+.mat-button-wrapper {
+  margin: auto;
 }

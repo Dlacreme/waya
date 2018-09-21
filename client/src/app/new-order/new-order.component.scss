@@ -5,7 +5,24 @@
   background-color: $cart-background;
 }
 
+.searchbox {
+  margin-top: 1px;
+
+  input {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 3px solid #ccc;
+    outline: none;
+  }
+}
+
 @media screen and (min-width: 768px) {
+
+  input {
+    height: 50px;
+  }
 
   h1 {
     padding: 20px;
@@ -21,6 +38,10 @@
 }
 
 @media screen and (max-width: 768px) {
+
+  input {
+    height: 34px;
+  }
 
 
 h1 {

@@ -8,11 +8,13 @@
     "EVENTS": "Events"
   },
   "NEW_ORDER": {
-    "TITLE": "Our Products"
+    "TITLE": "Our Products",
+    "SEARCH": "Search"
   },
   "CART": {
     "TITLE": "My Cart",
-    "REMOVE": "Remove items"
+    "REMOVE": "Remove items",
+    "ORDER": "Order"
   },
   "GLOBAL": {
     "CURRENCY": {
