@@ -9,14 +9,21 @@
     </div>
   </div>
 
-  <mat-card>
-    <h3>Information</h3>
-    <div class="flex">
-      <app-input class="name-input" [options]="nameOptions" (onchange)="updateName($event)"></app-input>
-      <app-select class="category-input" [options]="categoryOptions" (onchange)="updateCategory($event)"></app-select>
-      <app-input [options]="descOptions" (onchange)="updateDesc($event)"></app-input>
-    </div>
-  </mat-card>
+  <div class="flex">
+    <mat-card class="flex-grow">
+      <h3>Information</h3>
+      <div class="flex">
+        <app-input class="name-input" [options]="nameOptions" (onchange)="updateName($event)"></app-input>
+        <app-select class="category-input" [options]="categoryOptions" (onchange)="updateCategory($event)"></app-select>
+        <app-input [options]="descOptions" (onchange)="updateDesc($event)"></app-input>
+      </div>
+    </mat-card>
+
+    <mat-card class="picture" [ngStyle]="{'background-image':'url('+product.pictureUrl+')'}" >
+      <app-picture icon="camera" [id]="product.id" endpoint="product" (onupload)="uploaded($event)" ></app-picture>
+    </mat-card>
+
+  </div>
 
   <div class="flex">
     <mat-card class="compo card">

@@ -47,6 +47,10 @@
 
     <button (click)="submit()" mat-raised-button color="green">Submit</button>
 
+    <mat-card *ngIf="article.id" class="picture" [ngStyle]="{'background-image':'url('+pictureUrl+')'}" >
+      <app-picture icon="camera" [id]="article.id" endpoint="article" (onupload)="uploaded($event)" ></app-picture>
+    </mat-card>
+
   </form>
 
 </div>

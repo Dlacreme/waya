@@ -1,5 +1,6 @@
 import { ProductDto, ProductStockDto, ProductPriceDto } from "../api/product.service";
 import { StockDto } from "../api/stock.service";
+import { environment } from "../../environments/environment";
 
 export enum PriceType {
   Default = 1,
@@ -26,6 +27,7 @@ export class Product {
   compos:Compo[];
   categoryId:number;
   category:string;
+  pictureUrl:string;
 
   source:ProductDto;
 
@@ -43,6 +45,7 @@ export class Product {
     this.price = product.product_prices;
     this.standardPrice = product.standard_price;
     this.memberPrice = product.member_price;
+    this.pictureUrl = `${environment.wayaApi}/${product.picture_url}`;
     this.compos = [];
     product.product_stocks.forEach((productStock:ProductStockDto) => {
       this.compos.push({

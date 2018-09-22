@@ -1,0 +1,6 @@
+<button mat-button (click)="openUpload()">
+  <mat-icon>
+    {{ iconName }}
+  </mat-icon>
+</button>
+<input #file type="file" style="display:none;" (change)="onFileUploaded()" accept="{{ acceptTypes }}" />
