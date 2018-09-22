@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
   before_create :process_register
 
-  has_attached_file :picture, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/user.png"
+  has_attached_file :picture, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/system/user.png"
   validates_attachment :picture
   do_not_validate_attachment_file_type :picture
 

@@ -6,7 +6,10 @@
   </nav>
 </header>
 
-
 <router-outlet class="full"></router-outlet>
 
-<a *ngIf="showOrder()" [routerLink]="['order/new']" mat-raised-button class="new-order-floating-button" matTooltip="{{'HOME.NEW_ORDER' | translate}}" ><mat-icon>shoping_cart</mat-icon></a>
+<a *ngIf="showOrder()" [routerLink]="['order/new']" mat-raised-button class="new-order-floating-button" >
+  <mat-icon>shoping_cart</mat-icon>
+  <span class="flex-grow"></span>
+  {{'HOME.NEW_ORDER' | translate}}
+</a>

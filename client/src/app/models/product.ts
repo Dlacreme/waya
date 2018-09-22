@@ -1,4 +1,5 @@
 import { ProductDto } from "../services/product.service";
+import { environment } from "../../environments/environment";
 
 interface Price {
   normal:number;
@@ -12,6 +13,7 @@ export class Product {
   public category:string;
   public price:Price;
   public disabled:boolean;
+  public pictureUrl:string;
 
   private source:ProductDto;
 
@@ -24,6 +26,7 @@ export class Product {
     this.id = this.source.id;
     this.name = this.source.name;
     this.category = this.source.product_category.name
+    this.pictureUrl = `${environment.wayaApi}${this.source.picture_url}`
     this.price = {
       normal: this.source.standard_price ? this.source.standard_price.price : this.source.member_price.price,
       member: this.source.member_price ? this.source.member_price.price : this.source.standard_price.price

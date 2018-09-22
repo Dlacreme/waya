@@ -1,12 +1,13 @@
 import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
 
 import { CartComponent } from './cart.component';
-import { MatIconModule } from '@angular/material';
+import { MatIconModule, MatTooltipModule, MatFormFieldModule, MatSelectModule, MatRadioModule, MatSpinner, MatProgressSpinnerModule } from '@angular/material';
 import { TranslateModule, TranslateLoader, TranslateService } from '@ngx-translate/core';
 import { HttpLoaderFactory } from '../app.module';
 import { HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('CartComponent', () => {
   let component: CartComponent;
@@ -20,12 +21,18 @@ describe('CartComponent', () => {
         MatIconModule,
         HttpClientTestingModule,
         RouterTestingModule,
+        MatTooltipModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatProgressSpinnerModule,
         TranslateModule.forRoot({
           loader: {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
-          }
+          }}),
       ]
     })
     .compileComponents();
