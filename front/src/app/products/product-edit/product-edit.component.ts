@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product, Compo } from '../../models/product';
@@ -9,6 +9,7 @@ import { InputOptions, InputType } from '../../form/input/input.component';
 import { SelectOptions, SelectItem } from '../../form/select/select.component';
 import { ApiItem } from '../../api/api';
 import { PricesEditResult } from '../price-edit/price-edit.component';
+import { FileDto } from '../../services/file.service';
 
 @Component({
   selector: 'app-product-edit',
@@ -32,6 +33,10 @@ export class ProductEditComponent implements OnInit, OnDestroy {
   private dialogSub:Subscription = Subscription.EMPTY;
   private updateSub:Subscription = Subscription.EMPTY;
   private deleteSub:Subscription = Subscription.EMPTY;
+
+  public accept = '*';
+  private readFileSubscription:Subscription = Subscription.EMPTY;
+  @ViewChild('file') file;
 
   constructor(
     private route:ActivatedRoute,
@@ -67,6 +72,10 @@ export class ProductEditComponent implements OnInit, OnDestroy {
           });
       }
     });
+  }
+
+  public uploaded(file:FileDto):void {
+    console.log('uploaded', file);
   }
 
   public updateName(name:string):void {

@@ -49,6 +49,7 @@ export interface ProductDto {
   product_prices:ProductPriceDto[];
   standard_price:ProductPriceDto|undefined;
   member_price:ProductPriceDto|undefined;
+  picture_url:string;
 }
 
 @Injectable({

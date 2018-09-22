@@ -5,6 +5,26 @@
   margin-right: 30px;
 }
 
+.picture {
+  width: 250px;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+
+  app-picture {
+    display: none;
+    position: absolute;
+    left: 80px;
+    top: 55px;
+  }
+
+  &:hover {
+    app-picture {
+      display: block;
+    }
+  }
+}
+
 .actions {
   text-align: right;
 }

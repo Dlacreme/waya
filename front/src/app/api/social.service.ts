@@ -19,6 +19,7 @@ export interface ArticleDto {
   is_published:boolean;
   created_at?:Date;
   updated_at?:Date;
+  picture_url:string;
 }
 
 @Injectable({

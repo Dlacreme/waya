@@ -2,3 +2,25 @@
 mat-form-field {
   width: 100%;
 }
+
+.picture {
+  margin-top: 40px;
+  width: 500px;
+  height: 500px;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+
+  app-picture {
+    display: none;
+    position: absolute;
+    left: 80px;
+    top: 55px;
+  }
+
+  &:hover {
+    app-picture {
+      display: block;
+    }
+  }
+}

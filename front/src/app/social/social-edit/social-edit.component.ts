@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ArticleDto, SocialService, EventDto } from '../../api/social.service';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-social-edit',
@@ -24,6 +25,7 @@ export class SocialEditComponent implements OnInit, OnDestroy {
     event_time: new Date(),
     article: this.article
   } as EventDto;
+  public pictureUrl = '';
 
   private paramSub = Subscription.EMPTY;
   private submitSub = Subscription.EMPTY;
@@ -52,6 +54,7 @@ export class SocialEditComponent implements OnInit, OnDestroy {
               .subscribe((res) => {
                 this.event = res.data as EventDto;
                 this.article = (res.data as EventDto).article
+                this.pictureUrl = `${environment.wayaApi}${this.article.picture_url}`
                 this.initForm();
               });
           } else {
@@ -59,6 +62,7 @@ export class SocialEditComponent implements OnInit, OnDestroy {
             this.socialService.getArticle(id)
             .subscribe((res) => {
               this.article = res.data as ArticleDto;
+              this.pictureUrl = `${environment.wayaApi}${this.article.picture_url}`
               this.initForm();
             });
           }

@@ -1,4 +1,4 @@
-<div class="product">
+<div class="product" [ngStyle]="{'background-image':'url('+data.pictureUrl+')'}">
   <div class="details">
     <h5>{{ data.name }}</h5>
     <p class="flex-grow">
@@ -15,4 +15,5 @@
       Èdit
     </div>
   </div>
+
 </div>
