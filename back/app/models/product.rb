@@ -8,16 +8,29 @@ class Product < ApplicationRecord
   has_many :product_stocks
   has_many :stocks, through: :product_stocks
 
-  @standard_price
-  @member_price
+  has_attached_file :picture, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/product.png"
+  validates_attachment :picture
+  do_not_validate_attachment_file_type :picture
 
-  attr_accessor :standard_price, :member_price
+  attr_accessor :standard_price, :member_price, :picture_url
 
   def get_price(price_type)
     self.product_prices
       .where('product_price_type_id = ? AND (end_date IS null || end_date > NOW())', price_type)
       .order('id DESC')
       .first
+  end
+
+  def standard_price
+    self.get_price(PriceTypeEnum::Standard)
+  end
+
+  def member_price
+    self.get_price(PriceTypeEnum::Member)
+  end
+
+  def picture_url
+    self.picture.as_json
   end
 
   def update_product_stocks(product_stocks)

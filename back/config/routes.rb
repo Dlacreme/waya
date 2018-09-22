@@ -35,5 +35,9 @@ Rails.application.routes.draw do
   # Articles
   resources :article, only: [:index, :show, :create, :update, :destroy]
   resources :event, only: [:index, :show, :create, :update, :destroy]
+  # Upload
+  post 'upload/product/:id', to: "product#picture"
+  post 'upload/article/:id', to: "article#picture"
+  post 'upload/user/:id', to: "user#picture"
 
 end

@@ -6,11 +6,6 @@ class ProductController < ApplicationController
       .where(is_disabled: false)
       .includes([:product_category, :product_prices, :stocks => [:stock_format, :stock_type]])
 
-    pdts.each do |x|
-      x.standard_price = x.get_price(PriceTypeEnum::Standard)
-      x.member_price = x.get_price(PriceTypeEnum::Member)
-    end
-
     data pdts.as_json(include: {
       :product_stocks => {
         include: [
@@ -30,7 +25,9 @@ class ProductController < ApplicationController
       :product_prices => {},
       :standard_price => {},
       :member_price => {}
-    })
+    },
+      methods: :picture_url
+    )
 
   end
 
@@ -59,6 +56,13 @@ class ProductController < ApplicationController
     data load(form.model.id)
   end
 
+  def picture
+    pdt = Product.find(params[:id])
+    pdt.picture = params[:file]
+    pdt.save
+    data load(params[:id])
+  end
+
   def destroy
     Product.update(params[:id], is_disabled: true)
     ok
@@ -80,7 +84,7 @@ private
     pdt.standard_price = pdt.get_price(PriceTypeEnum::Standard)
     pdt.member_price = pdt.get_price(PriceTypeEnum::Member)
 
-    return pdt.as_json(include: {
+    json = pdt.as_json(include: {
       :product_stocks => {
         include: [
           :stock => {
@@ -99,7 +103,9 @@ private
       :product_prices => {},
       :standard_price => {},
       :member_price => {}
-    })
+    }, methods: :picture_url)
+
+    return json
 
   end
 
