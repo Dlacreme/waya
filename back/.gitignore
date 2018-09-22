@@ -15,4 +15,7 @@
 
 .byebug_history
 
-/public/system
+/public/system/
+!/public/system/article.png
+!/public/system/product.png
+!/public/system/user.png
