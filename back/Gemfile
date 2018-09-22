@@ -12,6 +12,8 @@ gem 'puma', '~> 3.7'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 gem 'simple_command'
+gem "paperclip"
+gem 'jbuilder', '~> 2.0'
 
 # Deploy
 gem 'rack-cors'

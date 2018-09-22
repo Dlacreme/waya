@@ -10,6 +10,14 @@ class User < ApplicationRecord
 
   before_create :process_register
 
+  has_attached_file :picture, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/user.png"
+  validates_attachment :picture
+  do_not_validate_attachment_file_type :picture
+
+  def picture_url
+    self.picture.as_json
+  end
+
   def self.try_auth(email, password)
     return self.find_by(email: email).try(:authenticate, password)
   end
