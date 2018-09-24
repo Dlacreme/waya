@@ -12,6 +12,7 @@ export enum UserRole {
 export interface UserDto {
   id:number;
   username:string;
+  credit:number;
   email:string;
   role_id:UserRole;
   created_at:Date;
