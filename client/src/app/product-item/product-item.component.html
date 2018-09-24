@@ -1,4 +1,4 @@
-<div class="product-item">
+<div class="product-item picture-background" [ngStyle]="{'background-image':'url('+data.pictureUrl+')'}" >
   <div class="flex">
     <div [ngClass]="{'disabled': data.disabled}" class="info">
       <span class="name">{{ data.name }}</span>

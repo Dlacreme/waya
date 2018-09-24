@@ -1,4 +1,4 @@
-<div class="preview">
+<div class="preview picture-background" [ngStyle]="{'background-image':'url('+pictureUrl+')'}" >
   <h4>
     {{ articleData.name }}
   </h4>
@@ -6,5 +6,4 @@
   <p *ngIf="articleData.desc">
     {{ articleData.desc }}
   </p>
-
 </div>

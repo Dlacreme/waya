@@ -15,4 +15,6 @@
 
 .byebug_history
 
-/public/system
+/public/system/articles
+/public/system/products
+/public/system/users

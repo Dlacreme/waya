@@ -1,0 +1,91 @@
+@import '../../sass/variables';
+
+#profile {
+  padding: 10px;
+}
+
+mat-spinner {
+  margin: auto;
+  margin-top: 50px;
+}
+
+
+@media screen and (min-width: 768px) {
+
+}
+
+@media screen and (max-width: 768px) {
+
+  .edit-button-container {
+    text-align: center;
+
+    .save {
+      color: $green-color;
+    }
+    .cancel {
+      color: $error-color;
+      min-width: 30px;
+      margin-left: 30px;
+    }
+  }
+
+  form {
+    .info mat-form-field {
+      height: 30px;
+      width: 100%;
+    }
+
+    li {
+      height: 60px;
+      line-height: 60px;
+    }
+
+    .info-list {
+      margin-bottom: 20px;
+    }
+  }
+
+  .info {
+
+    position: relative;
+
+    .picture-upload {
+      position: absolute;
+      top: 30%;
+      left: calc(50% - 30px);
+      background-color: #ececec;
+      min-width: 30px;
+    }
+
+    img {
+      width: 100%;
+    }
+    .name {
+      width: 100%;
+      text-align: center;
+      font-size: 1.2em;
+    }
+
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .info-list {
+
+    li {
+      padding: 5px 0;
+    }
+
+    .value {
+      float: right;
+      font-weight: bold;
+    }
+  }
+
+  h4 {
+    margin-top: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+  }
+
+}

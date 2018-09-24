@@ -1,0 +1,15 @@
+<div id="reader">
+
+  <div class="picture-background" [ngStyle]="{'background-image':'url('+pictureUrl+')'}">
+    <h1>
+      {{ article.name }}
+    </h1>
+
+    <p>
+      {{ article.desc }}
+    </p>
+  </div>
+
+  <div class="content" [innerHtml]="article.content">
+  </div>
+</div>

@@ -11,6 +11,10 @@ header {
     cursor: pointer;
   }
 
+  a {
+    min-width: 50px;
+  }
+
   button {
 
     min-width: 30px;
@@ -31,18 +35,28 @@ header {
 
 .new-order-floating-button {
   position: fixed;
-  bottom: 100px;
-  right: 150px;
-  border-radius: 100px;
-  width: 40px;
-  height: 40px;
-  min-width: 60px;
-  height: 60px;
-  z-index: 9999;
   background-color: $dark-grey;
-  line-height: 58px;
+  z-index: 9999;
+  bottom: 0;
+  width: 200px;
+  left: calc(50% - 100px);
+  color: white;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  font-size: 1em;
 
   mat-icon {
     color: $yana-red;
+    margin-right: 20px;
+    margin-top: -5px;
   }
+}
+
+@media screen and (max-width: 768px) {
+
+  .new-order-floating-button {
+    width: 100% !important;
+    left: 0 !important;
+  }
+
 }

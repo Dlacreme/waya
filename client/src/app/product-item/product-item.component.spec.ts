@@ -23,7 +23,7 @@ describe('ProductItemComponent', () => {
             provide: TranslateLoader,
             useFactory: HttpLoaderFactory,
             deps: [HttpClient]
-          }
+          }})
       ]
     })
     .compileComponents();

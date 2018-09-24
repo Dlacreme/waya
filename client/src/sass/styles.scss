@@ -69,3 +69,12 @@ html, body, app-root {
 .mat-button-wrapper {
   margin: auto;
 }
+
+.picture-background {
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  z-index: 1;
+
+}

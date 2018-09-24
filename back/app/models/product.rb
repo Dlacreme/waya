@@ -8,7 +8,7 @@ class Product < ApplicationRecord
   has_many :product_stocks
   has_many :stocks, through: :product_stocks
 
-  has_attached_file :picture, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/product.png"
+  has_attached_file :picture, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/system/product.png"
   validates_attachment :picture
   do_not_validate_attachment_file_type :picture
 
@@ -56,6 +56,7 @@ class Product < ApplicationRecord
   end
 
   def update_price(product_price)
+    return if !product_price
     product_price[:start_date] = DateTime.now unless product_price.key?("start_date")
     ProductPrice
       .where("product_id = ? AND product_price_type_id = ? AND end_date IS NULL", self.id, product_price[:product_price_type_id])

@@ -26,4 +26,14 @@ export class NewOrderComponent implements OnInit {
     this.isOpen = isOpen;
   }
 
+  public matchSearch(product:Product):boolean {
+    if (!this.search) {
+      return true;
+    }
+    return (
+      product.name.toLowerCase().indexOf(this.search.toLowerCase()) >= 0 ||
+      product.category.toLowerCase().indexOf(this.search.toLowerCase()) >= 0
+    );
+  }
+
 }
