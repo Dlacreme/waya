@@ -43,7 +43,7 @@ import { NewsFeedComponent } from './news-feed/news-feed.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { Routes, RouterModule } from '@angular/router';
 import { PreviewComponent } from './news-feed/preview/preview.component';
-import { ReaderComponent } from './reader/reader.component';
+import { ReaderComponent } from './news-feed/reader/reader.component';
 import { NewOrderComponent } from './new-order/new-order.component';
 import { DataService } from './services/data.service';
 import { ProductService } from './services/product.service';

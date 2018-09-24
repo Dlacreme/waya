@@ -1,3 +1,59 @@
-<p>
-  profile works!
-</p>
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<div id="profile">
+
+  <div *ngIf="editing === false">
+    <div class="info">
+      <img [src]="pictureUrl" />
+        <div class="name">{{ user.username }}</div>
+    </div>
+
+    <ul class="info-list">
+      <li>
+        <span class="name">{{ 'PROFILE.EMAIL' | translate }}</span>
+        <span class="value">{{ user.email }}</span>
+      </li>
+      <li>
+        <span class="name">{{ 'PROFILE.CREDIT' | translate }}</span>
+        <span class="value">0</span>
+      </li>
+    </ul>
+
+    <div class="edit-button-container">
+      <button (click)="edit(true)" mat-raised-button>{{ 'PROFILE.EDIT_BUTTON' | translate }}</button>
+    </div>
+  </div>
+
+  <form *ngIf="editing" [formGroup]="infoForm">
+
+    <div class="info">
+      <img [src]="pictureUrl" />
+      <button (click)="openUpload()" mat-button class="picture-upload"><mat-icon>camera</mat-icon></button>
+      <input #file type="file" style="display:none;" (change)="onFileUploaded()" accept="{{ acceptTypes }}" />
+      <mat-form-field>
+        <input matInput formControlName="username">
+      </mat-form-field>
+    </div>
+
+    <ul class="info-list">
+      <li>
+        <span class="name">{{ 'PROFILE.EMAIL' | translate }}</span>
+        <span class="value">
+          <mat-form-field>
+            <input matInput formControlName="email">
+          </mat-form-field>
+        </span>
+      </li>
+    </ul>
+
+    <div class="edit-button-container">
+      <button class="save" (click)="submitEdit(false)" mat-raised-button>{{ 'PROFILE.SAVE_EDIT_BUTTON' | translate }}</button>
+      <button class="cancel" (click)="edit(false)" mat-raised-button><mat-icon>close</mat-icon></button>
+    </div>
+  </form>
+
+  <h4>{{ 'PROFILE.ORDERS' | translate }}</h4>
+
+  <h4>{{ 'PROFILE.EVENTS' | translate }}</h4>
+
+</div>

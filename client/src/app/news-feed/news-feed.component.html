@@ -3,4 +3,4 @@
   <mat-icon (click)="displaySuccessOrder = false">close</mat-icon>
 </div>
 
-<app-preview (click)="readArticle(article.id)" *ngFor="let article of articles" [article]="article"></app-preview>
+<app-preview [routerLink]="['/my-yana/read/'+ article.id.toString()]" *ngFor="let article of articles" [article]="article"></app-preview>

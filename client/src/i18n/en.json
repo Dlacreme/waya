@@ -27,5 +27,13 @@
     "CURRENCY": {
       "VND": "VND"
     }
+  },
+  "PROFILE": {
+    "EMAIL": "Email",
+    "CREDIT": "Credit",
+    "ORDERS": "Your Order History",
+    "EVENTS": "Your Events",
+    "EDIT_BUTTON": "Edit your profile",
+    "SAVE_EDIT_BUTTON": "Save"
   }
 }
