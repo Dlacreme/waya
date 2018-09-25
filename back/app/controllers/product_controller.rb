@@ -71,7 +71,7 @@ class ProductController < ApplicationController
 private
 
   def param_update
-    params.permit(:name, :desc, :product_category_id, standard_price: [:price, :start_date, :product_price_type_id], member_price: [:price, :start_date, :product_price_type_id], product_stocks: [:id, :stock_id, :quantity])
+    params.permit(:name, :desc, :product_category_id, standard_price: [:price, :start_date, :product_price_type_id], member_price: [:price, :start_date, :product_price_type_id], product_stocks: [:id, :stock_id, :quantity, :unit])
   end
 
   def load(stock_id)

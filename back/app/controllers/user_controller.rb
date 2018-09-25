@@ -25,7 +25,11 @@ class UserController < ApplicationController
   end
 
   def show
-    data load(params[:id])
+    logged_in?
+    id = params[:id]
+    id = @current_user.id if params[:id] == "0"
+
+    data load(id)
   end
 
   def create
@@ -37,7 +41,7 @@ class UserController < ApplicationController
 
   def update
     process_form UserUpdateForm.new(User.find(params[:id])), param_update
-    data User.find(params[:id])
+    data load(params[:id])
   end
 
   def picture
@@ -70,7 +74,7 @@ private
   end
 
   def param_update
-    params.permit(:email, :username, :password)
+    params.permit(:email, :username, :password, :credit)
   end
 
   def param_update_role

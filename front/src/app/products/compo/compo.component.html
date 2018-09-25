@@ -1,7 +1,7 @@
 <div class="compo">
   <h4>{{ data.name }}</h4>
   <div *ngFor="let compo of data.compos">
-    <span class="quantity">{{ compo.quantity }} {{ compo.stock.stock_format.stock_unit.name }}</span>
+    <span class="quantity">{{ compo.quantity }} <span *ngIf="!compo.unit">{{ compo.stock.stock_format.stock_unit.name }}</span></span>
     &nbsp;
     <span class="stock-name">{{ compo.stock.name }} ({{compo.stock.stock_type.name}})</span>
   </div>

@@ -12,6 +12,7 @@ export interface ProductStockDto {
   created_at?:Date;
   stock?:StockDto;
   stock_id?:number;
+  unit:boolean;
 }
 
 export interface ProductCategoryDto {

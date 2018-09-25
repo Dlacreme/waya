@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 20180922071429) do
     t.integer "product_id"
     t.integer "stock_id"
     t.decimal "quantity", precision: 10
+    t.boolean "unit", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -219,6 +220,7 @@ ActiveRecord::Schema.define(version: 20180922071429) do
     t.string "email"
     t.string "password_digest"
     t.integer "role_id"
+    t.integer "credit", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "picture_file_name"
