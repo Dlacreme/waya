@@ -74,6 +74,7 @@ import { AdminStockComponent } from './admin/admin-stock/admin-stock.component';
 import { SocialComponent } from './social/social.component';
 import { SocialEditComponent } from './social/social-edit/social-edit.component';
 import { PictureComponent } from './picture/picture.component';
+import { CreditComponent } from './orders/credit/credit.component';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { PictureComponent } from './picture/picture.component';
     SocialComponent,
     SocialEditComponent,
     PictureComponent,
+    CreditComponent,
   ],
   imports: [
     BrowserModule,
@@ -151,7 +153,8 @@ import { PictureComponent } from './picture/picture.component';
   ],
   entryComponents: [
     ValidationDialogComponent,
-    CompoComponent
+    CompoComponent,
+    CreditComponent
   ],
   bootstrap: [AppComponent]
 })

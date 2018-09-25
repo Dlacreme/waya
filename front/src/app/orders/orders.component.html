@@ -4,6 +4,7 @@
 
 <div class="legend flex">
   <button mat-raised-button color="green" (click)="new()"><mat-icon>add</mat-icon></button>
+  <button mat-raised-button color="green" (click)="openCreditDialog()">Customer Credit</button>
   <button class="refresh" mat-raised-button (click)="refresh()"><mat-icon>sync</mat-icon></button>
   <div class="flex-grow">
     <div class="list-display-picker" *ngFor="let list of lists">

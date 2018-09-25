@@ -11,6 +11,7 @@ export interface UserDto {
   role_id:UserRole;
   created_at:Date;
   updated_at:Date;
+  credit:number;
 }
 
 @Injectable({
