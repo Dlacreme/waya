@@ -10,6 +10,7 @@ export enum PriceType {
 export interface Compo {
   id:number;
   quantity:number;
+  unit:boolean;
   stock:StockDto;
 }
 
@@ -52,6 +53,7 @@ export class Product {
         id: productStock.id as number,
         quantity: productStock.quantity,
         stock: productStock.stock as StockDto,
+        unit: productStock.unit
       });
     });
   }
@@ -74,7 +76,8 @@ export class Product {
       sourceCompo.push({
         id: compo.id || undefined,
         quantity: compo.quantity,
-        stock_id: compo.stock.id
+        stock_id: compo.stock.id,
+        unit: compo.unit
       });
     });
     this.source.product_stocks = sourceCompo;

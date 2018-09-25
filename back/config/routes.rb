@@ -39,5 +39,7 @@ Rails.application.routes.draw do
   post 'upload/product/:id', to: "product#picture"
   post 'upload/article/:id', to: "article#picture"
   post 'upload/user/:id', to: "user#picture"
+  # Friend
+  resources :friends, only: [:index, :create, :update, :destroy]
 
 end

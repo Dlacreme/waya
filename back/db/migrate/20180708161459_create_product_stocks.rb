@@ -4,6 +4,7 @@ class CreateProductStocks < ActiveRecord::Migration[5.1]
       t.integer :product_id
       t.integer :stock_id
       t.decimal :quantity
+      t.boolean :unit, default: 0
 
       t.timestamps
     end

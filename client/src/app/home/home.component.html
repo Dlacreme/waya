@@ -2,6 +2,7 @@
   <nav class="flex">
     <button mat-button class="language-picker" (click)="switchLanguage(availableLanguage)"><mat-icon class="desktop">language</mat-icon><span>{{ availableLanguage }}</span></button>
     <h1 (click)="goHome()" class="flex-grow">Yana</h1>
+    <a mat-button [routerLink]="['/my-yana/friends']"><mat-icon>group</mat-icon><span class="desktop">{{ 'HOME.FRIENDS' | translate }}</span></a>
     <a mat-button [routerLink]="['/my-yana/me']"><mat-icon>person</mat-icon><span class="desktop">{{ 'HOME.PROFILE' | translate }}</span></a>
   </nav>
 </header>

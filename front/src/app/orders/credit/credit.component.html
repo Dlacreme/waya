@@ -1,0 +1,24 @@
+<h4>Add Credit</h4>
+<hr/>
+<form [formGroup]="form">
+
+  <label>Customer </label>
+  <mat-form-field appearance="outline">
+    <mat-select formControlName="user">
+      <mat-option *ngFor="let item of users" [value]="item.id" (selectionChange)="submit(item)">(#{{item.id}}) {{item.username}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <hr/>
+
+  <label>Amount </label>
+  <mat-form-field appearance="outline">
+    <input matInput formControlName="amount">
+  </mat-form-field>
+
+  <hr/>
+
+  <button *ngIf="!loading" mat-raised-button color="green" type="submit" (click)="submit()" >Confirm</button>
+
+  <mat-spinner *ngIf="loading" style="margin: auto"></mat-spinner>
+
+</form>

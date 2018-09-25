@@ -24,7 +24,7 @@ export class PictureService extends Api {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        subject.next(reader.result.split(',')[1]);
+        subject.next((reader.result as string).split(',')[1]);
         subject.complete();
       };
     });

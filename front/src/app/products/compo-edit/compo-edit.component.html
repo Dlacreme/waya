@@ -2,6 +2,7 @@
   <div class="compo-item" *ngFor="let compo of data">
       <span>{{ compo.quantity }} {{ compo.stock.stock_format.stock_unit.name }}</span>
       {{ compo.stock.name }} - {{ compo.stock.stock_type.name }} ({{ compo.stock.stock_format.name }} {{ compo.stock.size }} {{ compo.stock.stock_format.stock_unit.name }})
+      <mat-checkbox class="example-margin" [(ngModel)]="compo.unit" disabled="true">Unit</mat-checkbox>
       <a class="delete-compo" mat-button matTooltip="Delete compo" (click)="deleteCompo(compo)">
         <mat-icon>delete</mat-icon>
       </a>
@@ -10,6 +11,7 @@
   <div class="add-compo flex">
     <app-select [options]="compoListOptions" (onchange)="updateStock($event)"></app-select>
     <app-input [options]="compoQuantityOptions" (onchange)="updateQuantity($event)"></app-input>
+    <mat-checkbox class="example-margin" [(ngModel)]="isUnit">Unit</mat-checkbox>
     <button mat-button (click)="addCompo()"><mat-icon>add</mat-icon></button>
   </div>
 

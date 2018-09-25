@@ -18,6 +18,7 @@ export class CompoEditComponent implements OnInit, OnDestroy {
   public compoListOptions:SelectOptions = {} as SelectOptions;
   public compoQuantityOptions:InputOptions = {} as InputOptions;
   public tmpCompo:Compo = {} as Compo;
+  public isUnit:boolean = false;
 
   private stockSub:Subscription = Subscription.EMPTY;
 
@@ -67,6 +68,8 @@ export class CompoEditComponent implements OnInit, OnDestroy {
     if (this.tmpCompo && this.tmpCompo.stock && this.tmpCompo.quantity) {
       this.compoListOptions.default = '';
       this.compoQuantityOptions.default = '';
+      this.tmpCompo.unit = this.isUnit;
+      this.isUnit = false;
       this.data.push(this.tmpCompo);
       this.tmpCompo = {} as Compo;
       this.submit();

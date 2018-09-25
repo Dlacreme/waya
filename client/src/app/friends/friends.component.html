@@ -1,0 +1,23 @@
+<div>
+  <div class="searchbox">
+    <input matInput type="text" placeholder="{{ 'NEW_ORDER.SEARCH' | translate }}" [(ngModel)]="search" />
+  </div>
+
+  <div>
+    <span class="user-item" *ngFor="let user of users" (click)="goTo(user.id)">
+      <span style="display:block;" *ngIf="matchSearch(user)">{{ user.email }} - {{ user.username }}</span>
+    </span>
+  </div>
+
+  <div class="friends">
+    <h2>{{ 'FRIENDS.TITLE' | translate }}</h2>
+
+    <div class="flex" *ngFor="let friend of friends">
+      <mat-icon *ngIf="friend.friend_status_id === 2">check</mat-icon>
+      <mat-icon *ngIf="friend.friend_status_id === 1">clock</mat-icon>
+      <span class="flex-grow" style="text-align: center" (click)="goTo(friend.friend_profile.id)" >{{ friend.friend_profile.username }}</span>
+    </div>
+
+  </div>
+
+</div>

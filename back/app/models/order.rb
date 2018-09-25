@@ -43,6 +43,7 @@ class Order < ApplicationRecord
         op.save
       end
     end
+    remove_from_stock(ids)
     calc_price
   end
 
@@ -51,6 +52,7 @@ class Order < ApplicationRecord
     ids.each do |id|
       OrderProduct.where(order_id: self.id, product_id: id).first.delete
     end
+    add_to_stock(ids)
     calc_price
   end
 
@@ -99,6 +101,36 @@ class Order < ApplicationRecord
     "#{user.username} (##{user.id}): #{comment}"
   end
 
+  def remove_from_stock(product_ids)
+    ps = ProductStock.where(product_id: product_ids).includes(:stock);
+    dup = nb_duplicate(product_ids)
+    ps.each do |x|
+      p x.stock
+      if x.unit
+        x.stock.balance -= (x.quantity * dup[x.product_id])
+      else
+      end
+      p x.stock
+      x.stock.balance = 0 if x.stock.balance < 0
+      x.stock.save
+    end
+  end
+
+  def add_to_stock(product_ids)
+    ps = ProductStock.where(product_id: product_ids).includes(:stock);
+    dup = nb_duplicate(product_ids)
+    ps.each do |x|
+      p x.stock
+      if x.unit
+        x.stock.balance += (x.quantity * dup[x.product_id])
+      else
+      end
+      p x.stock
+      x.stock.balance = 0 if x.stock.balance < 0
+      x.stock.save
+    end
+  end
+
   def calc_price()
     ActiveRecord::Base.connection.execute("CALL calcul_price(#{self.id})")
   end
@@ -109,6 +141,18 @@ class Order < ApplicationRecord
 
   def generateInvoice
     ActionView::Base.new('app/views').render(file: 'orders/invoice', locals: {order: self})
+  end
+
+  def nb_duplicate(ids)
+    # make the hash default to 0 so that += will work correctly
+    b = Hash.new(0)
+
+    # iterate over the array, counting duplicate entries
+    ids.each do |v|
+      b[v] += 1
+    end
+
+    b
   end
 
 end

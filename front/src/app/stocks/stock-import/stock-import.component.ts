@@ -122,7 +122,7 @@ export class StockImportComponent implements OnInit, OnDestroy {
 
   private toImportStock(stock:StockDto):ImportStock {
     return {
-      stock: stock,
+      stock: JSON.parse(JSON.stringify(stock)),
       importOptions: {
         placeholder: 'Import Number',
         default: 0

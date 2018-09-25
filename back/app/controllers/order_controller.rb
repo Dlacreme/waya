@@ -44,6 +44,10 @@ class OrderController < ApplicationController
   def create
     order = Order.new
     order.order_status_id = OrderStatusEnum::Pending;
+    cust = get_param(:customer)
+    if cust
+      order.customer_id = cust == 0 ? @current_user.id : cust
+    end
     order.save!
     order.create_action(@current_user, get_param(:comment))
     data order_detail(order.id)

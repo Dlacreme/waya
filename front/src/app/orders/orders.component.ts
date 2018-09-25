@@ -6,6 +6,8 @@ import { Order } from '../models/order';
 import { ProductDto, ProductService } from '../api/product.service';
 import { OrderProductType } from './order.service';
 import { StorageService } from '../services/storage.service';
+import { MatDialog } from '@angular/material';
+import { CreditComponent } from './credit/credit.component';
 
 interface OrderList {
   status: OrderStatus,
@@ -38,7 +40,8 @@ export class OrdersComponent implements OnInit, OnDestroy {
   constructor(
     private orderService:OrderService,
     private eventService:EventService,
-    private productService:ProductService
+    private productService:ProductService,
+    private dialog:MatDialog
   ) { }
 
   public ngOnInit():void {
@@ -66,6 +69,12 @@ export class OrdersComponent implements OnInit, OnDestroy {
         product: product,
       });
     }
+  }
+
+  public openCreditDialog():void {
+    const dialog = this.dialog.open(CreditComponent, {
+
+    });
   }
 
   public new():void {
