@@ -52,6 +52,7 @@ import { CartComponent } from './cart/cart.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { ApiInterceptor } from './api-interceptor';
 import { ProfileComponent } from './profile/profile.component';
+import { FriendsComponent } from './friends/friends.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './i18n/', '.json');
@@ -70,6 +71,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     CartComponent,
     ProductItemComponent,
     ProfileComponent,
+    FriendsComponent,
   ],
   imports: [
     BrowserModule,

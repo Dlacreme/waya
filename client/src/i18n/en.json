@@ -1,7 +1,8 @@
 {
   "HOME": {
     "NEW_ORDER": "New Order",
-    "PROFILE": "My Yana"
+    "PROFILE": "My Yana",
+    "FRIENDS": "Friends"
   },
   "NEWS_FEED": {
     "ARTICLES": "Articles",
@@ -31,9 +32,15 @@
   "PROFILE": {
     "EMAIL": "Email",
     "CREDIT": "Credit",
-    "ORDERS": "Your Order History",
-    "EVENTS": "Your Events",
+    "ORDERS": "Order History",
+    "EVENTS": "Events",
     "EDIT_BUTTON": "Edit your profile",
-    "SAVE_EDIT_BUTTON": "Save"
+    "SAVE_EDIT_BUTTON": "Save",
+    "ADD_FRIEND": "Add Friend",
+    "IS_FRIEND": "Is your friend",
+    "IS_PENDING": "Pending Request"
+  },
+  "FRIENDS": {
+    "TITLE": "My Friends"
   }
 }

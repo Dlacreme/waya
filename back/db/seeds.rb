@@ -47,7 +47,6 @@ OrderStatus.create(name: 'Validated')
 OrderStatus.create(name: 'Cancelled')
 OrderStatus.create(name: 'Ready')
 OrderStatus.create(name: 'Delivered')
-OrderStatus.create(name: 'Paid')
 
 OrderAction.create(name: 'Create')
 OrderAction.create(name: 'Update')
@@ -61,3 +60,7 @@ OrderAction.create(name: 'Paid')
 ## Voucher
 VoucherType.create(name: "Percentage")
 VoucherType.create(name: "Fix")
+
+## Friend
+FriendStatus.create(name: "Pending")
+FriendStatus.create(name: "Validated")

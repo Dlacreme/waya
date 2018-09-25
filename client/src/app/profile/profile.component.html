@@ -8,7 +8,7 @@
         <div class="name">{{ user.username }}</div>
     </div>
 
-    <ul class="info-list">
+    <ul *ngIf="userId === 0" class="info-list">
       <li>
         <span class="name">{{ 'PROFILE.EMAIL' | translate }}</span>
         <span class="value">{{ user.email }}</span>
@@ -19,7 +19,7 @@
       </li>
     </ul>
 
-    <div class="edit-button-container">
+    <div *ngIf="userId === 0" class="edit-button-container">
       <button (click)="edit(true)" mat-raised-button>{{ 'PROFILE.EDIT_BUTTON' | translate }}</button>
     </div>
   </div>
@@ -52,7 +52,14 @@
     </div>
   </form>
 
-  <h4>{{ 'PROFILE.ORDERS' | translate }}</h4>
+  <div class="edit-button-container" *ngIf="userId !== 0">
+    <br/>
+    <button *ngIf="friend === friendEnum.None" (click)="addFriend()" mat-raised-button>{{ 'PROFILE.ADD_FRIEND' | translate }}</button>
+    <div *ngIf="friend === friendEnum.Validted">{{ 'PROFILE.IS_FRIEND' | translate }}</div>
+    <div *ngIf="friend === friendEnum.Pending">{{ 'PROFILE.IS_PENDING' | translate }}</div>
+  </div>
+
+  <h4 *ngIf="userId === 0">{{ 'PROFILE.ORDERS' | translate }}</h4>
 
   <h4>{{ 'PROFILE.EVENTS' | translate }}</h4>
 

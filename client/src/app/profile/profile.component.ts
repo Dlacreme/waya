@@ -1,9 +1,12 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { UserService, UserDto } from '../services/user.service';
+import { UserService, UserDto, FriendDto, FriendStatus } from '../services/user.service';
 import { Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { PictureService } from '../services/picture.service';
+import { ActivatedRoute } from '@angular/router';
+import { DataService } from '../services/data.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -13,8 +16,11 @@ import { PictureService } from '../services/picture.service';
 export class ProfileComponent implements OnInit, OnDestroy {
 
   public loading:boolean;
+  public userId:number;
   public user:UserDto = {} as UserDto;
   public pictureUrl:string;
+  public friend:FriendStatus;
+  public friendEnum = FriendStatus;
 
   public infoForm:FormGroup;
 
@@ -24,6 +30,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private editSub = Subscription.EMPTY;
   private readSub = Subscription.EMPTY;
   private uploadSub = Subscription.EMPTY;
+  private paramSub = Subscription.EMPTY;
+  private addFriendSub = Subscription.EMPTY
 
   @ViewChild('file') file;
 
@@ -33,12 +41,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
 /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
   constructor(
+    private route:ActivatedRoute,
     private userService:UserService,
-    private pictureService:PictureService
+    private pictureService:PictureService,
+    private dataService:DataService
   ) { }
 
   public ngOnInit():void {
-    this.loadProfile();
+    this.paramSub = this.route.params
+      .subscribe((p) => {
+        this.userId = p.id ? parseInt(p.id, 10) : 0;
+        this.loadProfile();
+        this.friend = this.isFriend();
+      })
   }
 
   public ngOnDestroy():void {
@@ -46,6 +61,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.editSub.unsubscribe();
     this.uploadSub.unsubscribe();
     this.readSub.unsubscribe();
+    this.paramSub.unsubscribe();
+    this.addFriendSub.unsubscribe();
   }
 
   public edit(value:boolean):void {
@@ -67,6 +84,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
         this.initForm();
         this.editing = false;
       })
+  }
+
+  public addFriend():void {
+    this.addFriendSub = this.userService.addFriend(this.userId)
+      .subscribe((res) => {
+        this.dataService.getFriends().push(res.data as FriendDto);
+        this.friend = FriendStatus.Pending;
+      });
   }
 
   public openUpload():void {
@@ -95,7 +120,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   private loadProfile():void {
     this.loading = true;
-    this.getSub = this.userService.getUser(0)
+    this.getSub = this.userService.getUser(this.userId)
       .subscribe((res) => {
         this.user = res.data as UserDto;
         this.loading = false;
@@ -115,6 +140,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
         [Validators.required, Validators.pattern(this.regexpEmail)],
       )
     })
+  }
+
+  private isFriend():FriendStatus {
+    if (this.userId === 0) {
+      return FriendStatus.None;
+    }
+    const user = this.dataService.getFriends().find((item) => item.friend_profile.id == this.userId);
+    if (!user) {
+      return FriendStatus.None;
+    }
+    return user.friend_status_id;
   }
 
 }
