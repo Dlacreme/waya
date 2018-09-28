@@ -12,7 +12,7 @@ export class NewOrderComponent implements OnInit {
   public isOpen = false;
   public search = '';
 
-  private products:Product[] = this.dataService.getProducts();
+  public products:Product[] = this.dataService.getProducts();
 
   constructor(
     private dataService:DataService

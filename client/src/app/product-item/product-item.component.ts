@@ -9,7 +9,7 @@ import { DataService } from '../services/data.service';
 })
 export class ProductItemComponent {
 
-  private data:Product = {} as Product;
+  public data:Product = {} as Product;
 
   @Input()
   set product(product:Product) {
