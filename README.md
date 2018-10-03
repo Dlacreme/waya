@@ -8,7 +8,7 @@ They wanted to have a coffee shop where user could use their own smartphone to o
 
 Contains 2 applications:
 
-- Admin (front folder)
+Admin (front folder)
  * CRUD Stocks
  * CRUD Products
  * CRUD User/Staff
@@ -17,7 +17,7 @@ Contains 2 applications:
  * CRUD Orders
 
 
-- Client Application (client folder)
+Client Application (client folder)
  * Progressive Web App - Allow user to install on Android/iOS
  * Create Order
  * Manage their friends
