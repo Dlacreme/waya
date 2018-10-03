@@ -16,6 +16,7 @@ Contains 2 applications:
  * CRUD Events
  * CRUD Orders
 
+
 - Client Application (client folder)
  * Progressive Web App - Allow user to install on Android/iOS
  * Create Order
